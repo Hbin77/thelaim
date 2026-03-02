@@ -30,23 +30,23 @@ export async function getProducts(params?: {
   if (params?.limit) searchParams.set('limit', String(params.limit));
 
   const query = searchParams.toString();
-  return fetchApi<ApiResponse<Product>>(`/api/products${query ? `?${query}` : ''}`);
+  return fetchApi<ApiResponse<Product>>(`/api/v1/products${query ? `?${query}` : ''}`);
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  return fetchApi<Product[]>('/api/products/featured');
+  return fetchApi<Product[]>('/api/v1/products/featured');
 }
 
 export async function getProduct(slug: string): Promise<Product> {
-  return fetchApi<Product>(`/api/products/${slug}`);
+  return fetchApi<Product>(`/api/v1/products/${slug}`);
 }
 
 export async function getCategories(): Promise<Category[]> {
-  return fetchApi<Category[]>('/api/categories');
+  return fetchApi<Category[]>('/api/v1/categories');
 }
 
 export async function submitContact(data: ContactFormData): Promise<{ success: boolean; message: string }> {
-  return fetchApi('/api/contact', {
+  return fetchApi('/api/v1/contact', {
     method: 'POST',
     body: JSON.stringify(data),
   });
