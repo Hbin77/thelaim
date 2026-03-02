@@ -6,7 +6,12 @@ import { cormorant, bodoniModa, notoSerifKR, notoSansSC } from '@/styles/fonts';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import SmoothScroll from '@/components/animations/SmoothScroll';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://thelaim.com'),
