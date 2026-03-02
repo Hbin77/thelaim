@@ -9,6 +9,7 @@ import SmoothScroll from '@/components/animations/SmoothScroll';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://thelaim.com'),
   title: {
     template: '%s | THELAIM',
     default: 'THELAIM - Global Fashion Export Specialist',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'THELAIM - Global Fashion Export Specialist',
     description: 'Premium fashion import & wholesale. Direct sourcing from manufacturers to your business.',
-    url: 'https://thelaim.co.kr',
+    url: 'https://thelaim.com',
     siteName: 'THELAIM',
     images: [
       {
