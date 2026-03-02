@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "winter",
+    "name_ko": "겨울의류",
+    "name_en": "Winter Clothing",
+    "name_zh": "冬季服装",
+    "description_ko": "고품질 겨울 의류 컬렉션",
+    "description_en": "Premium winter clothing collection",
+    "description_zh": "优质冬季服装系列",
+    "icon": "snowflake",
+    "sort_order": 1
+  },
+  {
+    "slug": "summer",
+    "name_ko": "여름의류",
+    "name_en": "Summer Clothing",
+    "name_zh": "夏季服装",
+    "description_ko": "시원한 여름 의류 컬렉션",
+    "description_en": "Cool summer clothing collection",
+    "description_zh": "清凉夏季服装系列",
+    "icon": "sun",
+    "sort_order": 2
+  },
+  {
+    "slug": "accessories",
+    "name_ko": "잡화",
+    "name_en": "Accessories",
+    "name_zh": "配饰",
+    "description_ko": "다양한 패션 잡화",
+    "description_en": "Various fashion accessories",
+    "description_zh": "各种时尚配饰",
+    "icon": "bag",
+    "sort_order": 3
+  }
+]

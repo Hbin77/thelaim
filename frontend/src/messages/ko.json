@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "home": "홈",
+    "about": "회사소개",
+    "products": "제품소개",
+    "location": "오시는 길",
+    "contact": "문의하기"
+  },
+  "hero": {
+    "tagline": "Premium Fashion Import & Wholesale",
+    "title": "당신의 비즈니스에 가치를 더합니다",
+    "subtitle": "산지에서 직접 선별한 트렌디한 의류와 잡화. 겨울부터 여름까지, 최적의 가격으로 시즌을 앞서갑니다.",
+    "cta_primary": "컬렉션 보기",
+    "cta_secondary": "상담 문의"
+  },
+  "company": {
+    "title": "THELAIM 이야기",
+    "description": "더라임은 중국 산지에서 직접 선별한 의류와 잡화를 국내 소매·도매 사업자에게 공급합니다. 유통 단계를 줄여 확보한 가격 경쟁력, 시즌을 앞서는 빠른 상품 회전이 저희의 강점입니다.",
+    "highlight1_title": "산지 직거래",
+    "highlight1_desc": "가격 경쟁력 확보",
+    "highlight2_title": "시즌 선도",
+    "highlight2_desc": "빠른 트렌드 반영",
+    "highlight3_title": "원스톱 공급",
+    "highlight3_desc": "의류부터 잡화까지"
+  },
+  "features": {
+    "title": "왜 더라임인가",
+    "item1_title": "최적의 가격",
+    "item1_desc": "산지 직거래로 불필요한 유통 마진을 제거합니다. 같은 품질, 더 나은 마진을 경험하세요.",
+    "item2_title": "트렌드 큐레이션",
+    "item2_desc": "매 시즌 현지에서 직접 셀렉한 의류·잡화로, 매장에 새로운 활력을 더합니다.",
+    "item3_title": "안정적 공급",
+    "item3_desc": "대구종합유통단지 거점의 물류 인프라로 빠르고 안정적인 납품을 약속합니다."
+  },
+  "about": {
+    "title": "회사 소개",
+    "story_title": "좋은 상품은 좋은 파트너에서 시작됩니다",
+    "story_desc": "더라임은 중국 현지에서 직접 발굴한 패션 아이템을 국내 시장에 연결하는 수입 도매 전문 기업입니다. 대구종합유통단지를 거점으로, 오프라인 쇼룸과 온라인 채널을 통해 전국의 소매·도매 사업자분들께 시즌을 앞선 상품을 합리적인 가격에 제안합니다.",
+    "ceo_message": "사업의 본질은 결국 사람 사이의 신뢰입니다. 한 번 거래가 아닌, 오래 함께할 수 있는 파트너가 되겠습니다. 좋은 상품, 정직한 가격, 그리고 빠른 대응 — 이 세 가지를 약속드립니다.",
+    "ceo_name": "대표 정대근",
+    "philosophy_title": "우리가 일하는 방식",
+    "trust_title": "정직한 거래",
+    "trust_desc": "가격도, 품질도 투명하게. 한 번의 거래가 다음 거래로 이어지는 신뢰를 만듭니다.",
+    "quality_title": "직접 선별",
+    "quality_desc": "현지에서 눈으로 확인하고, 손으로 검수한 상품만 들여옵니다.",
+    "partnership_title": "함께 성장",
+    "partnership_desc": "고객의 매출이 곧 저희의 성과입니다. 파트너의 성공을 돕는 것이 더라임의 방식입니다.",
+    "business_title": "이런 일을 합니다",
+    "business_import": "중국 현지 의류·잡화 직접 소싱",
+    "business_wholesale": "전국 소매·도매 사업자 대상 공급",
+    "business_online": "네이버 블로그·카페 등 온라인 채널 운영",
+    "business_location": "대구종합유통단지 오프라인 거점"
+  },
+  "products": {
+    "title": "제품 소개",
+    "subtitle": "이번 시즌, 매장을 채울 새로운 컬렉션",
+    "search_placeholder": "제품 검색...",
+    "filter_all": "전체",
+    "filter_pants": "팬츠",
+    "filter_top": "블라우스·상의",
+    "filter_set": "원피스·세트",
+    "no_results": "검색 결과가 없습니다.",
+    "view_detail": "자세히 보기",
+    "inquiry": "제품 문의",
+    "specifications": "제품 사양",
+    "related_products": "관련 제품",
+    "featured": "추천 제품",
+    "new": "신제품",
+    "category": "카테고리",
+    "material": "소재",
+    "size_range": "사이즈 범위",
+    "min_order": "최소 주문량",
+    "lead_time": "리드 타임",
+    "back_to_list": "목록으로"
+  },
+  "location": {
+    "title": "오시는 길",
+    "subtitle": "직접 만나서 상품을 확인하세요",
+    "address": "대구광역시 북구 유통단지로7길 35",
+    "address_label": "주소",
+    "phone_label": "전화번호",
+    "email_label": "이메일",
+    "car": "자가용",
+    "car_desc": "네비게이션에 '대구종합유통단지' 또는 '유통단지로7길 35' 검색",
+    "bus": "버스",
+    "bus_desc": "대구 시내버스 이용, 유통단지 정류장 하차",
+    "parking": "주차",
+    "parking_desc": "건물 앞 주차 가능",
+    "business_hours": "영업시간",
+    "weekday": "월~금: 09:00 - 18:00",
+    "weekend": "토요일: 09:00 - 13:00 / 일요일·공휴일: 휴무"
+  },
+  "contact": {
+    "title": "문의하기",
+    "subtitle": "새로운 거래의 시작, 편하게 연락주세요",
+    "form_title": "문의 양식",
+    "company_name": "회사명",
+    "company_name_placeholder": "회사명을 입력해 주세요",
+    "contact_person": "담당자명",
+    "contact_person_placeholder": "담당자명을 입력해 주세요",
+    "email": "이메일",
+    "email_placeholder": "이메일 주소를 입력해 주세요",
+    "phone": "연락처",
+    "phone_placeholder": "연락처를 입력해 주세요",
+    "product_interest": "관심 제품",
+    "product_interest_placeholder": "관심 있는 제품을 선택해 주세요",
+    "message": "문의 내용",
+    "message_placeholder": "문의 내용을 입력해 주세요",
+    "preferred_contact": "선호 연락 방법",
+    "preferred_email": "이메일",
+    "preferred_phone": "전화",
+    "preferred_kakao": "카카오톡",
+    "submit": "문의하기",
+    "submitting": "전송 중...",
+    "validation_company": "회사명을 입력해 주세요",
+    "validation_person": "담당자명을 입력해 주세요",
+    "validation_email": "올바른 이메일 주소를 입력해 주세요",
+    "validation_message": "문의 내용을 입력해 주세요",
+    "validation_message_min": "최소 10자 이상 입력해 주세요",
+    "success_title": "문의가 접수되었습니다",
+    "success_message": "빠른 시일 내에 답변 드리겠습니다. 감사합니다.",
+    "error_title": "전송 실패",
+    "error_message": "문의 전송에 실패했습니다. 다시 시도해 주세요."
+  },
+  "footer": {
+    "company_name": "디앤인터내셔널 (THELAIM)",
+    "description": "패션의 시작, 더라임에서",
+    "address": "대구광역시 북구 유통단지로7길 35",
+    "phone": "010-4404-4592",
+    "email": "thelaim@naver.com",
+    "hours": "월~금 09:00-18:00",
+    "quick_links": "바로가기",
+    "contact_info": "연락처",
+    "business_hours": "영업시간",
+    "weekday_hours": "평일: 09:00 - 18:00",
+    "saturday_hours": "토요일: 09:00 - 13:00",
+    "weekend_hours": "일요일/공휴일: 휴무",
+    "lunch_hours": "점심시간: 12:00 - 13:00",
+    "copyright": "© {year} THELAIM. All rights reserved.",
+    "privacy_policy": "개인정보처리방침",
+    "terms": "이용약관"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "back": "뒤로",
+    "close": "닫기",
+    "submit": "제출",
+    "cancel": "취소",
+    "confirm": "확인",
+    "learn_more": "자세히 보기",
+    "view_all": "전체 보기",
+    "scroll_down": "아래로 스크롤",
+    "scroll_to_top": "맨 위로",
+    "language": "언어",
+    "korean": "한국어",
+    "english": "English",
+    "chinese": "中文",
+    "japanese": "일본어"
+  },
+  "productItems": {
+    "floral-ruffle-pants": {
+      "name": "잔꽃무늬 프릴 팬츠",
+      "desc": "밑단 프릴 디테일의 잔꽃무늬 7부 팬츠. 고무밴드 허리로 편안한 착용감. 8가지 이상 색상 구비.",
+      "specs": { "스타일": "7부 와이드", "허리": "고무밴드", "색상": "8컬러 이상", "시즌": "봄·여름" }
+    },
+    "floral-pajama-set": {
+      "name": "잔꽃무늬 파자마 세트",
+      "desc": "둥근 카라 디자인의 상하의 세트. 프릴 디테일, 긴소매+긴바지 구성. 홈웨어·수면잠옷 겸용.",
+      "specs": { "구성": "상의 + 하의", "스타일": "둥근 카라, 프릴", "색상": "5컬러 이상", "시즌": "사계절" }
+    },
+    "pleats-wide-pants": {
+      "name": "플리츠 와이드 팬츠",
+      "desc": "주름 디테일의 여름 와이드 팬츠. 시원한 소재, 밑단 밴딩 처리. 꽃무늬·스트라이프·도트 등 다양한 패턴.",
+      "specs": { "스타일": "플리츠 와이드", "밑단": "밴딩", "패턴": "꽃무늬·스트라이프·도트", "시즌": "여름" }
+    },
+    "check-wide-pants": {
+      "name": "체크 와이드 팬츠",
+      "desc": "깅엄 체크 패턴 와이드 팬츠. 고무밴드 허리, 10가지 이상 컬러 구비. 중국 저장성 산지 직소싱.",
+      "specs": { "패턴": "깅엄 체크", "허리": "고무밴드", "색상": "10컬러 이상", "시즌": "봄·여름" }
+    },
+    "floral-blouse": {
+      "name": "잔꽃무늬 블라우스",
+      "desc": "라운드넥 리본 타이 블라우스. 루즈핏 긴소매 디자인. 봄·가을 데일리 아이템.",
+      "specs": { "넥라인": "라운드넥 + 리본 타이", "핏": "루즈핏", "색상": "8컬러 이상", "시즌": "봄·가을" }
+    },
+    "floral-home-dress": {
+      "name": "잔꽃무늬 홈드레스",
+      "desc": "둥근 카라, 프릴 밑단 디테일의 A라인 원피스. 홈웨어·외출 겸용, 편안한 루즈핏.",
+      "specs": { "스타일": "A라인 원피스", "카라": "둥근 카라", "색상": "6컬러 이상", "시즌": "사계절" }
+    },
+    "floral-long-dress-orange": {
+      "name": "플로럴 롱 원피스",
+      "desc": "오렌지 계열 대꽃 프린트 롱 원피스. 버튼 디테일 넥라인, 7부 소매, 루즈핏.",
+      "specs": { "길이": "롱", "소매": "7부", "넥라인": "라운드 + 버튼", "시즌": "봄·여름" }
+    },
+    "toile-pattern-dress": {
+      "name": "토일 패턴 원피스",
+      "desc": "풍경화 프린트의 클래식 토일 패턴 원피스. 리본 타이 넥라인, A라인. 핑크·블루·그린·베이지 4색.",
+      "specs": { "패턴": "토일 (풍경화)", "넥라인": "리본 타이", "색상": "4컬러", "시즌": "봄·여름·가을" }
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products",
+    "location": "Location",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Premium Fashion Import & Wholesale",
+    "title": "Adding Value to Your Business",
+    "subtitle": "Trend-forward garments and accessories, hand-selected at the source. Stay ahead of every season at the best price.",
+    "cta_primary": "View Collection",
+    "cta_secondary": "Get in Touch"
+  },
+  "company": {
+    "title": "The THELAIM Story",
+    "description": "THELAIM connects hand-picked fashion from Chinese manufacturers directly to Korean retailers and wholesalers. By cutting unnecessary distribution layers, we offer unmatched pricing and the fastest seasonal turnover in the market.",
+    "highlight1_title": "Direct Sourcing",
+    "highlight1_desc": "Price advantage guaranteed",
+    "highlight2_title": "Trend Forward",
+    "highlight2_desc": "Ahead of every season",
+    "highlight3_title": "One-Stop Supply",
+    "highlight3_desc": "Apparel to accessories"
+  },
+  "features": {
+    "title": "Why THELAIM",
+    "item1_title": "Best Pricing",
+    "item1_desc": "Direct sourcing eliminates unnecessary margins. Same quality, better profit for your business.",
+    "item2_title": "Curated Trends",
+    "item2_desc": "Every season, we hand-select the latest styles on-site to bring fresh energy to your store.",
+    "item3_title": "Reliable Delivery",
+    "item3_desc": "Our logistics hub at Daegu Distribution Center ensures fast and consistent fulfillment."
+  },
+  "about": {
+    "title": "About Us",
+    "story_title": "Great products start with great partnerships",
+    "story_desc": "THELAIM is a fashion import wholesale company that connects trend-forward products from Chinese manufacturers to the Korean market. Based at the Daegu Comprehensive Distribution Center, we serve retailers and wholesalers nationwide through our showroom and online channels — delivering ahead-of-season products at the right price.",
+    "ceo_message": "Business is ultimately about trust between people. We aim to be a long-term partner, not a one-time transaction. Great products, honest pricing, and fast response — these are our three promises to you.",
+    "ceo_name": "CEO Jeong Dae-geun",
+    "philosophy_title": "How We Work",
+    "trust_title": "Transparent Deals",
+    "trust_desc": "Clear on pricing, clear on quality. Every transaction is built to earn the next one.",
+    "quality_title": "Hand-Selected",
+    "quality_desc": "We see it with our own eyes and inspect it by hand before it ever reaches you.",
+    "partnership_title": "Mutual Growth",
+    "partnership_desc": "Your sales are our success. Helping our partners thrive is how THELAIM does business.",
+    "business_title": "What We Do",
+    "business_import": "On-site sourcing from Chinese manufacturers",
+    "business_wholesale": "Nationwide retail & wholesale supply",
+    "business_online": "Online channels including blog & community",
+    "business_location": "Offline hub at Daegu Distribution Center"
+  },
+  "products": {
+    "title": "Our Products",
+    "subtitle": "Fresh picks for your store this season",
+    "search_placeholder": "Search products...",
+    "filter_all": "All",
+    "filter_pants": "Pants",
+    "filter_top": "Blouses & Tops",
+    "filter_set": "Dresses & Sets",
+    "no_results": "No products found.",
+    "view_detail": "View Details",
+    "inquiry": "Product Inquiry",
+    "specifications": "Specifications",
+    "related_products": "Related Products",
+    "featured": "Featured",
+    "new": "New",
+    "category": "Category",
+    "material": "Material",
+    "size_range": "Size Range",
+    "min_order": "Minimum Order",
+    "lead_time": "Lead Time",
+    "back_to_list": "Back to List"
+  },
+  "location": {
+    "title": "Location",
+    "subtitle": "See the products for yourself",
+    "address": "35, Yutongdanji-ro 7-gil, Buk-gu, Daegu, Korea",
+    "address_label": "Address",
+    "phone_label": "Phone",
+    "email_label": "Email",
+    "car": "By Car",
+    "car_desc": "Search 'Daegu Comprehensive Distribution Center' or 'Yutongdanji-ro 7-gil 35' on navigation",
+    "bus": "By Bus",
+    "bus_desc": "Take Daegu city bus, get off at Distribution Center stop",
+    "parking": "Parking",
+    "parking_desc": "Parking available in front of the building",
+    "business_hours": "Business Hours",
+    "weekday": "Mon-Fri: 09:00 - 18:00",
+    "weekend": "Sat: 09:00 - 13:00 / Sun & Holidays: Closed"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Let's start a new partnership",
+    "form_title": "Inquiry Form",
+    "company_name": "Company Name",
+    "company_name_placeholder": "Enter your company name",
+    "contact_person": "Contact Person",
+    "contact_person_placeholder": "Enter contact person name",
+    "email": "Email",
+    "email_placeholder": "Enter your email address",
+    "phone": "Phone",
+    "phone_placeholder": "Enter your phone number",
+    "product_interest": "Product Interest",
+    "product_interest_placeholder": "Select products of interest",
+    "message": "Message",
+    "message_placeholder": "Enter your message",
+    "preferred_contact": "Preferred Contact Method",
+    "preferred_email": "Email",
+    "preferred_phone": "Phone",
+    "preferred_kakao": "KakaoTalk",
+    "submit": "Submit Inquiry",
+    "submitting": "Submitting...",
+    "validation_company": "Please enter your company name",
+    "validation_person": "Please enter the contact person name",
+    "validation_email": "Please enter a valid email address",
+    "validation_message": "Please enter your message",
+    "validation_message_min": "Message must be at least 10 characters",
+    "success_title": "Inquiry Submitted",
+    "success_message": "We will respond as soon as possible. Thank you.",
+    "error_title": "Submission Failed",
+    "error_message": "Failed to submit inquiry. Please try again."
+  },
+  "footer": {
+    "company_name": "D&International (THELAIM)",
+    "description": "Where fashion begins",
+    "address": "35, Yutongdanji-ro 7-gil, Buk-gu, Daegu, Korea",
+    "phone": "+82-10-4404-4592",
+    "email": "thelaim@naver.com",
+    "hours": "Mon-Fri 09:00-18:00",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact",
+    "business_hours": "Business Hours",
+    "weekday_hours": "Weekdays: 09:00 - 18:00",
+    "saturday_hours": "Saturday: 09:00 - 13:00",
+    "weekend_hours": "Sunday/Holidays: Closed",
+    "lunch_hours": "Lunch: 12:00 - 13:00",
+    "copyright": "© {year} THELAIM. All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "close": "Close",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "learn_more": "Learn More",
+    "view_all": "View All",
+    "scroll_down": "Scroll Down",
+    "scroll_to_top": "Back to Top",
+    "language": "Language",
+    "korean": "Korean",
+    "english": "English",
+    "chinese": "Chinese",
+    "japanese": "Japanese"
+  },
+  "productItems": {
+    "floral-ruffle-pants": {
+      "name": "Floral Ruffle Pants",
+      "desc": "Floral print cropped pants with ruffle hem detail. Elastic waistband for comfortable fit. Available in 8+ colors.",
+      "specs": { "Style": "Cropped Wide", "Waist": "Elastic Band", "Colors": "8+", "Season": "Spring/Summer" }
+    },
+    "floral-pajama-set": {
+      "name": "Floral Pajama Set",
+      "desc": "Round collar top and bottom set. Ruffle detail, long sleeve + long pants. Dual-use as homewear and sleepwear.",
+      "specs": { "Set": "Top + Bottom", "Style": "Round Collar, Ruffle", "Colors": "5+", "Season": "All Season" }
+    },
+    "pleats-wide-pants": {
+      "name": "Pleats Wide Pants",
+      "desc": "Summer wide pants with pleat detail. Cool fabric, banded hem. Available in floral, stripe, and dot patterns.",
+      "specs": { "Style": "Pleated Wide", "Hem": "Banded", "Pattern": "Floral/Stripe/Dot", "Season": "Summer" }
+    },
+    "check-wide-pants": {
+      "name": "Check Wide Pants",
+      "desc": "Gingham check pattern wide pants. Elastic waistband, 10+ colors available. Direct sourced from China.",
+      "specs": { "Pattern": "Gingham Check", "Waist": "Elastic Band", "Colors": "10+", "Season": "Spring/Summer" }
+    },
+    "floral-blouse": {
+      "name": "Floral Blouse",
+      "desc": "Round neck ribbon tie blouse. Loose fit, long sleeve design. Spring/Fall daily essential.",
+      "specs": { "Neckline": "Round + Ribbon Tie", "Fit": "Loose", "Colors": "8+", "Season": "Spring/Fall" }
+    },
+    "floral-home-dress": {
+      "name": "Floral Home Dress",
+      "desc": "A-line dress with round collar and ruffle hem detail. Dual-use for home and casual outings. Comfortable loose fit.",
+      "specs": { "Style": "A-line Dress", "Collar": "Round", "Colors": "6+", "Season": "All Season" }
+    },
+    "floral-long-dress-orange": {
+      "name": "Floral Long Dress",
+      "desc": "Orange-toned large floral print long dress. Button detail neckline, 3/4 sleeve, loose fit.",
+      "specs": { "Length": "Long", "Sleeve": "3/4", "Neckline": "Round + Button", "Season": "Spring/Summer" }
+    },
+    "toile-pattern-dress": {
+      "name": "Toile Pattern Dress",
+      "desc": "Classic toile pattern dress with scenic print. Ribbon tie neckline, A-line silhouette. Available in Pink, Blue, Green, Beige.",
+      "specs": { "Pattern": "Toile (Scenic)", "Neckline": "Ribbon Tie", "Colors": "4", "Season": "Spring/Summer/Fall" }
+    }
+  }
+}

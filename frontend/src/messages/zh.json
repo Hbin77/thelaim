@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "公司介绍",
+    "products": "产品介绍",
+    "location": "交通指南",
+    "contact": "联系我们"
+  },
+  "hero": {
+    "tagline": "Premium Fashion Import & Wholesale",
+    "title": "为您的事业增添价值",
+    "subtitle": "从产地直接精选的时尚服装与配饰。每一季，以最优价格走在潮流前沿。",
+    "cta_primary": "浏览系列",
+    "cta_secondary": "咨询合作"
+  },
+  "company": {
+    "title": "THELAIM的故事",
+    "description": "THELAIM将中国产地精选的时尚单品直接连接韩国零售及批发商。通过减少流通环节确保价格竞争力，以市场领先的速度实现季节商品更替。",
+    "highlight1_title": "产地直采",
+    "highlight1_desc": "确保价格优势",
+    "highlight2_title": "引领潮流",
+    "highlight2_desc": "先于每一季",
+    "highlight3_title": "一站式供应",
+    "highlight3_desc": "服装到配饰"
+  },
+  "features": {
+    "title": "为什么选择THELAIM",
+    "item1_title": "最优价格",
+    "item1_desc": "产地直采消除不必要的流通利润。同等品质，更优利润空间。",
+    "item2_title": "潮流策划",
+    "item2_desc": "每季在当地亲自甄选最新款式，为您的店铺注入全新活力。",
+    "item3_title": "稳定供货",
+    "item3_desc": "依托大邱综合流通团地的物流基础设施，保证快速稳定的交付。"
+  },
+  "about": {
+    "title": "公司介绍",
+    "story_title": "好产品，始于好伙伴",
+    "story_desc": "THELAIM是一家时尚进口批发专业企业，将中国产地的潮流商品连接至韩国市场。以大邱综合流通团地为据点，通过线下展厅和线上渠道，为全国零售及批发商提供先于季节的商品，以最优价格方案。",
+    "ceo_message": "商业的本质归根结底是人与人之间的信任。我们的目标不是一次性交易，而是成为长期合作伙伴。优质商品、诚实价格、快速响应——这是我们对您的三个承诺。",
+    "ceo_name": "代表 郑大根",
+    "philosophy_title": "我们的工作方式",
+    "trust_title": "透明交易",
+    "trust_desc": "价格透明，品质透明。每一次交易都为赢得下一次合作而努力。",
+    "quality_title": "亲自甄选",
+    "quality_desc": "亲眼确认，亲手检验，只引进合格商品。",
+    "partnership_title": "共同成长",
+    "partnership_desc": "您的销售就是我们的成绩。帮助合作伙伴成功，是THELAIM的经营方式。",
+    "business_title": "我们做什么",
+    "business_import": "中国产地服装·杂货直接采购",
+    "business_wholesale": "面向全国零售及批发商供货",
+    "business_online": "博客·社区等在线渠道运营",
+    "business_location": "大邱综合流通团地线下据点"
+  },
+  "products": {
+    "title": "产品介绍",
+    "subtitle": "本季为您的店铺精选的全新系列",
+    "search_placeholder": "搜索产品...",
+    "filter_all": "全部",
+    "filter_pants": "裤装",
+    "filter_top": "衬衫·上衣",
+    "filter_set": "连衣裙·套装",
+    "no_results": "未找到相关产品。",
+    "view_detail": "查看详情",
+    "inquiry": "产品咨询",
+    "specifications": "产品规格",
+    "related_products": "相关产品",
+    "featured": "推荐产品",
+    "new": "新产品",
+    "category": "类别",
+    "material": "材质",
+    "size_range": "尺寸范围",
+    "min_order": "最低订量",
+    "lead_time": "交货期",
+    "back_to_list": "返回列表"
+  },
+  "location": {
+    "title": "交通指南",
+    "subtitle": "亲自来看看我们的商品",
+    "address": "韩国大邱广域市北区流通团地路7街35号",
+    "address_label": "地址",
+    "phone_label": "电话",
+    "email_label": "邮箱",
+    "car": "自驾",
+    "car_desc": "导航搜索'大邱综合流通团地'或'流通团地路7街35号'",
+    "bus": "公交",
+    "bus_desc": "乘坐大邱市内公交，在流通团地站下车",
+    "parking": "停车",
+    "parking_desc": "楼前可停车",
+    "business_hours": "营业时间",
+    "weekday": "周一至周五: 09:00 - 18:00",
+    "weekend": "周六: 09:00 - 13:00 / 周日及节假日: 休息"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "开启新的合作，请随时联系我们",
+    "form_title": "咨询表单",
+    "company_name": "公司名称",
+    "company_name_placeholder": "请输入公司名称",
+    "contact_person": "联系人",
+    "contact_person_placeholder": "请输入联系人姓名",
+    "email": "电子邮箱",
+    "email_placeholder": "请输入电子邮箱地址",
+    "phone": "联系电话",
+    "phone_placeholder": "请输入联系电话",
+    "product_interest": "感兴趣的产品",
+    "product_interest_placeholder": "请选择感兴趣的产品",
+    "message": "咨询内容",
+    "message_placeholder": "请输入咨询内容",
+    "preferred_contact": "首选联系方式",
+    "preferred_email": "电子邮箱",
+    "preferred_phone": "电话",
+    "preferred_kakao": "KakaoTalk",
+    "submit": "提交咨询",
+    "submitting": "提交中...",
+    "validation_company": "请输入公司名称",
+    "validation_person": "请输入联系人姓名",
+    "validation_email": "请输入有效的电子邮箱地址",
+    "validation_message": "请输入咨询内容",
+    "validation_message_min": "内容至少需要10个字符",
+    "success_title": "咨询已提交",
+    "success_message": "我们将尽快回复。谢谢。",
+    "error_title": "提交失败",
+    "error_message": "提交失败，请重试。"
+  },
+  "footer": {
+    "company_name": "D&International (THELAIM)",
+    "description": "时尚从THELAIM开始",
+    "address": "韩国大邱广域市北区流通团地路7街35号",
+    "phone": "+82-10-4404-4592",
+    "email": "thelaim@naver.com",
+    "hours": "周一至周五 09:00-18:00",
+    "quick_links": "快速链接",
+    "contact_info": "联系方式",
+    "business_hours": "营业时间",
+    "weekday_hours": "工作日: 09:00 - 18:00",
+    "saturday_hours": "周六: 09:00 - 13:00",
+    "weekend_hours": "周日/节假日: 休息",
+    "lunch_hours": "午休: 12:00 - 13:00",
+    "copyright": "© {year} THELAIM. All rights reserved.",
+    "privacy_policy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "retry": "重试",
+    "back": "返回",
+    "close": "关闭",
+    "submit": "提交",
+    "cancel": "取消",
+    "confirm": "确认",
+    "learn_more": "了解更多",
+    "view_all": "查看全部",
+    "scroll_down": "向下滚动",
+    "scroll_to_top": "返回顶部",
+    "language": "语言",
+    "korean": "韩语",
+    "english": "英语",
+    "chinese": "中文",
+    "japanese": "日语"
+  },
+  "productItems": {
+    "floral-ruffle-pants": {
+      "name": "碎花荷叶边裤",
+      "desc": "裤脚荷叶边细节碎花七分裤。橡筋腰带舒适穿着。备有8种以上颜色。",
+      "specs": { "款式": "七分阔腿", "腰部": "橡筋", "颜色": "8色以上", "季节": "春夏" }
+    },
+    "floral-pajama-set": {
+      "name": "碎花睡衣套装",
+      "desc": "圆领设计上下套装。荷叶边细节，长袖+长裤组合。居家服·睡衣两用。",
+      "specs": { "组合": "上衣 + 裤子", "款式": "圆领，荷叶边", "颜色": "5色以上", "季节": "四季" }
+    },
+    "pleats-wide-pants": {
+      "name": "褶皱阔腿裤",
+      "desc": "褶皱细节夏季阔腿裤。凉爽面料，裤脚收边。碎花·条纹·波点等多种花色。",
+      "specs": { "款式": "褶皱阔腿", "裤脚": "收边", "花色": "碎花·条纹·波点", "季节": "夏季" }
+    },
+    "check-wide-pants": {
+      "name": "格纹阔腿裤",
+      "desc": "方格纹阔腿裤。橡筋腰带，备有10种以上颜色。中国浙江产地直采。",
+      "specs": { "花色": "方格纹", "腰部": "橡筋", "颜色": "10色以上", "季节": "春夏" }
+    },
+    "floral-blouse": {
+      "name": "碎花衬衫",
+      "desc": "圆领丝带领结衬衫。宽松版长袖设计。春秋日常单品。",
+      "specs": { "领口": "圆领 + 丝带", "版型": "宽松", "颜色": "8色以上", "季节": "春秋" }
+    },
+    "floral-home-dress": {
+      "name": "碎花家居连衣裙",
+      "desc": "圆领荷叶边裙摆A字连衣裙。居家·外出两用，舒适宽松版型。",
+      "specs": { "款式": "A字连衣裙", "领口": "圆领", "颜色": "6色以上", "季节": "四季" }
+    },
+    "floral-long-dress-orange": {
+      "name": "花卉长款连衣裙",
+      "desc": "橙色系大花印花长款连衣裙。纽扣细节领口，七分袖，宽松版型。",
+      "specs": { "长度": "长款", "袖子": "七分", "领口": "圆领 + 纽扣", "季节": "春夏" }
+    },
+    "toile-pattern-dress": {
+      "name": "风景花纹连衣裙",
+      "desc": "经典风景花纹印花连衣裙。丝带领结领口，A字版型。粉·蓝·绿·米色4色。",
+      "specs": { "花色": "风景花纹", "领口": "丝带领结", "颜色": "4色", "季节": "春夏秋" }
+    }
+  }
+}

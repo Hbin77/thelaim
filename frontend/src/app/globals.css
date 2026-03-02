@@ -1,0 +1,50 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+@import url('https://fonts.cdnfonts.com/css/recoleta');
+@import "tailwindcss";
+
+@theme {
+  --color-teal-light: #75DDDD;
+  --color-ocean: #508991;
+  --color-navy: #172A3A;
+  --color-teal-deep: #004346;
+  --color-emerald: #09BC8A;
+
+  --font-family-pretendard: 'Pretendard Variable', sans-serif;
+  --font-family-cormorant: var(--font-cormorant), 'Georgia', serif;
+  --font-family-recoleta: 'Recoleta', 'Georgia', serif;
+  --font-family-serif-kr: var(--font-noto-serif-kr), 'Batang', serif;
+  --font-family-noto: var(--font-noto-sc), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-pretendard);
+  color: var(--color-navy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+/* Elegant heading styles */
+h1, h2, h3 {
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+/* Cormorant for English display */
+.font-cormorant {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'dlig' 1;
+}
+
+/* Smooth scroll with Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}

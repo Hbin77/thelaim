@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "about": "会社紹介",
+    "products": "商品紹介",
+    "location": "アクセス",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "tagline": "Premium Fashion Import & Wholesale",
+    "title": "ビジネスに価値をプラス",
+    "subtitle": "産地から直接厳選したトレンドファッションとアクセサリー。毎シーズン、最適な価格でトレンドをリードします。",
+    "cta_primary": "コレクションを見る",
+    "cta_secondary": "お問い合わせ"
+  },
+  "company": {
+    "title": "THELAIMのストーリー",
+    "description": "THELAIMは中国の産地で直接厳選したファッションアイテムを韓国の小売・卸売事業者に提供しています。流通段階を削減して確保した価格競争力と、シーズンを先取りする商品回転の速さが私たちの強みです。",
+    "highlight1_title": "産地直取引",
+    "highlight1_desc": "価格競争力を確保",
+    "highlight2_title": "シーズン先取り",
+    "highlight2_desc": "最新トレンドを反映",
+    "highlight3_title": "ワンストップ供給",
+    "highlight3_desc": "アパレルから雑貨まで"
+  },
+  "features": {
+    "title": "THELAIMが選ばれる理由",
+    "item1_title": "最適な価格",
+    "item1_desc": "産地直取引で不要な流通マージンを排除。同じ品質で、より良い利益率を実現します。",
+    "item2_title": "トレンドキュレーション",
+    "item2_desc": "毎シーズン現地で直接セレクトしたアイテムで、店舗に新しい活力をお届けします。",
+    "item3_title": "安定した供給",
+    "item3_desc": "大邱総合流通団地を拠点とした物流インフラで、迅速かつ安定した納品をお約束します。"
+  },
+  "about": {
+    "title": "会社紹介",
+    "story_title": "良い商品は良いパートナーから始まります",
+    "story_desc": "THELAIMは中国現地で直接発掘したファッションアイテムを韓国市場に繋ぐ、輸入卸売専門企業です。大邱総合流通団地を拠点に、オフラインショールームとオンラインチャネルを通じて、全国の小売・卸売事業者の皆様にシーズンを先取りした商品を合理的な価格でご提案します。",
+    "ceo_message": "ビジネスの本質は、結局のところ人と人との信頼です。一度きりの取引ではなく、長くお付き合いできるパートナーを目指します。良い商品、正直な価格、そして迅速な対応 — この三つをお約束します。",
+    "ceo_name": "代表 鄭大根",
+    "philosophy_title": "私たちの働き方",
+    "trust_title": "誠実な取引",
+    "trust_desc": "価格も品質も透明に。一度の取引が次の取引へと繋がる信頼を築きます。",
+    "quality_title": "直接厳選",
+    "quality_desc": "現地で自分の目で確認し、手で検品した商品のみを取り扱います。",
+    "partnership_title": "共に成長",
+    "partnership_desc": "お客様の売上が私たちの成果です。パートナーの成功をサポートすることがTHELAIMのやり方です。",
+    "business_title": "事業内容",
+    "business_import": "中国現地でのアパレル・雑貨の直接ソーシング",
+    "business_wholesale": "全国の小売・卸売事業者への供給",
+    "business_online": "ブログ・コミュニティなどオンラインチャネル運営",
+    "business_location": "大邱総合流通団地オフライン拠点"
+  },
+  "products": {
+    "title": "商品紹介",
+    "subtitle": "今シーズン、店舗を彩る新しいコレクション",
+    "search_placeholder": "商品を検索...",
+    "filter_all": "すべて",
+    "filter_pants": "パンツ",
+    "filter_top": "ブラウス・トップス",
+    "filter_set": "ワンピース・セット",
+    "no_results": "該当する商品がありません。",
+    "view_detail": "詳細を見る",
+    "inquiry": "商品のお問い合わせ",
+    "specifications": "商品仕様",
+    "related_products": "関連商品",
+    "featured": "おすすめ商品",
+    "new": "新商品",
+    "category": "カテゴリー",
+    "material": "素材",
+    "size_range": "サイズ範囲",
+    "min_order": "最小注文数",
+    "lead_time": "納期",
+    "back_to_list": "一覧へ戻る"
+  },
+  "location": {
+    "title": "アクセス",
+    "subtitle": "実際に商品をご覧ください",
+    "address": "韓国大邱広域市北区流通団地路7キル35",
+    "address_label": "住所",
+    "phone_label": "電話番号",
+    "email_label": "メール",
+    "car": "お車で",
+    "car_desc": "ナビに「大邱総合流通団地」または「流通団地路7キル35」と検索",
+    "bus": "バスで",
+    "bus_desc": "大邱市内バスをご利用、流通団地バス停で下車",
+    "parking": "駐車場",
+    "parking_desc": "建物前に駐車可能",
+    "business_hours": "営業時間",
+    "weekday": "月～金: 09:00 - 18:00",
+    "weekend": "土曜日: 09:00 - 13:00 / 日曜・祝日: 休業"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "新しいパートナーシップを始めましょう",
+    "form_title": "お問い合わせフォーム",
+    "company_name": "会社名",
+    "company_name_placeholder": "会社名を入力してください",
+    "contact_person": "担当者名",
+    "contact_person_placeholder": "担当者名を入力してください",
+    "email": "メールアドレス",
+    "email_placeholder": "メールアドレスを入力してください",
+    "phone": "電話番号",
+    "phone_placeholder": "電話番号を入力してください",
+    "product_interest": "関心のある商品",
+    "product_interest_placeholder": "関心のある商品を選択してください",
+    "message": "お問い合わせ内容",
+    "message_placeholder": "お問い合わせ内容を入力してください",
+    "preferred_contact": "ご希望の連絡方法",
+    "preferred_email": "メール",
+    "preferred_phone": "電話",
+    "preferred_kakao": "KakaoTalk",
+    "submit": "送信する",
+    "submitting": "送信中...",
+    "validation_company": "会社名を入力してください",
+    "validation_person": "担当者名を入力してください",
+    "validation_email": "有効なメールアドレスを入力してください",
+    "validation_message": "お問い合わせ内容を入力してください",
+    "validation_message_min": "10文字以上入力してください",
+    "success_title": "お問い合わせを受け付けました",
+    "success_message": "できるだけ早くご返信いたします。ありがとうございます。",
+    "error_title": "送信に失敗しました",
+    "error_message": "送信に失敗しました。もう一度お試しください。"
+  },
+  "footer": {
+    "company_name": "D&International (THELAIM)",
+    "description": "ファッションの始まり、THELAIMから",
+    "address": "韓国大邱広域市北区流通団地路7キル35",
+    "phone": "+82-10-4404-4592",
+    "email": "thelaim@naver.com",
+    "hours": "月～金 09:00-18:00",
+    "quick_links": "クイックリンク",
+    "contact_info": "連絡先",
+    "business_hours": "営業時間",
+    "weekday_hours": "平日: 09:00 - 18:00",
+    "saturday_hours": "土曜日: 09:00 - 13:00",
+    "weekend_hours": "日曜・祝日: 休業",
+    "lunch_hours": "昼休み: 12:00 - 13:00",
+    "copyright": "© {year} THELAIM. All rights reserved.",
+    "privacy_policy": "プライバシーポリシー",
+    "terms": "利用規約"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "back": "戻る",
+    "close": "閉じる",
+    "submit": "送信",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "learn_more": "詳しく見る",
+    "view_all": "すべて見る",
+    "scroll_down": "下にスクロール",
+    "scroll_to_top": "トップへ戻る",
+    "language": "言語",
+    "korean": "韓国語",
+    "english": "英語",
+    "chinese": "中国語",
+    "japanese": "日本語"
+  },
+  "productItems": {
+    "floral-ruffle-pants": {
+      "name": "花柄フリルパンツ",
+      "desc": "裾フリルディテールの花柄七分パンツ。ゴムバンドウエストで快適な着心地。8色以上展開。",
+      "specs": { "スタイル": "七分ワイド", "ウエスト": "ゴムバンド", "カラー": "8色以上", "シーズン": "春夏" }
+    },
+    "floral-pajama-set": {
+      "name": "花柄パジャマセット",
+      "desc": "丸襟デザインの上下セット。フリルディテール、長袖+長ズボン構成。ルームウェア・パジャマ兼用。",
+      "specs": { "構成": "トップス + ボトムス", "スタイル": "丸襟、フリル", "カラー": "5色以上", "シーズン": "オールシーズン" }
+    },
+    "pleats-wide-pants": {
+      "name": "プリーツワイドパンツ",
+      "desc": "プリーツディテールの夏用ワイドパンツ。涼しい素材、裾バンド仕様。花柄・ストライプ・ドットなど多様な柄。",
+      "specs": { "スタイル": "プリーツワイド", "裾": "バンド", "柄": "花柄・ストライプ・ドット", "シーズン": "夏" }
+    },
+    "check-wide-pants": {
+      "name": "チェックワイドパンツ",
+      "desc": "ギンガムチェック柄ワイドパンツ。ゴムバンドウエスト、10色以上展開。中国浙江省産地直接ソーシング。",
+      "specs": { "柄": "ギンガムチェック", "ウエスト": "ゴムバンド", "カラー": "10色以上", "シーズン": "春夏" }
+    },
+    "floral-blouse": {
+      "name": "花柄ブラウス",
+      "desc": "ラウンドネックリボンタイブラウス。ルーズフィット長袖デザイン。春秋のデイリーアイテム。",
+      "specs": { "ネックライン": "ラウンドネック + リボンタイ", "フィット": "ルーズ", "カラー": "8色以上", "シーズン": "春秋" }
+    },
+    "floral-home-dress": {
+      "name": "花柄ホームドレス",
+      "desc": "丸襟、フリル裾ディテールのAラインワンピース。ルームウェア・外出兼用、快適なルーズフィット。",
+      "specs": { "スタイル": "Aラインワンピース", "襟": "丸襟", "カラー": "6色以上", "シーズン": "オールシーズン" }
+    },
+    "floral-long-dress-orange": {
+      "name": "フローラルロングワンピース",
+      "desc": "オレンジ系大花プリントロングワンピース。ボタンディテールネックライン、七分袖、ルーズフィット。",
+      "specs": { "丈": "ロング", "袖": "七分", "ネックライン": "ラウンド + ボタン", "シーズン": "春夏" }
+    },
+    "toile-pattern-dress": {
+      "name": "トワルパターンワンピース",
+      "desc": "風景画プリントのクラシックトワルパターンワンピース。リボンタイネックライン、Aライン。ピンク・ブルー・グリーン・ベージュ4色。",
+      "specs": { "柄": "トワル（風景画）", "ネックライン": "リボンタイ", "カラー": "4色", "シーズン": "春夏秋" }
+    }
+  }
+}
