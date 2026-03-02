@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: 'THELAIM',
     images: [
       {
-        url: '/images/ogtag.png',
+        url: 'https://thelaim.com/images/ogtag.png',
         width: 1659,
         height: 896,
         alt: 'THELAIM - Premium Fashion Import & Wholesale',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'THELAIM - Global Fashion Export Specialist',
     description: 'Premium fashion import & wholesale. Direct sourcing from manufacturers to your business.',
-    images: ['/images/ogtag.png'],
+    images: ['https://thelaim.com/images/ogtag.png'],
   },
 };
 
