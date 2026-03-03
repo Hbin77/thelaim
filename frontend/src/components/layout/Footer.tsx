@@ -87,12 +87,12 @@ export default function Footer() {
             {t('copyright', { year: String(year) })}
           </p>
           <div className="flex gap-6 text-sm text-white/50">
-            <span className="cursor-pointer transition-colors hover:text-white/80">
+            <Link href="/privacy" className="transition-colors hover:text-white/80">
               {t('privacy_policy')}
-            </span>
-            <span className="cursor-pointer transition-colors hover:text-white/80">
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-white/80">
               {t('terms')}
-            </span>
+            </Link>
           </div>
         </div>
       </div>

@@ -200,5 +200,120 @@
       "desc": "Classic toile pattern dress with scenic print. Ribbon tie neckline, A-line silhouette. Available in Pink, Blue, Green, Beige.",
       "specs": { "Pattern": "Toile (Scenic)", "Neckline": "Ribbon Tie", "Colors": "4", "Season": "Spring/Summer/Fall" }
     }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "D&International (hereinafter 'the Company') establishes and discloses the following Privacy Policy in accordance with Article 30 of the Personal Information Protection Act to protect the personal information of data subjects and to promptly and smoothly handle related grievances.\n\nThis Privacy Policy applies to the THELAIM website (hereinafter 'the Site') operated by the Company.",
+    "purpose": {
+      "title": "Article 1 (Purpose of Processing Personal Information)",
+      "content": "The Company processes personal information for the following purposes. Personal information being processed shall not be used for any purpose other than the following, and if the purpose of use changes, necessary measures such as obtaining separate consent under Article 18 of the Personal Information Protection Act shall be implemented.\n\n1. Receiving and Processing Inquiries\nCollection and use of personal information for responding to and processing trade inquiries, product consultations, etc. received through the inquiry form on the Site.\n\n2. Handling Civil Complaints\nProcessing personal information for identity verification, complaint verification, fact-finding contact/notification, and notification of processing results."
+    },
+    "retention": {
+      "title": "Article 2 (Processing and Retention Period)",
+      "content": "① The Company processes and retains personal information within the retention and use period prescribed by law or within the period agreed upon when collecting personal information from data subjects.\n\n② Inquiry and Consultation Processing\n- Retention period: 3 years from the date of inquiry\n- Legal basis: Consent of data subject, Commercial Act and related laws\n- Related laws: Preservation of commercial transaction records under the Commercial Act (5 years), Preservation of records related to consumer complaints or dispute resolution under the Act on Consumer Protection in Electronic Commerce (3 years)\n\n③ Personal information whose retention period has expired shall be destroyed without delay."
+    },
+    "items": {
+      "title": "Article 3 (Items of Personal Information Processed)",
+      "content": "The Company processes the following personal information items for inquiry and consultation processing.\n\n1. Required items: Company name, Contact person name, Email address, Inquiry content\n2. Optional items: Phone number, Product of interest, Preferred contact method"
+    },
+    "third_party": {
+      "title": "Article 4 (Provision of Personal Information to Third Parties)",
+      "content": "① The Company processes personal information only within the scope specified in Article 1 and provides personal information to third parties only in cases falling under Articles 17 and 18 of the Personal Information Protection Act.\n\n② Currently, the Company does not provide personal information to third parties."
+    },
+    "consignment": {
+      "title": "Article 5 (Entrustment of Personal Information Processing)",
+      "content": "① Currently, the Company does not entrust personal information processing to external parties. If entrustment occurs in the future, the trustee and the details of entrusted work will be disclosed in this Privacy Policy without delay.\n\n② When entering into an entrustment contract, the Company shall specify matters concerning prohibition of processing personal information beyond the purpose, technical and administrative protective measures, restrictions on re-entrustment, management and supervision of trustees, and liability for damages in documents such as contracts."
+    },
+    "destruction": {
+      "title": "Article 6 (Procedures and Methods for Destruction of Personal Information)",
+      "content": "① The Company shall destroy personal information without delay when it becomes unnecessary due to expiration of the retention period or achievement of the processing purpose.\n\n② The procedures and methods for destruction are as follows:\n\n1. Destruction Procedure\nThe Company selects personal information for which grounds for destruction have arisen and destroys it with approval from the Privacy Officer.\n\n2. Destruction Method\n- Electronic file information is deleted using technical methods that make records irreproducible.\n- Personal information printed on paper is destroyed by shredding or incineration."
+    },
+    "rights": {
+      "title": "Article 7 (Rights and Obligations of Data Subjects and How to Exercise Them)",
+      "content": "① Data subjects may exercise the following rights regarding personal information protection at any time:\n\n1. Request to access personal information processing status\n2. Request for correction if there are errors\n3. Request for deletion\n4. Request to suspend processing\n\n② Rights under Paragraph 1 may be exercised in writing, by email, etc. pursuant to Article 41, Paragraph 1 of the Enforcement Decree of the Personal Information Protection Act, and the Company shall take action without delay.\n\n③ Rights under Paragraph 1 may also be exercised through a legal representative or authorized agent."
+    },
+    "safety": {
+      "title": "Article 8 (Measures to Ensure Safety of Personal Information)",
+      "content": "The Company takes the following measures to ensure the safety of personal information:\n\n1. Administrative measures: Establishment and implementation of internal management plan, minimization and training of employees handling personal information\n2. Technical measures: Management of access rights to personal information processing systems, installation of access control systems, encryption of personal information, installation of security programs\n3. Physical measures: Storage of documents and auxiliary storage media containing personal information in locked locations"
+    },
+    "cookies": {
+      "title": "Article 9 (Installation, Operation, and Refusal of Automatic Personal Information Collection Devices)",
+      "content": "The Company does not use 'cookies' that store and retrieve user information. The Site does not collect personal information through cookies or other automatic collection devices."
+    },
+    "officer": {
+      "title": "Article 10 (Privacy Officer)",
+      "content": "The Company designates the following Privacy Officer to oversee personal information processing and handle complaints and remedies related to personal information processing:\n\n■ Privacy Officer\n- Name: Dae-geun Jeong\n- Position: CEO\n- Phone: +82-10-4546-0822\n- Email: thelaim@naver.com\n\nData subjects may contact the Privacy Officer regarding all personal information protection inquiries, complaints, and remedies arising from using the Company's services."
+    },
+    "remedy": {
+      "title": "Article 11 (Methods for Remedy of Rights Infringement)",
+      "content": "Data subjects may apply for dispute resolution or consultation with the following organizations for remedy against personal information infringement:\n\n1. Personal Information Dispute Mediation Committee: 1833-6972 (www.kopico.go.kr)\n2. Personal Information Infringement Report Center: 118 (privacy.kisa.or.kr)\n3. Supreme Prosecutors' Office: 1301 (www.spo.go.kr)\n4. National Police Agency: 182 (ecrm.cyber.go.kr)"
+    },
+    "changes": {
+      "title": "Article 12 (Changes to Privacy Policy)",
+      "content": "This Privacy Policy shall be effective from the date of enforcement, and if there are additions, deletions, or corrections of changes according to laws and policies, they shall be notified through the Site's announcements 7 days before the implementation of changes. However, if important matters such as the purpose of collecting and using personal information or third-party provision are changed, notice shall be given at least 30 days in advance."
+    },
+    "effective": {
+      "title": "Article 13 (Effective Date)",
+      "content": "This Privacy Policy is effective from March 3, 2026."
+    },
+    "business_info": {
+      "title": "Business Information",
+      "content": "Company: D&International\nCEO: Dae-geun Jeong\nBusiness Registration No.: 504-22-11224\nOnline Sales Registration No.: 2011-Daegu Suseong-gu-0440\nAddress: 35, Yutongdanji-ro 7-gil, Buk-gu, Daegu, Korea\nEmail: thelaim@naver.com\nPhone: +82-10-4546-0822"
+    }
+  },
+  "terms_page": {
+    "title": "Terms of Service",
+    "purpose": {
+      "title": "Article 1 (Purpose)",
+      "content": "These Terms of Service aim to define the rights, obligations, and responsibilities of the Company and users in using the Internet-related services provided by the THELAIM website operated by D&International (hereinafter 'the Company')."
+    },
+    "definitions": {
+      "title": "Article 2 (Definitions)",
+      "content": "The definitions of terms used in these Terms are as follows:\n\n1. 'Site' refers to the internet website operated by the Company to provide services such as product information, company introduction, and inquiry reception to users.\n2. 'User' refers to anyone who accesses the Site and uses the services provided by the Company in accordance with these Terms.\n3. 'Inquiry' refers to the act of a user requesting trade consultation, product inquiries, etc. from the Company through the inquiry form on the Site.\n\n※ Terms not defined in these Terms shall follow related laws and general commercial practices."
+    },
+    "posting": {
+      "title": "Article 3 (Posting and Modification of Terms)",
+      "content": "① The contents of these Terms shall be posted on the Site or notified to users by other means.\n\n② The Company may revise these Terms within the scope that does not violate related laws including the Act on Regulation of Terms and Conditions and the Act on Promotion of Information and Communications Network Utilization and Information Protection.\n\n③ When revising the Terms, the Company shall post the effective date and reasons for revision on the Site at least 7 days before the effective date. However, if the revision is unfavorable to users, notice shall be given at least 30 days in advance."
+    },
+    "services": {
+      "title": "Article 4 (Service Content)",
+      "content": "The services provided by the Company through the Site are as follows:\n\n1. Company and business introduction information\n2. Product information (clothing, accessories, etc.)\n3. Trade consultation and product inquiry reception through the inquiry form\n4. Location information and directions\n5. Other services determined by the Company\n\n※ This Site does not provide separate membership registration or online payment (e-commerce) functions."
+    },
+    "suspension": {
+      "title": "Article 5 (Service Suspension)",
+      "content": "① The Company may temporarily suspend the provision of services due to maintenance, replacement, and malfunction of information and communication facilities, loss of communication, or other significant operational reasons.\n\n② In case of service suspension under Paragraph 1, advance notice shall be given on the Site. However, if there are unavoidable reasons that prevent advance notice, notice may be given afterwards."
+    },
+    "user_obligations": {
+      "title": "Article 6 (User Obligations)",
+      "content": "Users shall not engage in the following activities:\n\n1. Providing false information when submitting the inquiry form\n2. Using another person's information\n3. Altering information posted by the Company\n4. Infringing on intellectual property rights of the Company or third parties\n5. Damaging the reputation or interfering with the business of the Company or third parties\n6. Posting obscene or violent messages or information contrary to public order and morals\n7. Using the Site to engage in activities prohibited by law or these Terms\n8. Any activities that interfere with the normal operation of the Site"
+    },
+    "company_obligations": {
+      "title": "Article 7 (Company Obligations)",
+      "content": "① The Company shall not engage in activities prohibited by law or these Terms or contrary to public order and morals, and shall make every effort to provide services continuously and stably.\n\n② The Company shall have security systems in place to protect personal information so that users can safely use Internet services.\n\n③ If opinions or complaints submitted by users through the inquiry form are objectively deemed legitimate, the Company shall process them through appropriate procedures."
+    },
+    "ip": {
+      "title": "Article 8 (Intellectual Property Rights)",
+      "content": "① All copyrights and other intellectual property rights to all content posted on the Site (text, images, design, logos, trademarks, videos, etc.) belong to the Company.\n\n② Users shall not reproduce, transmit, publish, distribute, broadcast, or otherwise use information obtained through the Site for commercial purposes or allow third parties to use it without prior consent of the Company.\n\n③ Product photos, descriptions, and other materials provided by the Company may only be used for trade consultation purposes. Unauthorized commercial use may result in civil and criminal liability under relevant laws."
+    },
+    "disclaimer": {
+      "title": "Article 9 (Disclaimer)",
+      "content": "① The Company shall be exempt from liability for service provision when services cannot be provided due to force majeure such as natural disasters.\n\n② The Company shall not be liable for service disruptions caused by reasons attributable to users.\n\n③ Product information posted on the Site (photos, specifications, colors, etc.) is for reference only and may differ from actual products. Specific product specifications and transaction conditions shall be confirmed through separate consultation.\n\n④ The Company has no obligation to intervene in disputes between users or between users and third parties arising through the service, and shall not be liable for damages arising therefrom."
+    },
+    "dispute": {
+      "title": "Article 10 (Dispute Resolution)",
+      "content": "① The Company shall make efforts to reflect legitimate opinions or complaints raised by users and to compensate for damages.\n\n② In the event of a dispute between the Company and a user, if the user files a claim for damage relief, mediation by a dispute resolution organization commissioned by the Fair Trade Commission or the mayor/governor may be followed."
+    },
+    "jurisdiction": {
+      "title": "Article 11 (Jurisdiction)",
+      "content": "① In case of a dispute between the Company and a user regarding service use, the principle shall be to resolve it through amicable agreement between both parties.\n\n② If no agreement is reached under Paragraph 1, lawsuits shall be filed with the competent court under the Civil Procedure Act."
+    },
+    "effective": {
+      "title": "Supplementary Provisions (Effective Date)",
+      "content": "These Terms of Service are effective from March 3, 2026."
+    },
+    "business_info": {
+      "title": "Business Information",
+      "content": "Company: D&International\nCEO: Dae-geun Jeong\nBusiness Registration No.: 504-22-11224\nOnline Sales Registration No.: 2011-Daegu Suseong-gu-0440\nAddress: 35, Yutongdanji-ro 7-gil, Buk-gu, Daegu, Korea\nEmail: thelaim@naver.com\nPhone: +82-10-4546-0822"
+    }
   }
 }
