@@ -191,9 +191,9 @@
       "specs": { "Style": "A-line Dress", "Collar": "Round", "Colors": "6+", "Season": "All Season" }
     },
     "floral-long-dress-orange": {
-      "name": "Floral Long Dress",
-      "desc": "Orange-toned large floral print long dress. Button detail neckline, 3/4 sleeve, loose fit.",
-      "specs": { "Length": "Long", "Sleeve": "3/4", "Neckline": "Round + Button", "Season": "Spring/Summer" }
+      "name": "Floral Frill Dress",
+      "desc": "Orange-toned large floral print frill dress. Button detail neckline, 9/10 sleeve, loose fit.",
+      "specs": { "Length": "Long", "Sleeve": "9/10", "Neckline": "Round + Button", "Season": "Spring/Summer" }
     },
     "toile-pattern-dress": {
       "name": "Toile Pattern Dress",
