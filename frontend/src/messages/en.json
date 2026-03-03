@@ -171,9 +171,9 @@
       "specs": { "Set": "Top + Bottom", "Style": "Round Collar, Ruffle", "Colors": "5+", "Season": "All Season" }
     },
     "pleats-wide-pants": {
-      "name": "Pleats Wide Pants",
-      "desc": "Summer wide pants with pleat detail. Cool fabric, banded hem. Available in floral, stripe, and dot patterns.",
-      "specs": { "Style": "Pleated Wide", "Hem": "Banded", "Pattern": "Floral/Stripe/Dot", "Season": "Summer" }
+      "name": "Pleats Shirring Pants",
+      "desc": "Summer shirring pants with pleat detail. Cool fabric, shirred hem. Available in floral, stripe, and dot patterns.",
+      "specs": { "Style": "Pleated Shirring", "Hem": "Shirred", "Pattern": "Floral/Stripe/Dot", "Season": "Summer" }
     },
     "check-wide-pants": {
       "name": "Check Wide Pants",
