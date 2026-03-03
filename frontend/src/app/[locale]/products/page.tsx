@@ -93,6 +93,7 @@ export default function ProductsPage() {
           </div>
 
           <ProductGrid
+            key={`${activeCategory}-${searchQuery}`}
             products={filteredProducts}
             onSelectProduct={setSelectedProduct}
           />
