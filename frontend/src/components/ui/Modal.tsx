@@ -21,13 +21,17 @@ export default function Modal({
   children,
 }: ModalProps) {
   useEffect(() => {
+    const lenis = (window as unknown as Record<string, { stop: () => void; start: () => void }>).__lenis;
     if (open) {
       document.body.style.overflow = 'hidden';
+      lenis?.stop();
     } else {
       document.body.style.overflow = '';
+      lenis?.start();
     }
     return () => {
       document.body.style.overflow = '';
+      lenis?.start();
     };
   }, [open]);
 

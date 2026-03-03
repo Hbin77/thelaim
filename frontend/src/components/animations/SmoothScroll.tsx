@@ -19,6 +19,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     });
 
     lenisRef.current = lenis;
+    (window as unknown as Record<string, unknown>).__lenis = lenis;
 
     lenis.on('scroll', () => {
       import('gsap/ScrollTrigger').then((mod) => {
@@ -36,6 +37,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as unknown as Record<string, unknown>).__lenis;
     };
   }, []);
 
