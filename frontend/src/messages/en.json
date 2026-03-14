@@ -163,42 +163,82 @@
     "floral-ruffle-pants": {
       "name": "Floral Ruffle Pants",
       "desc": "Floral print cropped pants with ruffle hem detail. Elastic waistband for comfortable fit. Available in 8+ colors.",
-      "specs": { "Style": "Cropped Wide", "Waist": "Elastic Band", "Colors": "8+", "Season": "Spring/Summer" }
+      "specs": {
+        "Style": "Cropped Wide",
+        "Waist": "Elastic Band",
+        "Colors": "8+",
+        "Season": "Spring/Summer"
+      }
     },
     "floral-pajama-set": {
       "name": "Floral Pajama Set",
       "desc": "Round collar top and bottom set. Ruffle detail, long sleeve + long pants. Dual-use as homewear and sleepwear.",
-      "specs": { "Set": "Top + Bottom", "Style": "Round Collar, Ruffle", "Colors": "5+", "Season": "All Season" }
+      "specs": {
+        "Set": "Top + Bottom",
+        "Style": "Round Collar, Ruffle",
+        "Colors": "5+",
+        "Season": "All Season"
+      }
     },
     "pleats-wide-pants": {
       "name": "Pleats Shirring Pants",
       "desc": "Summer shirring pants with pleat detail. Cool fabric, shirred hem. Available in floral, stripe, and dot patterns.",
-      "specs": { "Style": "Pleated Shirring", "Hem": "Shirred", "Pattern": "Floral/Stripe/Dot", "Season": "Summer" }
+      "specs": {
+        "Style": "Pleated Shirring",
+        "Hem": "Shirred",
+        "Pattern": "Floral/Stripe/Dot",
+        "Season": "Summer"
+      }
     },
     "check-wide-pants": {
       "name": "Check Wide Pants",
       "desc": "Gingham check pattern wide pants. Elastic waistband, 10+ colors available. Direct sourced from China.",
-      "specs": { "Pattern": "Gingham Check", "Waist": "Elastic Band", "Colors": "10+", "Season": "Spring/Summer" }
+      "specs": {
+        "Pattern": "Gingham Check",
+        "Waist": "Elastic Band",
+        "Colors": "10+",
+        "Season": "Spring/Summer"
+      }
     },
     "floral-blouse": {
       "name": "Floral Blouse",
       "desc": "Round neck ribbon tie blouse. Loose fit, long sleeve design. Spring/Fall daily essential.",
-      "specs": { "Neckline": "Round + Ribbon Tie", "Fit": "Loose", "Colors": "8+", "Season": "Spring/Fall" }
+      "specs": {
+        "Neckline": "Round + Ribbon Tie",
+        "Fit": "Loose",
+        "Colors": "8+",
+        "Season": "Spring/Fall"
+      }
     },
     "floral-home-dress": {
       "name": "Floral Home Dress",
       "desc": "A-line dress with round collar and ruffle hem detail. Dual-use for home and casual outings. Comfortable loose fit.",
-      "specs": { "Style": "A-line Dress", "Collar": "Round", "Colors": "6+", "Season": "All Season" }
+      "specs": {
+        "Style": "A-line Dress",
+        "Collar": "Round",
+        "Colors": "6+",
+        "Season": "All Season"
+      }
     },
     "floral-long-dress-orange": {
       "name": "Floral Frill Dress",
       "desc": "Orange-toned large floral print frill dress. Button detail neckline, 9/10 sleeve, loose fit.",
-      "specs": { "Length": "Long", "Sleeve": "9/10", "Neckline": "Round + Button", "Season": "Spring/Summer" }
+      "specs": {
+        "Length": "Long",
+        "Sleeve": "9/10",
+        "Neckline": "Round + Button",
+        "Season": "Spring/Summer"
+      }
     },
     "toile-pattern-dress": {
       "name": "Toile Pattern Dress",
       "desc": "Classic toile pattern dress with scenic print. Ribbon tie neckline, A-line silhouette. Available in Pink, Blue, Green, Beige.",
-      "specs": { "Pattern": "Toile (Scenic)", "Neckline": "Ribbon Tie", "Colors": "4", "Season": "Spring/Summer/Fall" }
+      "specs": {
+        "Pattern": "Toile (Scenic)",
+        "Neckline": "Ribbon Tie",
+        "Colors": "4",
+        "Season": "Spring/Summer/Fall"
+      }
     }
   },
   "privacy": {
@@ -261,7 +301,7 @@
       "content": "Company: D&International\nCEO: Dae-geun Jeong\nBusiness Registration No.: 504-22-11224\nOnline Sales Registration No.: 2011-Daegu Suseong-gu-0440\nAddress: 35, Yutongdanji-ro 7-gil, Buk-gu, Daegu, Korea\nEmail: thelaim@naver.com\nPhone: +82-10-4546-0822"
     }
   },
-  "terms_page": {
+  "terms": {
     "title": "Terms of Service",
     "purpose": {
       "title": "Article 1 (Purpose)",
