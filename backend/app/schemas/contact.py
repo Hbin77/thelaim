@@ -1,14 +1,14 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 class ContactCreate(BaseModel):
-    company_name: str
-    contact_person: str
+    company_name: str = Field(max_length=200)
+    contact_person: str = Field(max_length=100)
     email: EmailStr
-    phone: str = ""
-    product_interest: str = ""
-    message: str
-    preferred_contact: str = "email"
+    phone: str = Field(default="", max_length=50)
+    product_interest: str = Field(default="", max_length=200)
+    message: str = Field(max_length=5000)
+    preferred_contact: str = Field(default="email", max_length=20)
 
 
 class ContactResponse(BaseModel):

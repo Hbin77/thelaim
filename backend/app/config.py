@@ -2,8 +2,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql://thelaim:thelaim@db:5432/thelaim"
-    SECRET_KEY: str = "change-me-in-production"
+    DATABASE_URL: str
+    SECRET_KEY: str
     CORS_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
     SMTP_HOST: str = ""
     SMTP_PORT: int = 587
