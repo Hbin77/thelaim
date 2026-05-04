@@ -18,6 +18,130 @@ const PRODUCT_DATA = [
   { id: 6, slug: 'floral-home-dress', category_slug: 'set', image_url: '/images/products/floral-blouse-closeup.jpg', image_urls: ['/images/products/floral-blouse-closeup.jpg'], is_featured: false },
   { id: 7, slug: 'floral-long-dress-orange', category_slug: 'set', image_url: '/images/products/floral-dress-orange.jpg', image_urls: ['/images/products/floral-dress-orange.jpg'], is_featured: false },
   { id: 8, slug: 'toile-pattern-dress', category_slug: 'set', image_url: '/images/products/toile-pattern-dress.jpg', image_urls: ['/images/products/toile-pattern-dress.jpg'], is_featured: false },
+  {
+    id: 9,
+    slug: 'asa-cotton-dress',
+    category_slug: 'set',
+    image_url: '/images/products/asa-cotton-dress.jpg',
+    image_urls: [
+      '/images/products/asa-cotton-dress.jpg',
+      '/images/products/asa-cotton-dress-collection.jpg',
+    ],
+    is_featured: true,
+  },
+  {
+    id: 10,
+    slug: 'pleats-rayon-dress',
+    category_slug: 'set',
+    image_url: '/images/products/pleats-rayon-dress.jpg',
+    image_urls: [
+      '/images/products/pleats-rayon-dress.jpg',
+      '/images/products/pleats-rayon-dress-collection.jpg',
+    ],
+    is_featured: true,
+  },
+  {
+    id: 11,
+    slug: 'rayon-button-frill-dress',
+    category_slug: 'set',
+    image_url: '/images/products/rayon-button-frill-dress.jpg',
+    image_urls: [
+      '/images/products/rayon-button-frill-dress.jpg',
+      '/images/products/rayon-button-frill-dress-detail.jpg',
+      '/images/products/rayon-button-frill-dress-collection.jpg',
+    ],
+    is_featured: true,
+  },
+  {
+    id: 12,
+    slug: 'rayon-lace-pants-floral',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-pants.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-pants.jpg',
+      '/images/products/rayon-lace-pants-collection.jpg',
+    ],
+    is_featured: true,
+  },
+  {
+    id: 13,
+    slug: 'rayon-lace-pants-character',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-pants-character.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-pants-character.jpg',
+      '/images/products/rayon-lace-pants-character-detail.jpg',
+      '/images/products/rayon-lace-pants-character-collection.jpg',
+    ],
+    is_featured: false,
+  },
+  {
+    id: 14,
+    slug: 'rayon-lace-pants-toile',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-pants-toile.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-pants-toile.jpg',
+      '/images/products/rayon-lace-pants-toile-collection.jpg',
+    ],
+    is_featured: false,
+  },
+  {
+    id: 15,
+    slug: 'rayon-lace-shorts-floral',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-shorts.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-shorts.jpg',
+      '/images/products/rayon-lace-shorts-collection.jpg',
+    ],
+    is_featured: false,
+  },
+  {
+    id: 16,
+    slug: 'rayon-lace-shorts-character',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-shorts-character.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-shorts-character.jpg',
+    ],
+    is_featured: false,
+  },
+  {
+    id: 17,
+    slug: 'rayon-lace-shorts-toile',
+    category_slug: 'pants',
+    image_url: '/images/products/rayon-lace-shorts-toile.jpg',
+    image_urls: [
+      '/images/products/rayon-lace-shorts-toile.jpg',
+      '/images/products/rayon-lace-shorts-toile-collection.jpg',
+    ],
+    is_featured: false,
+  },
+  {
+    id: 18,
+    slug: 'stripe-wide-pants',
+    category_slug: 'pants',
+    image_url: '/images/products/stripe-wide-pants.jpg',
+    image_urls: [
+      '/images/products/stripe-wide-pants.jpg',
+      '/images/products/stripe-wide-pants-detail.jpg',
+      '/images/products/stripe-wide-pants-collection.jpg',
+    ],
+    is_featured: true,
+  },
+  {
+    id: 19,
+    slug: 'check-gingham-pants',
+    category_slug: 'pants',
+    image_url: '/images/products/check-gingham-pants.jpg',
+    image_urls: [
+      '/images/products/check-gingham-pants.jpg',
+      '/images/products/check-gingham-pants-detail.jpg',
+      '/images/products/check-gingham-pants-collection.jpg',
+    ],
+    is_featured: false,
+  },
 ];
 
 const CATEGORY_SLUGS = ['pants', 'top', 'set'];
