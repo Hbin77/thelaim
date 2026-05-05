@@ -242,150 +242,142 @@
     },
     "asa-cotton-dress": {
       "name": "Asa Cotton Dress",
-      "desc": "Breathable 100% cotton round-neck short-sleeve dress in lightweight asa weave. Vibrant floral and beach prints across 9+ colorways.",
+      "desc": "Short-sleeve dress in 100% cotton (asa weave). Color and pattern lineup — please inquire.",
       "specs": {
         "Material": "100% Cotton",
         "Total Length": "105 cm",
         "Chest (flat)": "60 cm",
         "Hem": "76 cm",
-        "Neckline": "Round Neck",
-        "Colors": "9+",
-        "Season": "Summer"
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "pleats-rayon-dress": {
-      "name": "Pleated Long Dress",
-      "desc": "All-over pleated 100% poly long dress with tiered waist seam. Cool, airy drape in 8+ ditsy floral colorways.",
+      "name": "Pleated Dress",
+      "desc": "100% polyester pleated dress. Color and pattern lineup — please inquire.",
       "specs": {
         "Material": "100% Polyester",
         "Total Length": "105 cm",
         "Chest (flat)": "55 cm",
         "Hem": "70 cm",
-        "Detail": "Full pleats, waist seam",
-        "Colors": "8+",
-        "Season": "Summer"
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-button-frill-dress": {
       "name": "Rayon Button Frill Dress",
-      "desc": "Soft rayon dress with round collar, ruffle trim and front buttons. Ditsy floral prints, doubles as homewear and casual outerwear.",
+      "desc": "100% polyester (rayon-style) dress with button and frill detail. Color and pattern lineup — please inquire.",
       "specs": {
-        "Material": "100% Polyester (Rayon-feel)",
+        "Material": "100% Polyester",
         "Total Length": "105 cm",
         "Chest (flat)": "60 cm",
         "Hem": "75 cm",
-        "Detail": "Round Collar, Frill, Buttons",
-        "Colors": "9+",
-        "Season": "Spring/Summer"
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-pants-floral": {
       "name": "Rayon Lace Wide Pants — Floral",
-      "desc": "Rayon wide pants with lace-trimmed hem in a ditsy floral palette. Two lengths — Cropped 83 cm and Capri 70 cm — across 10+ colorways.",
+      "desc": "Rayon-style lace wide pants in floral pattern. Available in two lengths (cropped / capri).",
       "specs": {
         "Total Length": "Cropped 83 / Capri 70 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "32 cm",
-        "Waist": "Elastic Band",
-        "Hem Detail": "Lace Trim",
-        "Pattern": "Ditsy Floral",
-        "Colors": "10+",
-        "Season": "Spring/Summer"
+        "Pattern": "Floral",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-pants-character": {
       "name": "Rayon Lace Wide Pants — Character",
-      "desc": "Cute character prints (puppies, bears, ribbons) on rayon wide pants. Side pocket with lace trim, pastel 8+ color line.",
+      "desc": "Rayon-style lace wide pants in character pattern. Available in two lengths (cropped / capri).",
       "specs": {
         "Total Length": "Cropped 83 / Capri 70 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "32 cm",
-        "Waist": "Elastic Band",
-        "Pocket": "Side pocket + Lace",
-        "Pattern": "Character (puppy/bear/ribbon)",
-        "Colors": "8+",
-        "Season": "Spring/Summer"
+        "Pattern": "Character",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-pants-toile": {
-      "name": "Rayon Lace Wide Pants — Toile (Scenic)",
-      "desc": "Classic toile scenic print rayon wide pants. Side pocket and lace hem; charcoal, blue, gray, violet and red — 5 colors.",
+      "name": "Rayon Lace Wide Pants — Ink Wash",
+      "desc": "Rayon-style lace wide pants in ink-wash (toile) pattern. Available in two lengths (cropped / capri).",
       "specs": {
         "Total Length": "Cropped 83 / Capri 70 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "32 cm",
-        "Waist": "Elastic Band",
-        "Pocket": "Side pocket + Lace",
-        "Pattern": "Toile (Scenic)",
-        "Colors": "5",
-        "Season": "Spring/Summer"
+        "Pattern": "Ink Wash",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-shorts-floral": {
       "name": "Rayon Lace Shorts — Floral",
-      "desc": "Above-knee rayon shorts in ditsy floral with wide eyelet-lace hem. Breathable; works as homewear or layering.",
+      "desc": "Rayon-style lace shorts in floral pattern.",
       "specs": {
         "Total Length": "50 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "33 cm",
-        "Waist": "Elastic Band",
-        "Hem Detail": "Wide Eyelet Lace",
-        "Pattern": "Ditsy Floral",
-        "Colors": "10+",
-        "Season": "Summer"
+        "Pattern": "Floral",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-shorts-character": {
       "name": "Rayon Lace Shorts — Character",
-      "desc": "Cute character prints (chicks, elephants, candies) on rayon shorts with wide eyelet-lace hem.",
+      "desc": "Rayon-style lace shorts in character pattern.",
       "specs": {
         "Total Length": "50 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "33 cm",
-        "Waist": "Elastic Band",
-        "Hem Detail": "Wide Eyelet Lace",
-        "Pattern": "Character (chick/elephant)",
-        "Season": "Summer"
+        "Pattern": "Character",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "rayon-lace-shorts-toile": {
-      "name": "Rayon Lace Shorts — Toile (Scenic)",
-      "desc": "Toile scenic print rayon shorts with wide eyelet-lace hem. Five-color line.",
+      "name": "Rayon Lace Shorts — Ink Wash",
+      "desc": "Rayon-style lace shorts in ink-wash (toile) pattern.",
       "specs": {
         "Total Length": "50 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "33 cm",
-        "Waist": "Elastic Band",
-        "Hem Detail": "Wide Eyelet Lace",
-        "Pattern": "Toile (Scenic)",
-        "Colors": "5",
-        "Season": "Summer"
+        "Pattern": "Ink Wash",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "stripe-wide-pants": {
       "name": "Stripe Wide Pants",
-      "desc": "Vertical-stripe seersucker wide pants with elastic + drawstring waist. Light, airy summer daily pants in 9+ colors.",
+      "desc": "Wide pants in stripe pattern. Material and color lineup — please inquire.",
       "specs": {
         "Total Length": "95 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "28 cm",
-        "Waist": "Elastic + Drawstring",
-        "Pattern": "Vertical Stripe (Seersucker)",
-        "Colors": "9+",
-        "Season": "Spring/Summer"
+        "Pattern": "Stripe",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     },
     "check-gingham-pants": {
-      "name": "Gingham Check Wide Pants",
-      "desc": "Mini gingham seersucker wide pants with elastic + drawstring waist. Six-color summer line.",
+      "name": "Check Wide Pants",
+      "desc": "Wide pants in check pattern. Material and color lineup — please inquire.",
       "specs": {
         "Total Length": "95 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "28 cm",
-        "Waist": "Elastic + Drawstring",
-        "Pattern": "Gingham Check (Seersucker)",
-        "Colors": "6",
-        "Season": "Spring/Summer"
+        "Pattern": "Check",
+        "Material": "Inquire",
+        "Colors": "Inquire",
+        "Season": "Inquire"
       }
     }
   },
