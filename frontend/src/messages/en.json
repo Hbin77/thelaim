@@ -242,36 +242,30 @@
     },
     "asa-cotton-dress": {
       "name": "Asa Cotton Dress",
-      "desc": "Short-sleeve dress in 100% cotton (asa weave). Color and pattern lineup — please inquire.",
+      "desc": "Short-sleeve dress in 100% cotton (asa weave). Sizes, colors and patterns — please inquire.",
       "specs": {
         "Material": "100% Cotton",
-        "Total Length": "105 cm",
-        "Chest (flat)": "60 cm",
-        "Hem": "76 cm",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
     },
     "pleats-rayon-dress": {
       "name": "Pleated Dress",
-      "desc": "100% polyester pleated dress. Color and pattern lineup — please inquire.",
+      "desc": "100% polyester pleated dress. Sizes, colors and patterns — please inquire.",
       "specs": {
         "Material": "100% Polyester",
-        "Total Length": "105 cm",
-        "Chest (flat)": "55 cm",
-        "Hem": "70 cm",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
     },
     "rayon-button-frill-dress": {
       "name": "Rayon Button Frill Dress",
-      "desc": "100% polyester (rayon-style) dress with button and frill detail. Color and pattern lineup — please inquire.",
+      "desc": "100% polyester (rayon-style) dress with button and frill detail. Sizes, colors and patterns — please inquire.",
       "specs": {
         "Material": "100% Polyester",
-        "Total Length": "105 cm",
-        "Chest (flat)": "60 cm",
-        "Hem": "75 cm",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -280,11 +274,10 @@
       "name": "Rayon Lace Wide Pants — Floral",
       "desc": "Rayon-style lace wide pants in floral pattern. Available in two lengths (cropped / capri).",
       "specs": {
-        "Total Length": "Cropped 83 / Capri 70 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "32 cm",
         "Pattern": "Floral",
+        "Length": "Cropped / Capri",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -293,11 +286,10 @@
       "name": "Rayon Lace Wide Pants — Character",
       "desc": "Rayon-style lace wide pants in character pattern. Available in two lengths (cropped / capri).",
       "specs": {
-        "Total Length": "Cropped 83 / Capri 70 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "32 cm",
         "Pattern": "Character",
+        "Length": "Cropped / Capri",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -306,11 +298,10 @@
       "name": "Rayon Lace Wide Pants — Ink Wash",
       "desc": "Rayon-style lace wide pants in ink-wash (toile) pattern. Available in two lengths (cropped / capri).",
       "specs": {
-        "Total Length": "Cropped 83 / Capri 70 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "32 cm",
         "Pattern": "Ink Wash",
+        "Length": "Cropped / Capri",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -319,11 +310,10 @@
       "name": "Rayon Lace Shorts — Floral",
       "desc": "Rayon-style lace shorts in floral pattern.",
       "specs": {
-        "Total Length": "50 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "33 cm",
         "Pattern": "Floral",
+        "Length": "Shorts",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -332,11 +322,10 @@
       "name": "Rayon Lace Shorts — Character",
       "desc": "Rayon-style lace shorts in character pattern.",
       "specs": {
-        "Total Length": "50 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "33 cm",
         "Pattern": "Character",
+        "Length": "Shorts",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
@@ -345,37 +334,32 @@
       "name": "Rayon Lace Shorts — Ink Wash",
       "desc": "Rayon-style lace shorts in ink-wash (toile) pattern.",
       "specs": {
-        "Total Length": "50 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "33 cm",
         "Pattern": "Ink Wash",
+        "Length": "Shorts",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
     },
     "stripe-wide-pants": {
       "name": "Stripe Wide Pants",
-      "desc": "Wide pants in stripe pattern. Material and color lineup — please inquire.",
+      "desc": "Wide pants in stripe pattern. Sizes, material and colors — please inquire.",
       "specs": {
-        "Total Length": "95 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "28 cm",
         "Pattern": "Stripe",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
     },
     "check-gingham-pants": {
       "name": "Check Wide Pants",
-      "desc": "Wide pants in check pattern. Material and color lineup — please inquire.",
+      "desc": "Wide pants in check pattern. Sizes, material and colors — please inquire.",
       "specs": {
-        "Total Length": "95 cm",
-        "Thigh (flat)": "33 cm",
-        "Hem": "28 cm",
         "Pattern": "Check",
         "Material": "Inquire",
+        "Size": "Inquire",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
