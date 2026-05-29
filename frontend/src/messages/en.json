@@ -368,14 +368,14 @@
       }
     },
     "check-gingham-pants": {
-      "name": "Check Wide Pants",
-      "desc": "Wide pants in check pattern. Material and colors — please inquire.",
+      "name": "Cotton Check Wide Pants",
+      "desc": "Check wide pants in a cotton 50% / polyester 50% blend. Color lineup — please inquire.",
       "specs": {
         "Pattern": "Check",
         "Total Length": "95 cm",
         "Thigh (flat)": "33 cm",
         "Hem": "28 cm",
-        "Material": "Inquire",
+        "Material": "Cotton 50% / Polyester 50%",
         "Colors": "Inquire",
         "Season": "Inquire"
       }
