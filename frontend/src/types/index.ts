@@ -3,8 +3,8 @@ export interface Product {
   slug: string;
   name: string;
   description: string;
-  category_slug: string;
-  category_name: string;
+  category_slug: string | null;
+  category_name: string | null;
   image_url: string;
   image_urls: string[];
   specifications: Record<string, string>;

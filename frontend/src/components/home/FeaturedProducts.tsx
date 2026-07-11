@@ -9,22 +9,13 @@ import Button from '@/components/ui/Button';
 import HorizontalScroll from '@/components/animations/HorizontalScroll';
 import FadeIn from '@/components/animations/FadeIn';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import type { Product } from '@/types';
 
-const FEATURED_PRODUCT_DATA = [
-  { id: 1, slug: 'floral-ruffle-pants', categoryKey: 'filter_pants', image_url: '/images/products/summer-floral-pants.jpg' },
-  { id: 2, slug: 'floral-pajama-set', categoryKey: 'filter_set', image_url: '/images/products/floral-pajama-set.jpg' },
-  { id: 3, slug: 'pleats-wide-pants', categoryKey: 'filter_pants', image_url: '/images/products/summer-pleats-pants.jpg' },
-  { id: 4, slug: 'check-wide-pants', categoryKey: 'filter_pants', image_url: '/images/products/check-pants-collection.jpg' },
-  { id: 5, slug: 'floral-blouse', categoryKey: 'filter_top', image_url: '/images/products/floral-blouse-collection.jpg' },
-  { id: 6, slug: 'toile-pattern-dress', categoryKey: 'filter_set', image_url: '/images/products/toile-pattern-dress.jpg' },
-];
-
-function ProductCard({ product }: { product: typeof FEATURED_PRODUCT_DATA[0] }) {
+function ProductCard({ product }: { product: Product }) {
   const t = useTranslations('products');
   const messages = useMessages();
   const productItems = (messages as Record<string, unknown>).productItems as Record<string, { name: string; desc: string; specs: Record<string, string> }>;
-  const name = productItems[product.slug]?.name ?? product.slug;
-  const category = t(product.categoryKey);
+  const name = productItems[product.slug]?.name ?? product.name;
 
   return (
     <div className="group w-72 flex-shrink-0 overflow-hidden rounded-2xl bg-white shadow-md transition-shadow hover:shadow-xl lg:w-auto lg:flex-shrink">
@@ -35,7 +26,7 @@ function ProductCard({ product }: { product: typeof FEATURED_PRODUCT_DATA[0] }) 
         <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent transition-opacity group-hover:opacity-0" />
       </div>
       <div className="p-5">
-        <Badge variant="primary" className="mb-2">{category}</Badge>
+        <Badge variant="primary" className="mb-2">{product.category_name}</Badge>
         <h3 className="text-h3 text-navy">{name}</h3>
         <Link href={`/products`}>
           <Button variant="ghost" size="sm" className="mt-3 text-ocean">
@@ -47,10 +38,14 @@ function ProductCard({ product }: { product: typeof FEATURED_PRODUCT_DATA[0] }) 
   );
 }
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({ products }: { products: Product[] }) {
   const t = useTranslations('products');
   const tCommon = useTranslations('common');
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  if (products.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-24 bg-navy/[0.02]">
@@ -61,7 +56,7 @@ export default function FeaturedProducts() {
       {isDesktop ? (
         <HorizontalScroll className="mt-12">
           <div className="flex gap-8 px-8">
-            {FEATURED_PRODUCT_DATA.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -69,7 +64,7 @@ export default function FeaturedProducts() {
       ) : (
         <Container>
           <div className="mt-12 grid grid-cols-2 gap-4">
-            {FEATURED_PRODUCT_DATA.slice(0, 4).map((product, i) => (
+            {products.slice(0, 4).map((product, i) => (
               <FadeIn key={product.id} delay={i * 0.1}>
                 <ProductCard product={product} />
               </FadeIn>

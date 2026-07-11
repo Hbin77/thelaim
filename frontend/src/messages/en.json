@@ -56,9 +56,6 @@
     "subtitle": "Fresh picks for your store this season",
     "search_placeholder": "Search products...",
     "filter_all": "All",
-    "filter_pants": "Pants",
-    "filter_top": "Blouses & Tops",
-    "filter_set": "Dresses & Sets",
     "no_results": "No products found.",
     "view_detail": "View Details",
     "inquiry": "Product Inquiry",
@@ -188,16 +185,6 @@
         "Hem": "Shirred",
         "Pattern": "Floral/Stripe/Dot",
         "Season": "Summer"
-      }
-    },
-    "check-wide-pants": {
-      "name": "Check Wide Pants",
-      "desc": "Gingham check pattern wide pants. Elastic waistband, 10+ colors available. Direct sourced from China.",
-      "specs": {
-        "Pattern": "Gingham Check",
-        "Waist": "Elastic Band",
-        "Colors": "10+",
-        "Season": "Spring/Summer"
       }
     },
     "floral-blouse": {

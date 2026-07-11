@@ -5,9 +5,9 @@ import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 interface CategoryTabsProps {
-  categories: string[];
+  categories: { slug: string; name: string }[];
   activeCategory: string;
-  onCategoryChange: (category: string) => void;
+  onCategoryChange: (categorySlug: string) => void;
 }
 
 export default function CategoryTabs({
@@ -19,7 +19,7 @@ export default function CategoryTabs({
 
   const tabs = [
     { key: 'all', label: t('filter_all') },
-    ...categories.map((cat) => ({ key: cat, label: cat })),
+    ...categories.map((cat) => ({ key: cat.slug, label: cat.name })),
   ];
 
   return (
@@ -30,7 +30,7 @@ export default function CategoryTabs({
             key={tab.key}
             onClick={() => onCategoryChange(tab.key)}
             className={cn(
-              'relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors',
+              'relative min-h-11 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-colors',
               activeCategory === tab.key
                 ? 'text-white'
                 : 'text-navy/60 hover:text-navy'
