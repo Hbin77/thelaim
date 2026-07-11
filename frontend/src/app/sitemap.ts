@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-const BASE_URL = 'https://thelaim.co.kr';
-const locales = ['ko', 'en', 'zh'];
+const BASE_URL = 'https://thelaim.com';
+const locales = ['ko', 'en', 'zh', 'ja'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = ['', '/about', '/products', '/location', '/contact'];

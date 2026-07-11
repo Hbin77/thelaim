@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://thelaim.co.kr/sitemap.xml',
+    sitemap: 'https://thelaim.com/sitemap.xml',
   };
 }
