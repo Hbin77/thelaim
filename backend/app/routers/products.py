@@ -18,7 +18,7 @@ def list_products(
     search: str | None = None,
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=12, ge=1, le=100),
-    lang: str = Query(default="ko", pattern="^(ko|en|zh)$"),
+    lang: str = Query(default="ko", pattern="^(ko|en|zh|ja)$"),
     session: Session = Depends(get_session),
 ):
     return get_products(session, category=category, search=search, page=page, limit=limit, lang=lang)
@@ -26,7 +26,7 @@ def list_products(
 
 @router.get("/featured", response_model=list[ProductResponse])
 def list_featured_products(
-    lang: str = Query(default="ko", pattern="^(ko|en|zh)$"),
+    lang: str = Query(default="ko", pattern="^(ko|en|zh|ja)$"),
     session: Session = Depends(get_session),
 ):
     return get_featured_products(session, lang=lang)
@@ -35,7 +35,7 @@ def list_featured_products(
 @router.get("/{slug}", response_model=ProductResponse)
 def get_product(
     slug: str,
-    lang: str = Query(default="ko", pattern="^(ko|en|zh)$"),
+    lang: str = Query(default="ko", pattern="^(ko|en|zh|ja)$"),
     session: Session = Depends(get_session),
 ):
     product = get_product_by_slug(session, slug, lang=lang)

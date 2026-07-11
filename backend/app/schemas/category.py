@@ -13,8 +13,8 @@ class CategoryResponse(BaseModel):
 
 
 def build_category_response(category: Category, lang: str = "ko") -> CategoryResponse:
-    name = getattr(category, f"name_{lang}", category.name_ko)
-    description = getattr(category, f"description_{lang}", category.description_ko)
+    name = getattr(category, f"name_{lang}", "") or category.name_ko
+    description = getattr(category, f"description_{lang}", "") or category.description_ko
     return CategoryResponse(
         id=category.id,
         slug=category.slug,

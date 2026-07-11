@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlmodel import Field, SQLModel
 
@@ -15,4 +15,4 @@ class ContactInquiry(SQLModel, table=True):
     preferred_contact: str = "email"
     status: str = "new"
     ip_address: str = ""
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

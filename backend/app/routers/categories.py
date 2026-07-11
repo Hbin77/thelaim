@@ -10,7 +10,7 @@ router = APIRouter(prefix="/categories", tags=["categories"])
 
 @router.get("", response_model=list[CategoryResponse])
 def list_categories(
-    lang: str = Query(default="ko", pattern="^(ko|en|zh)$"),
+    lang: str = Query(default="ko", pattern="^(ko|en|zh|ja)$"),
     session: Session = Depends(get_session),
 ):
     statement = select(Category).order_by(Category.sort_order)

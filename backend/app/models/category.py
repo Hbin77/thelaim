@@ -12,9 +12,11 @@ class Category(SQLModel, table=True):
     name_ko: str
     name_en: str
     name_zh: str
+    name_ja: str = ""
     description_ko: str = ""
     description_en: str = ""
     description_zh: str = ""
+    description_ja: str = ""
     icon: str = ""
     sort_order: int = 0
     products: list["Product"] = Relationship(back_populates="category")

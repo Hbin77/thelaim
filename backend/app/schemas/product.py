@@ -26,14 +26,14 @@ class ProductListResponse(BaseModel):
 
 
 def build_product_response(product: Product, lang: str = "ko") -> ProductResponse:
-    name = getattr(product, f"name_{lang}", product.name_ko)
-    description = getattr(product, f"description_{lang}", product.description_ko)
+    name = getattr(product, f"name_{lang}", "") or product.name_ko
+    description = getattr(product, f"description_{lang}", "") or product.description_ko
 
     category_slug = None
     category_name = None
     if product.category:
         category_slug = product.category.slug
-        category_name = getattr(product.category, f"name_{lang}", product.category.name_ko)
+        category_name = getattr(product.category, f"name_{lang}", "") or product.category.name_ko
 
     try:
         image_urls = json.loads(product.image_urls)

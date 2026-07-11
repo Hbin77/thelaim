@@ -11,9 +11,11 @@ class Product(SQLModel, table=True):
     name_ko: str
     name_en: str
     name_zh: str
+    name_ja: str = ""
     description_ko: str = ""
     description_en: str = ""
     description_zh: str = ""
+    description_ja: str = ""
     category_id: int | None = Field(default=None, foreign_key="category.id")
     category: Category | None = Relationship(back_populates="products")
     image_url: str = ""
