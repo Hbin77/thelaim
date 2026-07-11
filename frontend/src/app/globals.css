@@ -9,11 +9,26 @@
   --color-teal-deep: #004346;
   --color-emerald: #09BC8A;
 
-  --font-family-pretendard: 'Pretendard Variable', sans-serif;
-  --font-family-cormorant: var(--font-cormorant), 'Georgia', serif;
-  --font-family-recoleta: 'Recoleta', 'Georgia', serif;
-  --font-family-serif-kr: var(--font-noto-serif-kr), 'Batang', serif;
-  --font-family-noto: var(--font-noto-sc), sans-serif;
+  /* next/font가 --font-cormorant 등을 html에 주입하므로 이름이 겹치지 않게 정의 */
+  --font-serif-kr: var(--font-noto-serif-kr), 'Batang', serif;
+  --font-recoleta: 'Recoleta', 'Georgia', serif;
+
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.1;
+  --text-display--font-weight: 600;
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.2;
+  --text-h1--font-weight: 600;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.3;
+  --text-h2--font-weight: 500;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.4;
+  --text-h3--font-weight: 500;
+}
+
+@utility font-cormorant {
+  font-family: var(--font-cormorant), 'Georgia', serif;
 }
 
 html {
@@ -21,7 +36,7 @@ html {
 }
 
 body {
-  font-family: var(--font-family-serif-kr);
+  font-family: var(--font-serif-kr);
   color: var(--color-navy);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

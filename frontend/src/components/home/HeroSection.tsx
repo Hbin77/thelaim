@@ -41,7 +41,7 @@ export default function HeroSection() {
       ease: 'power3.out',
     });
 
-    // Gradient color shift
+    // Gradient color shift — GSAP는 var()를 색으로 보간하지 못하므로 이 tween만 hex 리터럴 유지
     gsap.to(section, {
       backgroundImage: 'linear-gradient(135deg, #172A3A 0%, #004346 50%, #09BC8A 100%)',
       duration: 8,
@@ -58,9 +58,9 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-dvh items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: 'linear-gradient(135deg, #004346 0%, #172A3A 100%)',
+        backgroundImage: 'linear-gradient(135deg, var(--color-teal-deep) 0%, var(--color-navy) 100%)',
       }}
     >
       {/* Decorative elements */}
@@ -84,7 +84,7 @@ export default function HeroSection() {
         <h1
           ref={brandRef}
           className="text-[5rem] font-medium leading-none tracking-[0.08em] text-white sm:text-[7rem] md:text-[9rem]"
-          style={{ fontFamily: 'var(--font-family-recoleta)' }}
+          style={{ fontFamily: 'var(--font-recoleta)' }}
         >
           THELAIM
         </h1>

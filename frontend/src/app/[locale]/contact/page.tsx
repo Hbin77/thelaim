@@ -12,7 +12,7 @@ function PageHero() {
     <section
       className="flex min-h-[50vh] items-center justify-center"
       style={{
-        backgroundImage: 'linear-gradient(135deg, #004346 0%, #172A3A 100%)',
+        backgroundImage: 'linear-gradient(135deg, var(--color-teal-deep) 0%, var(--color-navy) 100%)',
       }}
     >
       <div className="px-4 text-center">
