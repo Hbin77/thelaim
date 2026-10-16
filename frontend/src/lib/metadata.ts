@@ -12,7 +12,7 @@ export function generatePageMetadata({
   title,
   description,
   path = '',
-  image = '/og-image.jpg',
+  image = '/images/og.jpg',
 }: MetadataParams): Metadata {
   const fullTitle = `${title} | ${COMPANY.name}`;
   const url = `${SITE_URL}${path}`;
