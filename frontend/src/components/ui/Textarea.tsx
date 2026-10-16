@@ -1,36 +1,38 @@
 import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
+import { fieldClass } from './Input';
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
+  required?: boolean;
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ label, error, className, id, ...props }, ref) => {
-    return (
-      <div className="w-full">
-        {label && (
-          <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-navy">
-            {label}
-          </label>
-        )}
-        <textarea
-          ref={ref}
-          id={id}
-          className={cn(
-            'w-full rounded-xl border border-navy/20 bg-white px-4 py-3 text-navy transition-colors placeholder:text-navy/40 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20',
-            error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
-            className
-          )}
-          rows={4}
-          {...props}
-        />
-        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
-      </div>
-    );
-  }
-);
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ label, error, className, id, required, ...props }, ref) => (
+  <div className="w-full">
+    {label && (
+      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-ink">
+        {label}
+        {required && <span className="ml-1 text-olive" aria-hidden="true">*</span>}
+      </label>
+    )}
+    <textarea
+      ref={ref}
+      id={id}
+      rows={4}
+      aria-required={required || undefined}
+      aria-invalid={error ? true : undefined}
+      aria-describedby={error && id ? `${id}-error` : undefined}
+      className={cn(fieldClass, 'py-3.5 leading-relaxed', error && 'border-error focus:border-error focus:ring-error/15', className)}
+      {...props}
+    />
+    {error && (
+      <p id={id ? `${id}-error` : undefined} className="mt-1.5 text-sm font-medium text-error">
+        {error}
+      </p>
+    )}
+  </div>
+));
 
 Textarea.displayName = 'Textarea';
 export default Textarea;

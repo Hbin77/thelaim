@@ -1,31 +1,36 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Container from '@/components/ui/Container';
-import FadeIn from '@/components/animations/FadeIn';
+import {motion} from 'framer-motion';
+import { useReduceMotion } from '@/hooks/useReduceMotion';
 
 export default function CEOMessage() {
   const t = useTranslations('about');
+  const reduce = useReduceMotion();
 
   return (
-    <section className="py-24 bg-navy/[0.02]">
-      <Container>
-        <FadeIn>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="text-[60px] md:text-[120px] leading-none text-ocean/20 font-cormorant select-none">
-              &ldquo;
-            </span>
-            <blockquote className="-mt-8 md:-mt-16 text-xl leading-relaxed text-navy/80 lg:text-2xl">
-              {t('ceo_message')}
-            </blockquote>
-            <div className="mt-8">
-              <div className="mx-auto h-1 w-12 rounded-full bg-ocean" />
-              <p className="mt-4 text-lg font-medium text-navy">{t('ceo_name')}</p>
-              <p className="text-ocean">THELAIM</p>
-            </div>
-          </div>
-        </FadeIn>
-      </Container>
+    <section className="on-dark section-y bg-ink text-paper" aria-label={t('ceo_name')}>
+      <div className="wrap">
+        <motion.figure
+          initial={reduce ? false : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.9, ease: [0.2, 0.7, 0.1, 1] }}
+          className="mx-auto max-w-4xl"
+        >
+          <span aria-hidden="true" className="serif-i block text-[7rem] leading-[0.6] text-lime md:text-[10rem]">
+            &ldquo;
+          </span>
+          <blockquote className="mt-4 text-[clamp(1.45rem,2.8vw,2.35rem)] font-bold leading-[1.5] tracking-[-0.035em]">
+            {t('ceo_message')}
+          </blockquote>
+          <figcaption className="mt-10 flex items-center gap-4">
+            <span aria-hidden="true" className="h-px w-12 bg-lime" />
+            <span className="text-lg font-semibold">{t('ceo_name')}</span>
+            <span className="serif-i text-lg text-mist">Thelaim</span>
+          </figcaption>
+        </motion.figure>
+      </div>
     </section>
   );
 }

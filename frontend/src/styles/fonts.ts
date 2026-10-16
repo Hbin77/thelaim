@@ -1,29 +1,19 @@
-import { Cormorant_Garamond, Bodoni_Moda, Noto_Serif_KR, Noto_Sans_SC } from 'next/font/google';
+import { Instrument_Serif, Noto_Sans_SC } from 'next/font/google';
 
-export const cormorant = Cormorant_Garamond({
+// 영문 장식(섹션 부제·큰 숫자·원단 이름)
+export const instrument = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-cormorant',
+  variable: '--font-instrument',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: '400',
+  style: ['normal', 'italic'],
 });
 
-export const bodoniModa = Bodoni_Moda({
-  subsets: ['latin'],
-  variable: '--font-bodoni',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-export const notoSerifKR = Noto_Serif_KR({
-  subsets: ['latin'],
-  variable: '--font-noto-serif-kr',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
+// 중국어 대체 글꼴(한글·영문은 Pretendard)
 export const notoSansSC = Noto_Sans_SC({
   subsets: ['latin'],
   variable: '--font-noto-sc',
   display: 'swap',
   weight: ['400', '500', '700'],
+  preload: false,
 });

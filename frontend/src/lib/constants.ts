@@ -15,13 +15,6 @@ export const COMPANY = {
   onlineSalesNumber: '2011-대구수성구-0440',
 } as const;
 
-export const BUSINESS_HOURS = {
-  weekday: '09:00 - 18:00',
-  lunch: '12:00 - 13:00',
-  saturday: '09:00 - 13:00',
-  weekend: '일요일/공휴일 휴무',
-} as const;
-
 export const COORDINATES = {
   lat: 35.9091,
   lng: 128.6075,

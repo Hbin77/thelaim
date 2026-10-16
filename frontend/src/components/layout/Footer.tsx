@@ -1,78 +1,71 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
-
-const NAV_ITEMS = [
-  { href: '/' as const, key: 'home' },
-  { href: '/about' as const, key: 'about' },
-  { href: '/products' as const, key: 'products' },
-  { href: '/location' as const, key: 'location' },
-  { href: '/contact' as const, key: 'contact' },
-] as const;
+import { Link } from '@/i18n/navigation';
+import { COMPANY, SOCIAL_LINKS } from '@/lib/constants';
+import { NAV_ITEMS } from './nav-items';
 
 export default function Footer() {
   const t = useTranslations('footer');
   const nav = useTranslations('nav');
+  const ui = useTranslations('ui');
   const year = new Date().getFullYear();
 
+  const linkCls = 'inline-flex min-h-11 items-center transition-colors hover:text-lime';
+
   return (
-    <footer className="bg-navy text-white/80">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Company Info */}
+    <footer className="on-dark bg-ink text-mist">
+      <div className="wrap pt-20 md:pt-28">
+        <div className="grid gap-12 border-b border-line-dark pb-14 lg:grid-cols-[1.3fr_1fr_1.2fr_1fr]">
           <div>
-            <Link href="/" className="relative mb-2 block h-12 w-28 md:h-14 md:w-36">
-              <Image
-                src="/images/logo.png"
-                alt="Thelaim"
-                fill
-                className="object-contain object-left brightness-0 invert"
-              />
+            <Link href="/" className="relative block h-10 w-[150px]" aria-label="THELAIM">
+              <Image src="/images/logo.png" alt="THELAIM" fill sizes="150px" className="object-contain object-left brightness-0 invert" />
             </Link>
-            <p className="text-sm leading-relaxed text-white/60">
-              {t('description')}
-            </p>
+            <p className="mt-5 text-xl font-semibold tracking-[-0.02em] text-paper">{t("description")}</p>
+            <div className="mt-6 flex gap-2 text-sm">
+              <a href={SOCIAL_LINKS.blog} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-full border border-line-dark px-4 text-paper transition-colors hover:border-lime hover:text-lime">
+                {ui('blog')} ↗
+              </a>
+              <a href={SOCIAL_LINKS.cafe} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center rounded-full border border-line-dark px-4 text-paper transition-colors hover:border-lime hover:text-lime">
+                {ui('cafe')} ↗
+              </a>
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="mb-4 font-semibold text-white">
-              {t('quick_links')}
-            </h4>
-            <ul className="space-y-2">
+          <nav aria-label={t('quick_links')}>
+            <h2 className="eyebrow text-paper">{t('quick_links')}</h2>
+            <ul className="mt-4 text-[15px]">
               {NAV_ITEMS.map(({ href, key }) => (
                 <li key={key}>
-                  <Link
-                    href={href}
-                    className="text-sm transition-colors hover:text-emerald"
-                  >
+                  <Link href={href} className={linkCls}>
                     {nav(key)}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact Info */}
           <div>
-            <h4 className="mb-4 font-semibold text-white">
-              {t('contact_info')}
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>{t('address')}</li>
-              <li>{t('phone')}</li>
-              <li>{t('email')}</li>
+            <h2 className="eyebrow text-paper">{t('contact_info')}</h2>
+            <ul className="mt-4 text-[15px]">
+              <li className="flex min-h-11 items-center">{t('address')}</li>
+              <li>
+                <a href={`tel:${COMPANY.phone}`} className={linkCls}>
+                  {t('phone')}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${COMPANY.email}`} className={linkCls}>
+                  {t('email')}
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Business Hours */}
           <div>
-            <h4 className="mb-4 font-semibold text-white">
-              {t('business_hours')}
-            </h4>
-            <ul className="space-y-2 text-sm">
+            <h2 className="eyebrow text-paper">{t('business_hours')}</h2>
+            <ul className="mt-4 space-y-2.5 pt-2.5 text-[15px]">
               <li>{t('weekday_hours')}</li>
               <li>{t('saturday_hours')}</li>
               <li>{t('weekend_hours')}</li>
@@ -81,21 +74,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/10 pt-8 sm:flex-row sm:justify-between">
-          <p className="text-sm text-white/50">
-            {t('copyright', { year: String(year) })}
-          </p>
-          <div className="flex gap-6 text-sm text-white/50">
-            <Link href="/privacy" className="transition-colors hover:text-white/80">
+        <dl className="flex flex-wrap gap-x-6 gap-y-1.5 py-8 text-[13px] text-mist/90">
+          <p className="text-paper/80">{t('company_name')}</p>
+          <div className="flex gap-2"><dt>{ui('ceo')}</dt><dd className="text-paper/80">{COMPANY.ceo}</dd></div>
+          <div className="flex gap-2"><dt>{ui('biz_no')}</dt><dd className="text-paper/80">{COMPANY.businessNumber}</dd></div>
+          <div className="flex gap-2"><dt>{ui('ecommerce_no')}</dt><dd className="text-paper/80">{COMPANY.onlineSalesNumber}</dd></div>
+        </dl>
+
+        <div className="flex flex-col gap-4 border-t border-line-dark py-8 text-[13px] sm:flex-row sm:items-center sm:justify-between">
+          <p>{t('copyright', { year: String(year) })}</p>
+          <div className="flex gap-5">
+            <Link href="/privacy" className={linkCls}>
               {t('privacy_policy')}
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-white/80">
+            <Link href="/terms" className={linkCls}>
               {t('terms')}
             </Link>
           </div>
         </div>
       </div>
+
     </footer>
   );
 }

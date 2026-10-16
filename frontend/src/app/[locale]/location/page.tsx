@@ -1,40 +1,23 @@
 import { useTranslations } from 'next-intl';
-import Container from '@/components/ui/Container';
+import PageHero from '@/components/ui/PageHero';
 import MapSection from '@/components/location/MapSection';
 import DirectionsInfo from '@/components/location/DirectionsInfo';
 import AddressCard from '@/components/location/AddressCard';
 
-function PageHero() {
+export default function LocationPage() {
   const t = useTranslations('location');
 
   return (
-    <section
-      className="flex min-h-[50vh] items-center justify-center"
-      style={{
-        backgroundImage: 'linear-gradient(135deg, var(--color-teal-deep) 0%, var(--color-navy) 100%)',
-      }}
-    >
-      <div className="px-4 text-center">
-        <h1 className="font-serif-kr text-5xl font-normal tracking-[0.06em] text-white md:text-7xl">
-          {t('title')}
-        </h1>
-        <p className="mt-5 text-lg font-light text-white/70 md:text-xl">{t('subtitle')}</p>
-        <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-emerald" />
-      </div>
-    </section>
-  );
-}
-
-export default function LocationPage() {
-  return (
     <>
-      <PageHero />
-      <div className="py-12">
-        <Container>
+      <PageHero eyebrow="Visit the Showroom" title={t('title')} subtitle={t('subtitle')} />
+      <div className="wrap py-14 md:py-20">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
           <MapSection />
-          <DirectionsInfo />
           <AddressCard />
-        </Container>
+        </div>
+        <div className="mt-16 md:mt-24">
+          <DirectionsInfo />
+        </div>
       </div>
     </>
   );

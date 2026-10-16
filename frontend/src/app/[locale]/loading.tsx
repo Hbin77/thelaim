@@ -1,9 +1,13 @@
-export default function Loading() {
+import { getTranslations } from 'next-intl/server';
+
+export default async function Loading() {
+  const t = await getTranslations('common');
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-teal-light border-t-teal-deep" />
-        <p className="text-ocean">Loading...</p>
+    <div className="flex min-h-[70svh] items-center justify-center" role="status" aria-label={t('loading')}>
+      <div className="flex gap-1.5">
+        {[0, 1, 2].map((i) => (
+          <span key={i} className="h-10 w-2.5 animate-pulse rounded-full bg-ink/20" style={{ animationDelay: `${i * 0.15}s` }} />
+        ))}
       </div>
     </div>
   );

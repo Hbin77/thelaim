@@ -1,18 +1,25 @@
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { buttonClass, Arrow } from '@/components/ui/Button';
+import { SWATCHES } from '@/lib/swatches';
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations('ui');
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
-      <h1 className="text-display text-navy">404</h1>
-      <p className="text-xl text-ocean">
-        The page you are looking for does not exist.
-      </p>
-      <Link
-        href="/"
-        className="rounded-full bg-teal-deep px-8 py-3 text-white transition-colors hover:bg-emerald"
-      >
-        Go Home
+    <section className="wrap flex min-h-[86svh] flex-col items-start justify-center pt-28 pb-20">
+      <div aria-hidden="true" className="mb-10 flex gap-1.5">
+        {SWATCHES.map((s, i) => (
+          <span key={s.key} className="h-20 w-8 rounded-[3px] bg-cover bg-center" style={{ backgroundImage: `url(${s.thumb})`, transform: `rotate(${(i - 2) * 4}deg)` }} />
+        ))}
+      </div>
+      <p className="serif-i text-[clamp(4rem,12vw,9rem)] leading-none text-olive">404</p>
+      <h1 className="mt-4 text-h2 font-extrabold text-ink">{t('not_found_title')}</h1>
+      <p className="mt-4 text-lg text-ink-2">{t('not_found_desc')}</p>
+      <Link href="/" className={buttonClass('primary', 'lg', 'mt-10')}>
+        {t('go_home')}
+        <Arrow />
       </Link>
-    </div>
+    </section>
   );
 }

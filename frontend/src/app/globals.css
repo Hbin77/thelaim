@@ -1,65 +1,217 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
-@import url('https://fonts.cdnfonts.com/css/recoleta');
 @import "tailwindcss";
 
+/* THELAIM "Pattern Library" — 값의 근거는 design-system/MASTER.md */
 @theme {
-  --color-teal-light: #75DDDD;
-  --color-ocean: #508991;
-  --color-navy: #172A3A;
-  --color-teal-deep: #004346;
-  --color-emerald: #09BC8A;
+  --color-paper: #F3EFE6;
+  --color-paper-2: #E9E3D6;
+  --color-white: #FFFFFF;
+  --color-ink: #141C24;
+  --color-ink-2: #4A525B;
+  --color-ink-3: #5B6268;
+  --color-lime: #D4E34A;
+  --color-olive: #4F5D0A;
+  --color-mist: #A9AFB5;
+  --color-error: #B42318;
+  --color-line: rgb(20 28 36 / 0.12);
+  --color-concrete: #C9CCCF;
+  /* 첫 화면 금색 집게 옷걸이 */
+  --color-brass-light: #E7CF8A;
+  --color-brass: #C49A3C;
+  --color-brass-dark: #8C6A22;
+  --color-hanger: #F7F4EE;
+  --color-line-dark: rgb(243 239 230 / 0.14);
 
-  /* next/font가 --font-cormorant 등을 html에 주입하므로 이름이 겹치지 않게 정의 */
-  --font-serif-kr: var(--font-noto-serif-kr), 'Batang', serif;
-  --font-recoleta: 'Recoleta', 'Georgia', serif;
+  /* 예전 이름(아직 남은 컴포넌트용) → 새 팔레트 */
+  --color-navy: #141C24;
+  --color-teal-deep: #141C24;
+  --color-ocean: #4F5D0A;
+  --color-emerald: #4F5D0A;
+  --color-teal-light: #D4E34A;
 
-  --text-display: 4.5rem;
-  --text-display--line-height: 1.1;
-  --text-display--font-weight: 600;
-  --text-h1: 3rem;
-  --text-h1--line-height: 1.2;
-  --text-h1--font-weight: 600;
-  --text-h2: 2.25rem;
-  --text-h2--line-height: 1.3;
-  --text-h2--font-weight: 500;
-  --text-h3: 1.5rem;
+  --font-sans: 'Pretendard Variable', Pretendard, var(--font-noto-sc), -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+  --font-display: var(--font-instrument), 'Times New Roman', serif;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  --text-display: clamp(3rem, 8vw, 7.5rem);
+  --text-display--line-height: 1;
+  --text-h1: clamp(2.25rem, 5vw, 4.25rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.9rem, 3.6vw, 3.1rem);
+  --text-h2--line-height: 1.18;
+  --text-h3: 1.375rem;
   --text-h3--line-height: 1.4;
-  --text-h3--font-weight: 500;
 }
 
-@utility font-cormorant {
-  font-family: var(--font-cormorant), 'Georgia', serif;
+@utility wrap {
+  width: min(100% - 2 * clamp(20px, 4vw, 56px), 1360px);
+  margin-inline: auto;
 }
 
-html {
-  scroll-behavior: smooth;
+@utility section-y {
+  padding-block: clamp(88px, 12vw, 176px);
 }
 
-body {
-  font-family: var(--font-serif-kr);
-  color: var(--color-navy);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'kern' 1, 'liga' 1;
-}
-
-/* Elegant heading styles */
-h1, h2, h3 {
-  text-rendering: optimizeLegibility;
+/* 영문 장식 이탤릭 */
+@utility serif-i {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 
-/* Cormorant for English display */
-.font-cormorant {
-  text-rendering: optimizeLegibility;
-  font-feature-settings: 'kern' 1, 'liga' 1, 'dlig' 1;
+/* 섹션 머리: 번호 · 영문 부제 */
+@utility eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-/* Smooth scroll with Lenis */
+/* 기본 문법은 base 층에 둔다(층 밖에 두면 유틸리티 클래스를 이겨 버린다) */
+@layer base {
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-olive);
+  outline-offset: 3px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--color-lime);
+}
+}
+
+/* 상단 바 아래에 붙는 띠: 상단 바가 보일 땐 그만큼 내려온다 */
+.sticky-sub {
+  top: 4rem;
+  transition: top 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+@media (min-width: 768px) {
+  .sticky-sub {
+    top: 5rem;
+  }
+}
+html[data-head='hidden'] .sticky-sub {
+  top: 0;
+}
+
+/* 가로 스크롤 막대 숨김 */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Lenis 부드러운 스크롤 */
 html.lenis, html.lenis body {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+}
+@keyframes drop {
+  from { opacity: 0; transform: translateY(-32px); }
+}
+@keyframes logoIn {
+  from { opacity: 0; transform: translateY(18px) scale(.96); filter: blur(10px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+}
+@keyframes drip {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+/* 첫 화면: 스크롤 진행도(--hp 0~1)에 따라 로고가 물러나고 화면 가장자리가 어두워진다 */
+.hero-pin { --hp: 0; }
+.hero-floor {
+  background:
+    radial-gradient(60% 34% at 50% 86%, color-mix(in srgb, var(--color-paper) 7%, transparent), transparent 70%),
+    radial-gradient(90% 60% at 50% 40%, color-mix(in srgb, var(--color-olive) 8%, transparent), transparent 70%);
+  opacity: calc(1 - var(--hp));
+}
+.hero-vignette {
+  background:
+    linear-gradient(to bottom, var(--color-ink) 0%, transparent 18%, transparent 78%, var(--color-ink) 100%),
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, color-mix(in srgb, var(--color-ink) 70%, transparent) 100%);
+}
+.hero-logo {
+  opacity: clamp(0, calc(1 - var(--hp) * 2.6), 1);
+  transform: translateY(calc(var(--hp) * -9svh)) scale(calc(1 + var(--hp) * 0.5));
+  filter: blur(calc(var(--hp) * 14px));
+  will-change: transform, opacity;
+}
+.hero-tagline { opacity: clamp(0, calc(1 - var(--hp) * 5), 1); }
+.hero-cue { opacity: clamp(0, calc(1 - var(--hp) * 8), 1); }
+/* 룩북: 화면에 들어오면 사진이 아래에서 걷히듯 드러나고, 안쪽 사진은 살짝 당겨졌다 제자리로 */
+.lb-clip { clip-path: inset(100% 0 0 0); transition: clip-path 1.3s cubic-bezier(.77,0,.18,1); }
+.lb-img { transform: scale(1.18); transition: transform 1.8s cubic-bezier(.16,1,.3,1), filter .6s; }
+.lb-in .lb-clip { clip-path: inset(0 0 0 0); }
+.lb-in .lb-img { transform: scale(1); }
+a:hover .lb-in .lb-img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) {
+  .lb-clip { clip-path: none; }
+  .lb-img { transform: none; }
+}
+/* 문의 영역에서 마우스를 따라 나타났다 사라지는 상품 사진 */
+.trail-area .trail {
+  position: absolute;
+  z-index: 0;
+  width: clamp(140px, 14vw, 220px);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  pointer-events: none;
+  border-radius: 2px;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

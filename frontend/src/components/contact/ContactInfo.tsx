@@ -1,58 +1,46 @@
 'use client';
 
-import { Phone, Mail, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Card from '@/components/ui/Card';
+import { Link } from '@/i18n/navigation';
+import { Arrow } from '@/components/ui/Button';
 import { COMPANY } from '@/lib/constants';
+import BusinessHours from './BusinessHours';
 
+// 바로 연락하기: 전화·이메일·주소·영업시간
 export default function ContactInfo() {
   const t = useTranslations('location');
-
-  const items = [
-    {
-      icon: Phone,
-      label: t('phone_label'),
-      value: COMPANY.phone,
-      href: `tel:${COMPANY.phone}`,
-    },
-    {
-      icon: Mail,
-      label: t('email_label'),
-      value: COMPANY.email,
-      href: `mailto:${COMPANY.email}`,
-    },
-    {
-      icon: MapPin,
-      label: t('address_label'),
-      value: COMPANY.address,
-    },
-  ];
+  const ui = useTranslations('ui');
+  const nav = useTranslations('nav');
 
   return (
-    <Card>
-      <h3 className="mb-6 text-xl md:text-2xl font-semibold text-navy">{t('address_label')}</h3>
-      <div className="space-y-5">
-        {items.map((item, i) => {
-          const Icon = item.icon;
-          return (
-            <div key={i} className="flex items-start gap-4">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-teal-deep/10">
-                <Icon className="h-5 w-5 text-teal-deep" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-navy/50">{item.label}</p>
-                {item.href ? (
-                  <a href={item.href} className="text-navy transition-colors hover:text-ocean">
-                    {item.value}
-                  </a>
-                ) : (
-                  <p className="text-navy">{item.value}</p>
-                )}
-              </div>
-            </div>
-          );
-        })}
+    <aside className="on-dark rounded-[6px] bg-ink p-7 text-paper md:p-10" aria-label={ui('contact_direct')}>
+      <p className="text-xl font-bold tracking-[-0.02em] text-lime">{ui("contact_direct")}</p>
+
+      <div className="mt-8">
+        <p className="eyebrow text-mist">{t('phone_label')}</p>
+        <a href={`tel:${COMPANY.phone}`} className="group/btn mt-2 inline-flex min-h-11 items-center gap-3 text-[clamp(1.75rem,3vw,2.4rem)] font-extrabold tracking-[-0.03em] tabular-nums">
+          {COMPANY.phone}
+          <Arrow className="h-5 w-5 text-lime" />
+        </a>
       </div>
-    </Card>
+
+      <div className="mt-6 border-t border-line-dark pt-6">
+        <p className="eyebrow text-mist">{t('email_label')}</p>
+        <a href={`mailto:${COMPANY.email}`} className="mt-1 inline-flex min-h-11 items-center text-lg font-semibold underline-offset-4 hover:text-lime hover:underline">
+          {COMPANY.email}
+        </a>
+      </div>
+
+      <div className="mt-6 border-t border-line-dark pt-6">
+        <p className="eyebrow text-mist">{t('address_label')}</p>
+        <p className="mt-2 text-[16px] font-semibold">{COMPANY.address}</p>
+        <Link href="/location" className="group/btn mt-1 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-lime">
+          {nav('location')}
+          <Arrow className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+
+      <BusinessHours dark className="mt-6 border-t border-line-dark pt-6" />
+    </aside>
   );
 }

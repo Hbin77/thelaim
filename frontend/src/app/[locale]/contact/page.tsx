@@ -1,49 +1,22 @@
 import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
-import Container from '@/components/ui/Container';
+import PageHero from '@/components/ui/PageHero';
 import InquiryForm from '@/components/contact/InquiryForm';
 import ContactInfo from '@/components/contact/ContactInfo';
-import BusinessHours from '@/components/contact/BusinessHours';
 
-function PageHero() {
+export default function ContactPage() {
   const t = useTranslations('contact');
 
   return (
-    <section
-      className="flex min-h-[50vh] items-center justify-center"
-      style={{
-        backgroundImage: 'linear-gradient(135deg, var(--color-teal-deep) 0%, var(--color-navy) 100%)',
-      }}
-    >
-      <div className="px-4 text-center">
-        <h1 className="font-serif-kr text-5xl font-normal tracking-[0.06em] text-white md:text-7xl">
-          {t('title')}
-        </h1>
-        <p className="mt-5 text-lg font-light text-white/70 md:text-xl">{t('subtitle')}</p>
-        <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-emerald" />
-      </div>
-    </section>
-  );
-}
-
-export default function ContactPage() {
-  return (
     <>
-      <PageHero />
-      <div className="py-12">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-5">
-            <div className="lg:col-span-3">
-              <Suspense>
-                <InquiryForm />
-              </Suspense>
-            </div>
-            <div className="lg:col-span-2">
-              <ContactInfo />
-              <BusinessHours />
-            </div>
-          </div>
-        </Container>
+      <PageHero eyebrow="Get in Touch" title={t('title')} subtitle={t('subtitle')} />
+      <div className="wrap grid gap-8 py-14 md:py-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-10">
+        <Suspense>
+          <InquiryForm />
+        </Suspense>
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <ContactInfo />
+        </div>
       </div>
     </>
   );

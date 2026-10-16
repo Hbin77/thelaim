@@ -1,9 +1,9 @@
 import HeroSection from '@/components/home/HeroSection';
-import CompanyIntroSection from '@/components/home/CompanyIntroSection';
-import FeaturedProducts from '@/components/home/FeaturedProducts';
-import WhyChooseUs from '@/components/home/WhyChooseUs';
+import Lookbook from '@/components/home/Lookbook';
+import ProductStream from '@/components/home/ProductStream';
+import Statement from '@/components/home/Statement';
 import CTASection from '@/components/home/CTASection';
-import { getFeaturedProducts } from '@/lib/api';
+import { getProducts } from '@/lib/api';
 import type { Product } from '@/types';
 
 export const dynamic = 'force-dynamic';
@@ -15,20 +15,20 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
-  let featured: Product[] = [];
-  try {
-    featured = await getFeaturedProducts(locale);
-  } catch (error) {
-    console.error('Failed to load featured products from API:', error);
-  }
+  const products: Product[] = await getProducts({ limit: 100, lang: locale })
+    .then((r) => r.items)
+    .catch((error) => {
+      console.error('Failed to load products from API:', error);
+      return [];
+    });
 
   return (
-    <>
-      <HeroSection />
-      <CompanyIntroSection />
-      <FeaturedProducts products={featured} />
-      <WhyChooseUs />
-      <CTASection />
-    </>
+    <div className="bg-ink">
+      <HeroSection products={products} />
+      <Lookbook />
+      <Statement />
+      <ProductStream products={products} />
+      <CTASection products={products} />
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { cormorant, bodoniModa, notoSerifKR, notoSansSC } from '@/styles/fonts';
+import { instrument, notoSansSC } from '@/styles/fonts';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import SmoothScroll from '@/components/animations/SmoothScroll';
@@ -11,6 +11,7 @@ import type { Metadata, Viewport } from 'next';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#F3EFE6',
 };
 
 export const metadata: Metadata = {
@@ -68,12 +69,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${bodoniModa.variable} ${notoSerifKR.variable} ${notoSansSC.variable}`}>
-      <body className="min-h-screen bg-white antialiased">
+    <html lang={locale} className={`${instrument.variable} ${notoSansSC.variable}`}>
+      <body className="min-h-screen bg-paper text-ink antialiased">
         <NextIntlClientProvider messages={messages}>
           <SmoothScroll>
             <Header />
-            <main>{children}</main>
+            <main id="main">{children}</main>
             <Footer />
           </SmoothScroll>
         </NextIntlClientProvider>

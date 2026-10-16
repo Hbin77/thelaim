@@ -3,42 +3,35 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import { NAV_ITEMS } from './nav-items';
 
-const NAV_ITEMS = [
-  { href: '/' as const, key: 'home' },
-  { href: '/about' as const, key: 'about' },
-  { href: '/products' as const, key: 'products' },
-  { href: '/location' as const, key: 'location' },
-  { href: '/contact' as const, key: 'contact' },
-] as const;
-
-export default function Navigation({ scrolled = false }: { scrolled?: boolean }) {
+export default function Navigation({ dark = false }: { dark?: boolean }) {
   const t = useTranslations('nav');
+  const ui = useTranslations('ui');
   const pathname = usePathname();
 
   return (
-    <nav className="hidden items-center gap-8 lg:flex">
+    <nav aria-label={ui('nav_main')} className="hidden items-center gap-1 lg:flex">
       {NAV_ITEMS.map(({ href, key }) => {
         const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
         return (
           <Link
             key={key}
             href={href}
+            aria-current={isActive ? 'page' : undefined}
             className={cn(
-              'relative text-sm font-medium transition-colors duration-300',
-              scrolled
-                ? isActive
-                  ? 'text-teal-deep'
-                  : 'text-navy/70 hover:text-navy'
-                : isActive
-                  ? 'text-white'
-                  : 'text-white/70 hover:text-white'
+              'group relative flex min-h-11 items-center px-4 text-[15px] font-semibold transition-colors',
+              dark ? (isActive ? 'text-paper' : 'text-paper/60 hover:text-paper') : isActive ? 'text-ink' : 'text-ink-2 hover:text-ink'
             )}
           >
             {t(key)}
-            {isActive && (
-              <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-emerald" />
-            )}
+            <span
+              aria-hidden="true"
+              className={cn(
+                'absolute inset-x-4 bottom-2 h-[3px] origin-left rounded-full bg-lime transition-transform duration-500 ease-out-soft',
+                isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+              )}
+            />
           </Link>
         );
       })}
