@@ -4,11 +4,12 @@ import { useEffect, useRef, type CSSProperties } from 'react';
 import { MAP_DOTS } from './map-dots';
 import { LOGO_BIRD } from './logo-paths';
 
-// 오른쪽 흐름 지도: 중국·한반도 일대를 점으로 찍은 하프톤 지도를 원근으로 눕혀 그린다(캔버스 2D, WebGL 아님).
-// 중국 현지에서 대구종합유통단지까지 공중으로 솟는 호가 그려지고, 대구에서 전국 도시로 낮은 호가 퍼진다.
+// 오른쪽 흐름 지도: 중국·한반도·일본 일대를 점으로 찍은 하프톤 지도를 원근으로 눕혀 그린다(캔버스 2D, WebGL 아님).
+// 중국에서 대구종합유통단지까지 공중으로 솟는 호가 그려지고, 대구에서 전국 도시로 낮은 호가 퍼진다.
+// 대구에서 일본(도쿄)과 미국(지도 오른쪽 밖, 태평양 건너)으로도 호가 이어진다.
 // 새 심볼이 그 호를 따라 7초에 한 번 날아가고, 지도는 아주 천천히 좌우로 돌아 입체감을 준다.
 type LngLat = [number, number];
-const SRC: LngLat = [116.4, 30.6]; // 중국 현지(특정 도시가 아니라 산지 일대를 가리키는 표시)
+const SRC: LngLat = [116.4, 30.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
 const HUB: LngLat = [128.6, 35.87]; // 대구
 const CITIES: LngLat[] = [
   [126.98, 37.57], // 서울
@@ -17,10 +18,15 @@ const CITIES: LngLat[] = [
   [126.85, 35.16], // 광주
   [129.08, 35.18], // 부산
 ];
-const CENTER: LngLat = [124.3, 34.3];
+const JAPAN: LngLat = [139.7, 35.7]; // 도쿄
+const USA: LngLat = [168, 41]; // 미국 방향(지도 밖). 호가 오른쪽 가장자리로 빠져나간다
+const CENTER: LngLat = [128, 35];
+const FK = 1.15; // 초점 거리(화면 폭 배수)
 const KX = Math.cos((34 * Math.PI) / 180);
 const MAIN_H = 4.2; // 중국→대구 호의 높이
 const FAN_H = 0.7;
+const JP_H = 2.2;
+const US_H = 6;
 const INTRO = 2.4; // 점 지도가 깔리고 큰 호가 그려지는 시간(초)
 const LOOP = 7;
 
@@ -45,7 +51,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const resize = () => {
       const r = box.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = r.width; H = r.height; F = W * 1.9;
+      W = r.width; H = r.height; F = W * FK;
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
@@ -78,12 +84,12 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const hubDist = (lon: number, lat: number) => Math.hypot((lon - HUB[0]) * KX, lat - HUB[1]);
     const maxDist = 18;
     const COL = ['', C.mist, C.ink, C.mist, C.mist, C.mist];
-    const ALPHA = [0, 0.95, 1, 0.5, 0.45, 0.35];
+    const ALPHA = [0, 0.95, 1, 0.5, 0.75, 0.3];
 
     const t0 = performance.now() + delay * 1000;
     const draw = (now: number) => {
       const t = reduce ? 99 : (now - t0) / 1000;
-      th = (-45 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
+      th = (-20 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
       ctx.clearRect(0, 0, W, H);
 
       // 점 지도: 대구에서 바깥으로 물결처럼 내려앉으며 깔린다
@@ -94,9 +100,9 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           const local = ease((t - (hubDist(lon, lat) / maxDist) * 1.2) / 0.9);
           if (local <= 0) continue;
           const [x, y, z] = P([lon, lat], (1 - local) * 1.5);
-          const r = ((kind === 2 ? 30 : kind === 3 ? 22 : 34) / z) * (W / 700);
+          const r = ((kind === 2 ? 30 : kind === 3 ? 22 : 34) / z) * (W / 700) * (FK / 1.5);
           // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
-          const edge = Math.min(1, Math.max(0, (11 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4));
+          const edge = Math.min(1, Math.max(0, (14 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4));
           if (edge <= 0) continue;
           ctx.globalAlpha = ALPHA[kind] * local * edge;
           ctx.beginPath();
@@ -130,6 +136,25 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
       ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.25; ctx.setLineDash([4, 5]);
       stroke(SRC, HUB, MAIN_H, 0, mainT);
       ctx.setLineDash([]);
+
+      // 대구 → 일본, 미국(점선 호). 미국 호는 오른쪽 가장자리 밖으로 빠져나간다
+      ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.1; ctx.setLineDash([3, 5]);
+      const jpT = inout((t - INTRO - 0.5) / 1.3);
+      const usT = inout((t - INTRO - 0.8) / 1.6);
+      stroke(HUB, JAPAN, JP_H, 0, jpT);
+      stroke(HUB, USA, US_H, 0, usT);
+      ctx.setLineDash([]);
+      if (jpT > 0.98) {
+        const [x, y] = P(JAPAN);
+        ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, Math.PI * 2); ctx.fill();
+      }
+      // 미국 이름표 자리: 호가 화면 오른쪽 끝(여백 56px)에 닿는 지점
+      let usAt = arcPt(HUB, USA, US_H, 0.5);
+      for (let i = 0; i <= 60; i++) {
+        const p = arcPt(HUB, USA, US_H, i / 60);
+        if (p[0] > W - 56 || p[1] < 24) break;
+        usAt = p;
+      }
 
       // 출발점·거점 표시
       const [sx, sy] = P(SRC);
@@ -166,7 +191,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
       }
 
       // 이름표 위치
-      const pts = [P(SRC), P(HUB), P(CITIES[4])]; // 03은 부산 옆
+      const pts = [P(SRC), P(HUB), P(CITIES[4]), P(JAPAN), usAt]; // 03은 부산 옆, 05는 미국 호가 화면을 벗어나는 자리
       labelRefs.current.forEach((el, i) => {
         if (el) el.style.transform = `translate(${pts[i][0]}px, ${pts[i][1]}px)`;
       });
@@ -180,7 +205,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     };
   }, [delay]);
 
-  const offs = ['-translate-x-1/2 translate-y-3', '-translate-x-[calc(100%+22px)] -translate-y-[calc(100%+18px)]', 'translate-x-3 -translate-y-1/2'];
+  const offs = ['-translate-x-1/2 translate-y-3', '-translate-x-[calc(100%+22px)] -translate-y-[calc(100%+18px)]', 'translate-x-3 -translate-y-1/2', '-translate-x-1/2 translate-y-3', '-translate-x-full -translate-y-[calc(100%+8px)]'];
   return (
     <div ref={boxRef} className="relative mx-auto aspect-[700/560] max-h-full w-full max-w-[820px]">
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
@@ -192,7 +217,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           }}
           className="pointer-events-none absolute left-0 top-0"
         >
-          <p className={`lp-in whitespace-nowrap text-[11px] font-semibold tracking-[-0.01em] text-ink md:text-[13px]`} style={{ '--i': 7 + i * 3 } as CSSProperties}>
+          <p className={`lp-in whitespace-nowrap text-[11px] font-semibold tracking-[-0.01em] text-ink md:text-[13px]`} style={{ '--i': 7 + i * 2 } as CSSProperties}>
             <span className={`block rounded-sm bg-paper/85 px-1.5 py-0.5 ${offs[i]}`}>
               <span className="mr-1.5 font-display text-[13px] font-normal italic text-olive md:text-[15px]">0{i + 1}</span>
               {text}
