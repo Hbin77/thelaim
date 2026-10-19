@@ -1,19 +1,16 @@
 'use client';
 
 import { useEffect, useRef, type CSSProperties } from 'react';
-import { GLOBE_DOTS } from './globe-dots';
-import { KOREA_DOTS } from './korea-dots';
+import { MAP_DOTS } from './map-dots';
 import { LOGO_BIRD } from './logo-paths';
 
-// 오른쪽 흐름 지도(캔버스 2D): 북쪽으로 기울인 점 지구본. 아래 왼쪽에 중국·한반도·일본, 위로 유라시아와 북극권, 오른쪽 위 지평선에 미국.
-// 중국 → 대구, 대구 → 일본·미국은 지구 곡면을 따라 솟는 호(대권 항로)로 잇는다. 미국(뉴욕) 항로는 실제 최단 경로대로 시베리아 위를 지난다.
-// 한반도는 실제 비율로는 너무 작아서, 오른쪽 아래 빈 바다 위에 돋보기 원을 띄워 대구에서 전국 도시로 퍼지는 유통망을 확대해 보여 준다.
-// 새 심볼은 중국에서 대구로 7초에 한 번 날아오고, 지구본은 아주 천천히 좌우로 돈다.
+// 오른쪽 흐름 지도: 중국·한반도·일본 일대를 점으로 찍은 하프톤 지도를 원근으로 눕혀 그린다(캔버스 2D, WebGL 아님).
+// 중국에서 대구종합유통단지까지 공중으로 솟는 호가 그려지고, 대구에서 전국 도시로 낮은 호가 퍼진다.
+// 대구에서 일본(도쿄)과 미국으로도 호가 이어진다. 미국은 깔끔하게 보이도록 일본 오른쪽 옆에 작게 옮겨 그린 도식이다.
+// 새 심볼이 그 호를 따라 7초에 한 번 날아가고, 지도는 아주 천천히 좌우로 돌아 입체감을 준다.
 type LngLat = [number, number];
 const SRC: LngLat = [116.4, 30.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
 const HUB: LngLat = [128.6, 35.87]; // 대구
-const JAPAN: LngLat = [139.7, 35.7]; // 도쿄
-const USA: LngLat = [286, 40.7]; // 미국(뉴욕)
 const CITIES: LngLat[] = [
   [126.98, 37.57], // 서울
   [128.9, 37.75], // 강릉
@@ -21,26 +18,21 @@ const CITIES: LngLat[] = [
   [126.85, 35.16], // 광주
   [129.08, 35.18], // 부산
 ];
-// 지구본 시점: 중심 경도·위도, 반지름(캔버스 폭 배수), 중심 높이(캔버스 높이 배수)
-const VIEW = { lon: 170, lat: 48, r: 0.42, cy: 0.67 };
-// 돋보기: 위치(캔버스 비율), 반지름(캔버스 폭 배수), 안쪽 지도 중심
-const LENS = { x: 0.66, y: 0.74, r: 0.15, center: [127.75, 36.2] as LngLat, span: 6.4 };
-const INTRO = 2.2;
+const JAPAN: LngLat = [139.7, 35.7]; // 도쿄
+const USA: LngLat = [147.2, 36.9]; // 일본 옆으로 옮긴 미국 도식의 가운데
+const CENTER: LngLat = [133, 36];
+const FK = 0.9; // 초점 거리(화면 폭 배수)
+const KX = Math.cos((34 * Math.PI) / 180);
+const MAIN_H = 4.2; // 중국→대구 호의 높이
+const FAN_H = 0.7;
+const JP_H = 2.2;
+const US_H = 3.2;
+const INTRO = 2.4; // 점 지도가 깔리고 큰 호가 그려지는 시간(초)
 const LOOP = 7;
 
 const css = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const ease = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3));
 const inout = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const rad = Math.PI / 180;
-const vec = ([lon, lat]: LngLat) => [Math.cos(lat * rad) * Math.cos(lon * rad), Math.cos(lat * rad) * Math.sin(lon * rad), Math.sin(lat * rad)];
-// 두 지점 사이 대권 위의 t 지점(경도·위도)
-const slerp = (a: LngLat, b: LngLat, t: number): LngLat => {
-  const va = vec(a), vb = vec(b);
-  const om = Math.acos(Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2]));
-  const s1 = Math.sin((1 - t) * om) / Math.sin(om), s2 = Math.sin(t * om) / Math.sin(om);
-  const v = [0, 1, 2].map((i) => s1 * va[i] + s2 * vb[i]);
-  return [Math.atan2(v[1], v[0]) / rad, Math.asin(v[2]) / rad];
-};
 
 export default function RouteMap({ labels, delay }: { labels: string[]; delay: number }) {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -52,14 +44,14 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const C = { ink: css('--color-ink'), lime: css('--color-lime'), mist: css('--color-mist'), paper: css('--color-paper'), line: css('--color-line') };
+    const C = { ink: css('--color-ink'), lime: css('--color-lime'), mist: css('--color-mist') };
     const bird = LOGO_BIRD.map((d) => new Path2D(d));
-    let W = 0, H = 0, raf = 0;
+    let W = 0, H = 0, F = 0, raf = 0;
 
     const resize = () => {
       const r = box.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = r.width; H = r.height;
+      W = r.width; H = r.height; F = W * FK;
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
@@ -67,174 +59,127 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const ro = new ResizeObserver(resize);
     ro.observe(box);
 
-    // 정사영 지구본: 경도·위도·고도 → 화면 좌표와 앞면 정도(cos c, 0 이하면 뒷면)
-    let l0 = VIEW.lon;
-    const p0 = VIEW.lat * rad;
-    const G = ([lon, lat]: LngLat, alt = 0) => {
-      const R = W * VIEW.r * (1 + alt);
-      const l = (lon - l0) * rad, p = lat * rad;
-      const cosc = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * Math.cos(p) * Math.cos(l);
-      const x = Math.cos(p) * Math.sin(l);
-      const y = Math.cos(p0) * Math.sin(p) - Math.sin(p0) * Math.cos(p) * Math.cos(l);
-      return [W / 2 + R * x, H * VIEW.cy - R * y, cosc] as const;
+    // 경도·위도·높이 → 화면 좌표(원근). theta: 지도 회전, 아주 천천히 흔들린다
+    let th = 0;
+    const PITCH = (36 * Math.PI) / 180, DIST = 30;
+    const sp = Math.sin(PITCH), cp = Math.cos(PITCH);
+    const P = ([lon, lat]: LngLat, z = 0) => {
+      const X = (lon - CENTER[0]) * KX, Y = lat - CENTER[1];
+      const ct = Math.cos(th), st = Math.sin(th);
+      const u = X * ct - Y * st, v = X * st + Y * ct;
+      const yc = v * sp + z * cp, zc = DIST + v * cp - z * sp;
+      return [W * 0.5 + (F * u) / zc, H * 0.56 - (F * yc) / zc, zc] as const;
     };
-    const arcG = (a: LngLat, b: LngLat, h: number, t: number) => G(slerp(a, b, t), h * Math.sin(Math.PI * t));
-    const strokeG = (a: LngLat, b: LngLat, h: number, p: number) => {
-      if (p <= 0) return;
+    const lerp = (a: LngLat, b: LngLat, t: number): LngLat => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+    const arcPt = (a: LngLat, b: LngLat, h: number, t: number) => P(lerp(a, b, t), h * 4 * t * (1 - t));
+    const stroke = (a: LngLat, b: LngLat, h: number, t0: number, t1: number) => {
+      if (t1 <= t0) return;
       ctx.beginPath();
-      for (let i = 0; i <= 80; i++) {
-        const [x, y] = arcG(a, b, h, (p * i) / 80);
+      for (let i = 0; i <= 48; i++) {
+        const [x, y] = arcPt(a, b, h, t0 + ((t1 - t0) * i) / 48);
         if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
       }
       ctx.stroke();
     };
-
-    // 돋보기 안: 한반도 주변을 평면으로 크게
-    const lens = () => ({ x: W * LENS.x, y: H * LENS.y, r: Math.max(56, W * LENS.r) });
-    const L = ([lon, lat]: LngLat) => {
-      const { x, y, r } = lens();
-      const s = (2 * r) / LENS.span;
-      return [x + (lon - LENS.center[0]) * Math.cos(36 * rad) * s, y - (lat - LENS.center[1]) * s] as const;
-    };
-
-    const angDist = (lon: number, lat: number) => {
-      const a = vec([lon, lat]), b = vec(HUB);
-      return Math.acos(Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2])) / rad;
-    };
-    const COL: Record<number, string> = { 1: C.mist, 2: C.ink, 3: C.mist, 4: C.mist, 5: C.mist, 6: C.mist };
-    const ALPHA: Record<number, number> = { 1: 0.9, 2: 1, 3: 0.55, 4: 0.9, 5: 0.4, 6: 0.9 };
-    const dist = GLOBE_DOTS.map(([lon, lat]) => angDist(lon, lat));
-    const maxD = Math.max(...dist);
+    const hubDist = (lon: number, lat: number) => Math.hypot((lon - HUB[0]) * KX, lat - HUB[1]);
+    const maxDist = 18;
+    const COL = ['', C.mist, C.ink, C.mist, C.mist, C.mist, C.ink];
+    const ALPHA = [0, 0.95, 1, 0.5, 0.75, 0.3, 0.55];
 
     const t0 = performance.now() + delay * 1000;
     const draw = (now: number) => {
       const t = reduce ? 99 : (now - t0) / 1000;
-      l0 = VIEW.lon + (reduce ? 0 : Math.sin(Math.max(t, 0) / 6) * 1.6);
+      th = (-12 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
       ctx.clearRect(0, 0, W, H);
-      const dotR = Math.max(1, W / 500);
 
-      // 지구본 점: 대구에서 바깥으로 물결처럼 깔리고, 가장자리(지평선)로 갈수록 작고 옅어진다
-      for (let i = 0; i < GLOBE_DOTS.length; i++) {
-        const [lon, lat, k] = GLOBE_DOTS[i];
-        const local = ease((t - (dist[i] / maxD) * 1.6) / 0.8);
-        if (local <= 0) continue;
-        const [x, y, c] = G([lon, lat]);
-        if (c <= 0.02 || x < -4 || x > W + 4 || y < -4 || y > H + 4) continue;
-        ctx.globalAlpha = ALPHA[k] * local * Math.min(1, c * 2.2);
+      // 점 지도: 대구에서 바깥으로 물결처럼 내려앉으며 깔린다
+      for (let k = 1; k <= 6; k++) {
         ctx.fillStyle = COL[k];
-        ctx.beginPath();
-        ctx.arc(x, y, dotR * (k === 2 ? 0.75 : 1) * (0.45 + 0.55 * c), 0, Math.PI * 2);
-        ctx.fill();
+        for (const [lon, lat, kind] of MAP_DOTS) {
+          if (kind !== k) continue;
+          const local = ease((t - (hubDist(lon, lat) / maxDist) * 1.2) / 0.9);
+          if (local <= 0) continue;
+          const [x, y, z] = P([lon, lat], (1 - local) * 1.5);
+          const r = ((kind === 2 ? 30 : kind === 3 ? 22 : kind === 6 ? 16 : 34) / z) * (W / 700) * (FK / 1.5);
+          // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
+          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (14 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4)));
+          if (edge <= 0) continue;
+          ctx.globalAlpha = ALPHA[kind] * local * edge;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
 
-      // 큰 호: 중국 → 대구(굵은 점선), 대구 → 일본·미국(가는 점선)
-      ctx.strokeStyle = C.ink;
-      ctx.lineWidth = 1.25; ctx.setLineDash([4, 5]);
-      strokeG(SRC, HUB, 0.05, inout((t - 0.9) / 1.4));
-      ctx.lineWidth = 1.1; ctx.setLineDash([3, 5]);
-      const jpT = inout((t - INTRO - 0.3) / 1.1);
-      const usT = inout((t - INTRO - 0.6) / 2);
-      strokeG(HUB, JAPAN, 0.025, jpT);
-      strokeG(HUB, USA, 0.1, usT);
+      // 대구에서 전국으로 퍼지는 낮은 호
+      const fanT = (t - INTRO) / 1.2;
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
+      CITIES.forEach((c, i) => {
+        const p = ease(fanT - i * 0.12);
+        ctx.globalAlpha = 0.55;
+        stroke(HUB, c, FAN_H, 0, p);
+        if (p > 0.98) {
+          const [x, y] = P(c);
+          ctx.globalAlpha = 1; ctx.fillStyle = C.ink;
+          ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.fill();
+          const pulse = ((t - INTRO - 1.4 + i * 0.6) % 3.2) / 3.2;
+          if (pulse > 0 && !reduce) {
+            ctx.globalAlpha = 0.5 * (1 - pulse);
+            ctx.beginPath(); ctx.ellipse(x, y, 4 + pulse * 14, (4 + pulse * 14) * sp, 0, 0, Math.PI * 2); ctx.stroke();
+          }
+        }
+      });
+
+      // 중국 → 대구 큰 호(점선)
+      const mainT = inout((t - 0.9) / 1.5);
+      ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.25; ctx.setLineDash([4, 5]);
+      stroke(SRC, HUB, MAIN_H, 0, mainT);
       ctx.setLineDash([]);
 
-      // 지점 표시
-      const mark = (p: LngLat, on: number, ring = false) => {
-        if (on <= 0) return;
-        const [x, y] = G(p);
-        ctx.globalAlpha = on; ctx.fillStyle = C.ink; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4;
-        if (ring) { ctx.beginPath(); ctx.arc(x, y, 5.5, 0, Math.PI * 2); ctx.stroke(); }
-        ctx.beginPath(); ctx.arc(x, y, ring ? 1.9 : 2.8, 0, Math.PI * 2); ctx.fill();
-        ctx.globalAlpha = 1;
-      };
-      mark(SRC, ease((t - 0.7) / 0.5), true);
-      mark(JAPAN, jpT > 0.98 ? 1 : 0);
-      mark(USA, usT > 0.98 ? 1 : 0);
-      const usPulse = ((t - INTRO - 2.8) % 3.2) / 3.2;
-      if (usT > 0.98 && !reduce && usPulse > 0) {
-        const [x, y] = G(USA);
-        ctx.globalAlpha = 0.5 * (1 - usPulse); ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.arc(x, y, 4 + usPulse * 14, 0, Math.PI * 2); ctx.stroke();
-        ctx.globalAlpha = 1;
+      // 대구 → 일본, 미국(점선 호). 미국 호는 오른쪽 가장자리 밖으로 빠져나간다
+      ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.1; ctx.setLineDash([3, 5]);
+      const jpT = inout((t - INTRO - 0.5) / 1.3);
+      const usT = inout((t - INTRO - 0.8) / 1.6);
+      stroke(HUB, JAPAN, JP_H, 0, jpT);
+      stroke(HUB, USA, US_H, 0, usT);
+      ctx.setLineDash([]);
+      if (usT > 0.98) {
+        const [x, y] = P(USA);
+        ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, Math.PI * 2); ctx.fill();
+      }
+      if (jpT > 0.98) {
+        const [x, y] = P(JAPAN);
+        ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, Math.PI * 2); ctx.fill();
       }
 
-      // 돋보기: 지구본의 대구에서 원까지 두 줄로 잇고, 원 안에 한반도 유통망
-      const lensIn = ease((t - 1.8) / 0.9);
-      const [hx, hy] = G(HUB);
-      const { x: lx, y: ly, r: lr } = lens();
-      if (lensIn > 0) {
-        // 대구 점에서 원에 닿는 두 접선
-        const ang = Math.atan2(hy - ly, hx - lx), d = Math.hypot(hx - lx, hy - ly);
-        const off = Math.acos(Math.min(1, lr / d));
-        ctx.globalAlpha = 0.35 * lensIn; ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
-        for (const s of [-1, 1]) {
-          ctx.beginPath(); ctx.moveTo(hx, hy);
-          ctx.lineTo(lx + lr * Math.cos(ang + s * off), ly + lr * Math.sin(ang + s * off));
-          ctx.stroke();
-        }
-        // 원 바탕
-        const rr = lr * (0.85 + 0.15 * lensIn);
-        ctx.globalAlpha = lensIn;
-        ctx.fillStyle = C.paper; ctx.beginPath(); ctx.arc(lx, ly, rr, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = C.ink; ctx.lineWidth = 1; ctx.stroke();
-        ctx.save(); ctx.beginPath(); ctx.arc(lx, ly, rr - 1, 0, Math.PI * 2); ctx.clip();
-        // 한반도 점
-        const kr = Math.max(0.9, lr / 62);
-        for (const [lon, lat, k] of KOREA_DOTS) {
-          const [x, y] = L([lon, lat]);
-          ctx.globalAlpha = lensIn * (k === 2 ? 1 : 0.4);
-          ctx.fillStyle = k === 2 ? C.ink : C.mist;
-          ctx.beginPath(); ctx.arc(x, y, kr, 0, Math.PI * 2); ctx.fill();
-        }
-        // 대구 → 전국 도시
-        const [ux, uy] = L(HUB);
-        const fanT = (t - INTRO) / 1.2;
-        ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
-        CITIES.forEach((c, i) => {
-          const p = ease(fanT - i * 0.12);
-          if (p <= 0) return;
-          const [cx, cy] = L(c);
-          const mx = (ux + cx) / 2, my = (uy + cy) / 2 - lr * 0.18;
-          ctx.globalAlpha = 0.6;
-          ctx.beginPath(); ctx.moveTo(ux, uy);
-          for (let j = 1; j <= 24; j++) {
-            const q = (p * j) / 24;
-            ctx.lineTo((1 - q) * (1 - q) * ux + 2 * (1 - q) * q * mx + q * q * cx, (1 - q) * (1 - q) * uy + 2 * (1 - q) * q * my + q * q * cy);
-          }
-          ctx.stroke();
-          if (p > 0.98) {
-            ctx.globalAlpha = 1; ctx.fillStyle = C.ink;
-            ctx.beginPath(); ctx.arc(cx, cy, 2.4, 0, Math.PI * 2); ctx.fill();
-            const pulse = ((t - INTRO - 1.4 + i * 0.6) % 3.2) / 3.2;
-            if (pulse > 0 && !reduce) {
-              ctx.globalAlpha = 0.45 * (1 - pulse);
-              ctx.beginPath(); ctx.arc(cx, cy, 3 + pulse * 10, 0, Math.PI * 2); ctx.stroke();
-            }
-          }
-        });
-        // 대구 거점
+      // 출발점·거점 표시
+      const [sx, sy] = P(SRC);
+      ctx.globalAlpha = ease((t - 0.7) / 0.5);
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.ellipse(sx, sy, 6, 6 * sp * 1.4, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(sx, sy, 2, 0, Math.PI * 2); ctx.fill();
+      const [hx, hy] = P(HUB);
+      const hubIn = ease((t - 2.1) / 0.6);
+      if (hubIn > 0) {
+        ctx.globalAlpha = hubIn;
         const ring = ((t - 2.1) % 3.2) / 3.2;
-        if (!reduce && ring > 0) {
-          ctx.globalAlpha = 0.5 * (1 - ring) * lensIn;
-          ctx.beginPath(); ctx.arc(ux, uy, 6 + ring * 22, 0, Math.PI * 2); ctx.stroke();
+        if (!reduce) {
+          ctx.globalAlpha = hubIn * 0.6 * (1 - ring); ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.ellipse(hx, hy, 8 + ring * 40, (8 + ring * 40) * sp, 0, 0, Math.PI * 2); ctx.stroke();
         }
-        ctx.globalAlpha = lensIn; ctx.fillStyle = C.lime; ctx.lineWidth = 1.4;
-        ctx.beginPath(); ctx.arc(ux, uy, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-        ctx.restore();
+        ctx.globalAlpha = hubIn;
+        ctx.fillStyle = C.lime; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.ellipse(hx, hy, 7, 7 * sp * 1.25, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       }
-      // 지구본 위 대구 점
-      ctx.globalAlpha = ease((t - 2.1) / 0.6);
-      ctx.fillStyle = C.lime; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2;
-      ctx.beginPath(); ctx.arc(hx, hy, 3.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       ctx.globalAlpha = 1;
 
-      // 새 심볼: 중국 → 대구 호를 따라 날아온다
+      // 새 심볼: 큰 호를 따라 날아간다
       const ft = reduce ? -1 : ((t - INTRO - 0.4) % LOOP) / LOOP;
       if (t > INTRO + 0.4 && ft < 0.62) {
         const q = inout(ft / 0.58);
-        const [bx, by] = arcG(SRC, HUB, 0.05, Math.min(q, 1));
-        const s = (W / 700) * 0.0042;
+        const [bx, by, bz] = arcPt(SRC, HUB, MAIN_H, Math.min(q, 1));
+        const s = (0.62 / bz) * (W / 700) * 0.06;
         ctx.globalAlpha = Math.min(1, ft / 0.06, (0.62 - ft) / 0.06);
         ctx.save(); ctx.translate(bx, by); ctx.scale(s, s); ctx.translate(-6600, -300);
         ctx.fillStyle = C.ink; bird.forEach((b) => ctx.fill(b));
@@ -242,8 +187,8 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
         ctx.globalAlpha = 1;
       }
 
-      // 이름표 위치: 01 중국, 02 대구(돋보기 안), 03 전국(돋보기 안 부산 옆), 04 일본, 05 미국
-      const pts = [G(SRC), L(HUB), L(CITIES[4]), G(JAPAN), G(USA)];
+      // 이름표 위치
+      const pts = [P(SRC), P(HUB), P(CITIES[4]), P(JAPAN), P(USA)]; // 03은 부산 옆
       labelRefs.current.forEach((el, i) => {
         if (el) el.style.transform = `translate(${pts[i][0]}px, ${pts[i][1]}px)`;
       });
@@ -257,15 +202,9 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     };
   }, [delay]);
 
-  const offs = [
-    'translate-x-[-12px] translate-y-3',
-    '-translate-x-1/2 -translate-y-[calc(100%+12px)]',
-    'translate-x-2.5 -translate-y-1/2',
-    'translate-x-[-50%] translate-y-3',
-    '-translate-x-[calc(100%+12px)] -translate-y-1/2',
-  ];
+  const offs = ['-translate-x-1/2 translate-y-3', '-translate-x-[calc(100%+22px)] -translate-y-[calc(100%+18px)]', 'translate-x-3 -translate-y-1/2', '-translate-x-1/2 translate-y-3', '-translate-x-1/2 -translate-y-[calc(100%+14px)]'];
   return (
-    <div ref={boxRef} className="relative w-full aspect-[3/2]">
+    <div ref={boxRef} className="relative mx-auto aspect-[700/560] max-h-full w-full max-w-[820px]">
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
       {labels.map((text, i) => (
         <div
@@ -275,7 +214,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           }}
           className="pointer-events-none absolute left-0 top-0"
         >
-          <p className="lp-in whitespace-nowrap text-[11px] font-semibold tracking-[-0.01em] text-ink md:text-[13px]" style={{ '--i': 7 + i * 2 } as CSSProperties}>
+          <p className={`lp-in whitespace-nowrap text-[11px] font-semibold tracking-[-0.01em] text-ink md:text-[13px]`} style={{ '--i': 7 + i * 2 } as CSSProperties}>
             <span className={`block rounded-sm bg-paper/85 px-1.5 py-0.5 ${offs[i]}`}>
               <span className="mr-1.5 font-display text-[13px] font-normal italic text-olive md:text-[15px]">0{i + 1}</span>
               {text}
