@@ -206,7 +206,7 @@ a:hover .lb-in .lb-img { transform: scale(1.03); }
 .lp-run .lp-base-out { transform-origin: left; animation: lpRetract .6s 2.15s cubic-bezier(.65,0,.35,1) both; }
 .lp-run .lp-letter { animation: lpRise 1.1s calc(1s + var(--i) * 75ms) cubic-bezier(.16,1,.3,1) both; }
 .lp-run .lp-bird { animation: lpBird 1.5s 2.5s cubic-bezier(.45,0,.2,1) both; }
-.lp-run .lp-ripple { opacity: 0; animation: lpRipple 1.6s calc(3.85s + var(--i) * .25s) cubic-bezier(.2,.7,.1,1) both; }
+.lp-run .lp-ripple { opacity: 0; animation: lpRipple 1.6s calc(4s + var(--i) * .25s) cubic-bezier(.2,.7,.1,1) both; }
 @keyframes lpDot {
   0% { transform: scale(0); }
   45% { transform: scale(1); opacity: 1; }

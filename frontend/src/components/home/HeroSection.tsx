@@ -16,10 +16,12 @@ const CLIPS = [
   [4098, 575, 500, 970],
   [4588, 560, 1600, 985],
 ];
-// 인트로 새 심볼의 비행: 궤적 선(로고 좌표)과, 같은 곡선을 새 심볼 중심(6600, 300) 기준으로 옮긴 이동 경로
-const TRAIL = 'M-200 1700 C3500 2050 7000 1800 6600 300';
-const FLIGHT = 'M-6800 1400 C-3100 1750 400 1500 0 0';
-const EASE = { calcMode: 'spline', keyTimes: '0;1', keySplines: '.45 0 .2 1' } as const;
+// 인트로 새 심볼의 비행 궤적(로고 좌표): 글자 위쪽 하늘로 크게 돌아 새 심볼 자리(중심 6600, 300)에 내려앉는다.
+// 글자를 가로지르지 않게 h의 꼭대기(y≈234)보다 위로만 지나간다.
+const TRAIL = 'M-300 300 C2000 -520 4800 -320 6600 300';
+const BIRD_C = [6600, 300];
+const FLY = { start: 2.5, dur: 1.5, erase: 1 }; // 초
+const inout = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 // 상단 바 logo.png(1987×541)에서 글자가 차지하는 영역 — 날아간 로고가 정확히 그 위에 내려앉게
 const PNG = { w: 1987, h: 541, x: 91, y: 45, inkW: 1835 };
 
@@ -33,7 +35,8 @@ const vars = (o: Record<string, string | number>) => o as CSSProperties;
 export default function HeroSection() {
   const t = useTranslations('hero');
   const [phase, setPhase] = useState<'wait' | 'run' | 'move' | 'done'>('wait');
-  const goRef = useRef<SVGAnimateElement>(null);
+  const trailRef = useRef<SVGPathElement>(null);
+  const birdRef = useRef<SVGGElement>(null);
   const logoRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -77,9 +80,27 @@ export default function HeroSection() {
     };
   }, []);
 
-  // 선 궤적·새 비행(SMIL)은 CSS 애니메이션과 같은 순간에 시작
+  // 새 심볼 비행과 궤적 선은 스크립트로 한 프레임씩 같이 움직인다(브라우저마다 SMIL 시작 시점이 달라 어긋나던 문제)
   useEffect(() => {
-    if (phase === 'run') goRef.current?.beginElement();
+    if (phase !== 'run') return;
+    const trail = trailRef.current;
+    const bird = birdRef.current;
+    if (!trail || !bird) return;
+    const L = trail.getTotalLength();
+    trail.style.strokeDasharray = `${L} ${L}`;
+    const t0 = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = (now - t0) / 1000;
+      const p = inout(Math.min(1, Math.max(0, (t - FLY.start) / FLY.dur)));
+      const e = inout(Math.min(1, Math.max(0, (t - FLY.start - FLY.dur - 0.05) / FLY.erase)));
+      const pt = trail.getPointAtLength(L * p);
+      bird.setAttribute('transform', `translate(${pt.x - BIRD_C[0]} ${pt.y - BIRD_C[1]})`);
+      trail.style.strokeDashoffset = String(e > 0 ? -L * e : L * (1 - p));
+      if (t < FLY.start + FLY.dur + FLY.erase + 0.1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [phase]);
 
   const intro = phase === 'run' || phase === 'move';
@@ -141,19 +162,15 @@ export default function HeroSection() {
             </defs>
             {phase === 'run' && (
               <>
-                <animate ref={goRef} id="lpgo" attributeName="opacity" begin="indefinite" dur="0.01s" />
                 {/* 라임 점 → 바닥선 */}
                 <circle className="lp-fx lp-dot" cx="3090" cy="1560" r="90" fill="var(--color-lime)" opacity="0" />
                 <g className="lp-fx lp-base-out">
                   <line className="lp-fx lp-base" x1="0" x2="6180" y1="1560" y2="1560" stroke="currentColor" strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
                 </g>
                 {/* 새 심볼이 지나간 궤적: 새와 함께 그려지고, 앉은 뒤 꼬리부터 지워진다 */}
-                <path d={TRAIL} pathLength={1} strokeDasharray="1 1" strokeDashoffset="1" fill="none" stroke="currentColor" strokeOpacity=".55" strokeWidth="1" vectorEffect="non-scaling-stroke">
-                  <animate attributeName="stroke-dashoffset" values="1;0" begin="lpgo.begin+2.5s" dur="1.5s" fill="freeze" {...EASE} />
-                  <animate attributeName="stroke-dashoffset" values="0;-1" begin="lpgo.begin+4.05s" dur="1s" fill="freeze" {...EASE} />
-                </path>
+                <path ref={trailRef} d={TRAIL} strokeDasharray="99999" strokeDashoffset="99999" fill="none" stroke="currentColor" strokeOpacity=".55" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                 {[0, 1].map((i) => (
-                  <circle key={i} className="lp-fx lp-ripple" style={vars({ '--i': i })} cx="6600" cy="300" r="760" fill="none" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                  <circle key={i} className="lp-fx lp-ripple" style={vars({ '--i': i })} cx="6600" cy="300" r="560" fill="none" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                 ))}
               </>
             )}
@@ -163,8 +180,7 @@ export default function HeroSection() {
                   <path d={d} className="lp-letter" style={vars({ '--i': i })} />
                 </g>
               ))}
-              <g>
-                {phase === 'run' && <animateMotion path={FLIGHT} begin="lpgo.begin+2.5s" dur="1.5s" fill="freeze" keyPoints="0;1" {...EASE} />}
+              <g ref={birdRef}>
                 <g className="lp-fx lp-bird">
                   {LOGO_BIRD.map((d, i) => (
                     <path key={i} d={d} />
