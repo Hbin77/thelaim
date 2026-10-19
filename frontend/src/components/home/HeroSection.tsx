@@ -115,7 +115,7 @@ export default function HeroSection() {
 
       <div className="wrap relative grid h-full grid-rows-[minmax(0,1fr)_auto] gap-6 pb-[max(56px,8svh)] pt-24 md:grid-cols-12 md:grid-rows-1 md:items-center md:gap-8 md:pb-0 md:pt-20">
         {/* 흐름 그래픽 */}
-        <div className="relative md:order-2 md:col-span-6 md:col-start-7">
+        <div className="relative flex items-center md:order-2 md:col-span-6 md:col-start-7 md:-mr-[clamp(20px,4vw,56px)]">
           {shown && <RouteMap labels={[t('route_from'), t('route_hub'), t('route_to'), t('route_jp'), t('route_us')]} delay={phase === 'move' ? 0.6 : 0.2} />}
         </div>
         <div className="md:order-1 md:col-span-6">
