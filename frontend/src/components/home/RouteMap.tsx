@@ -5,15 +5,15 @@ import { GLOBE_DOTS } from './globe-dots';
 import { KOREA_DOTS } from './korea-dots';
 import { LOGO_BIRD } from './logo-paths';
 
-// 오른쪽 흐름 지도(캔버스 2D): 태평양을 가운데 둔 점 지구본의 위쪽 일부를 크게 보여 준다.
-// 왼쪽에 중국·한반도·일본, 오른쪽 끝에 미국 서해안. 중국 → 대구, 대구 → 일본·미국은 지구 곡면을 따라 솟는 호(대권 항로)로 잇는다.
-// 한반도는 실제 비율로는 너무 작아서, 위쪽에 돋보기 원을 띄워 대구에서 전국 도시로 퍼지는 유통망을 확대해 보여 준다.
+// 오른쪽 흐름 지도(캔버스 2D): 북쪽으로 기울인 점 지구본. 아래 왼쪽에 중국·한반도·일본, 위로 유라시아와 북극권, 오른쪽 위 지평선에 미국.
+// 중국 → 대구, 대구 → 일본·미국은 지구 곡면을 따라 솟는 호(대권 항로)로 잇는다. 미국(뉴욕) 항로는 실제 최단 경로대로 시베리아 위를 지난다.
+// 한반도는 실제 비율로는 너무 작아서, 오른쪽 아래 빈 바다 위에 돋보기 원을 띄워 대구에서 전국 도시로 퍼지는 유통망을 확대해 보여 준다.
 // 새 심볼은 중국에서 대구로 7초에 한 번 날아오고, 지구본은 아주 천천히 좌우로 돈다.
 type LngLat = [number, number];
 const SRC: LngLat = [116.4, 30.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
 const HUB: LngLat = [128.6, 35.87]; // 대구
 const JAPAN: LngLat = [139.7, 35.7]; // 도쿄
-const USA: LngLat = [237.6, 37.7]; // 미국 서해안(샌프란시스코 부근)
+const USA: LngLat = [286, 40.7]; // 미국(뉴욕)
 const CITIES: LngLat[] = [
   [126.98, 37.57], // 서울
   [128.9, 37.75], // 강릉
@@ -22,9 +22,9 @@ const CITIES: LngLat[] = [
   [129.08, 35.18], // 부산
 ];
 // 지구본 시점: 중심 경도·위도, 반지름(캔버스 폭 배수), 중심 높이(캔버스 높이 배수)
-const VIEW = { lon: 178, lat: 10, r: 0.62, cy: 1.06 };
+const VIEW = { lon: 170, lat: 48, r: 0.42, cy: 0.67 };
 // 돋보기: 위치(캔버스 비율), 반지름(캔버스 폭 배수), 안쪽 지도 중심
-const LENS = { x: 0.31, y: 0.27, r: 0.15, center: [127.75, 36.2] as LngLat, span: 6.4 };
+const LENS = { x: 0.66, y: 0.74, r: 0.15, center: [127.75, 36.2] as LngLat, span: 6.4 };
 const INTRO = 2.2;
 const LOOP = 7;
 
@@ -104,18 +104,19 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const COL: Record<number, string> = { 1: C.mist, 2: C.ink, 3: C.mist, 4: C.mist, 5: C.mist, 6: C.mist };
     const ALPHA: Record<number, number> = { 1: 0.9, 2: 1, 3: 0.55, 4: 0.9, 5: 0.4, 6: 0.9 };
     const dist = GLOBE_DOTS.map(([lon, lat]) => angDist(lon, lat));
+    const maxD = Math.max(...dist);
 
     const t0 = performance.now() + delay * 1000;
     const draw = (now: number) => {
       const t = reduce ? 99 : (now - t0) / 1000;
       l0 = VIEW.lon + (reduce ? 0 : Math.sin(Math.max(t, 0) / 6) * 1.6);
       ctx.clearRect(0, 0, W, H);
-      const dotR = Math.max(1.1, W / 430);
+      const dotR = Math.max(1, W / 500);
 
       // 지구본 점: 대구에서 바깥으로 물결처럼 깔리고, 가장자리(지평선)로 갈수록 작고 옅어진다
       for (let i = 0; i < GLOBE_DOTS.length; i++) {
         const [lon, lat, k] = GLOBE_DOTS[i];
-        const local = ease((t - (dist[i] / 120) * 1.6) / 0.8);
+        const local = ease((t - (dist[i] / maxD) * 1.6) / 0.8);
         if (local <= 0) continue;
         const [x, y, c] = G([lon, lat]);
         if (c <= 0.02 || x < -4 || x > W + 4 || y < -4 || y > H + 4) continue;
@@ -135,7 +136,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
       const jpT = inout((t - INTRO - 0.3) / 1.1);
       const usT = inout((t - INTRO - 0.6) / 2);
       strokeG(HUB, JAPAN, 0.025, jpT);
-      strokeG(HUB, USA, 0.16, usT);
+      strokeG(HUB, USA, 0.1, usT);
       ctx.setLineDash([]);
 
       // 지점 표시
@@ -154,7 +155,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
       if (usT > 0.98 && !reduce && usPulse > 0) {
         const [x, y] = G(USA);
         ctx.globalAlpha = 0.5 * (1 - usPulse); ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.ellipse(x, y, 4 + usPulse * 16, (4 + usPulse * 16) * 0.6, 0, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(x, y, 4 + usPulse * 14, 0, Math.PI * 2); ctx.stroke();
         ctx.globalAlpha = 1;
       }
 
@@ -261,7 +262,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     '-translate-x-1/2 -translate-y-[calc(100%+12px)]',
     'translate-x-2.5 -translate-y-1/2',
     'translate-x-[-50%] translate-y-3',
-    '-translate-x-full -translate-y-[calc(100%+10px)]',
+    '-translate-x-[calc(100%+12px)] -translate-y-1/2',
   ];
   return (
     <div ref={boxRef} className="relative w-full aspect-[3/2]">
