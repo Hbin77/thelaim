@@ -232,10 +232,20 @@ a:hover .lb-in .lb-img { transform: scale(1.03); }
   background-size: 56px 56px;
   mask-image: radial-gradient(80% 70% at 62% 50%, #000 30%, transparent 85%);
 }
+/* 홈 첫 화면 밑줄 링크: 가리키면 밑줄이 오른쪽으로 빠졌다가 왼쪽에서 다시 그어진다 */
+.lp-link { padding-bottom: 5px; background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat; }
+a:hover > .lp-link, a:focus-visible > .lp-link { animation: lpLine .7s var(--ease-out-soft); }
+@keyframes lpLine {
+  0% { background-position: right bottom; background-size: 100% 1px; }
+  45% { background-position: right bottom; background-size: 0 1px; }
+  46% { background-position: left bottom; background-size: 0 1px; }
+  100% { background-position: left bottom; background-size: 100% 1px; }
+}
 /* 메인 화면 문구·이름표가 차례로 떠오른다 */
 .lp-in { opacity: 0; transform: translateY(14px); transition: opacity .9s, transform .9s var(--ease-out-soft); transition-delay: calc(var(--i, 0) * 90ms); }
 .lp-shown .lp-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .lp-in { transition: none; }
+  a:hover > .lp-link { animation: none; }
   .lp-run * { animation: none !important; }
 }

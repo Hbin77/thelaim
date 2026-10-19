@@ -133,19 +133,20 @@ export default function HeroSection() {
           <p className="lp-in mt-7 max-w-[26em] text-base leading-relaxed text-ink-2 md:text-lg" style={vars({ '--i': 2 })}>
             {t('subtitle')}
           </p>
-          <div className="lp-in mt-9 flex flex-wrap gap-3" style={vars({ '--i': 3 })}>
-            <Link
-              href="/products"
-              className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-semibold text-paper transition-colors hover:bg-olive focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-            >
-              {t('cta_primary')}
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex h-12 items-center rounded-full border border-ink/25 px-7 text-[15px] font-semibold text-ink transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-            >
-              {t('cta_secondary')}
-            </Link>
+          {/* 버튼 대신 밑줄 링크: 가리키면 밑줄이 왼쪽에서 다시 그어지고 화살표가 밀려난다 */}
+          <div className="lp-in mt-8 flex flex-wrap gap-x-10 gap-y-1" style={vars({ '--i': 3 })}>
+            {([['/products', t('cta_primary')], ['/contact', t('cta_secondary')]] as const).map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="group inline-flex min-h-11 items-center gap-2.5 py-2 text-[17px] font-semibold tracking-[-0.01em] text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              >
+                <span className="lp-link">{label}</span>
+                <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 transition-transform duration-500 ease-out-soft group-hover:translate-x-1">
+                  <path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
