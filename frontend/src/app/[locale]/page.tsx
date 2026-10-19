@@ -24,7 +24,7 @@ export default async function HomePage({
 
   return (
     <div className="bg-ink">
-      <HeroSection products={products} />
+      <HeroSection />
       <Lookbook />
       <Statement />
       <ProductStream products={products} />
