@@ -103,6 +103,9 @@ export default function HeroSection() {
     return () => cancelAnimationFrame(raf);
   }, [phase]);
 
+  const tag = t('tagline');
+  const cut = tag.indexOf(' Import');
+  const tagline = cut > 0 ? [tag.slice(0, cut), tag.slice(cut + 1)] : [tag];
   const intro = phase === 'run' || phase === 'move';
   const shown = phase === 'move' || phase === 'done';
 
@@ -112,20 +115,25 @@ export default function HeroSection() {
 
       <div className="wrap relative grid h-full grid-rows-[minmax(0,1fr)_auto] gap-6 pb-[max(56px,8svh)] pt-24 md:grid-cols-12 md:grid-rows-1 md:items-center md:gap-8 md:pb-0 md:pt-20">
         {/* 흐름 그래픽 */}
-        <div className="relative md:order-2 md:col-span-7 md:col-start-6">
+        <div className="relative md:order-2 md:col-span-6 md:col-start-7">
           {shown && <RouteMap labels={[t('route_from'), t('route_hub'), t('route_to')]} delay={phase === 'move' ? 0.6 : 0.2} />}
         </div>
-        <div className="md:order-1 md:col-span-5">
-          <p className="lp-in font-display text-[17px] italic text-olive md:text-[19px]" style={vars({ '--i': 0 })}>
-            {t('tagline')}
-          </p>
-          <h1 className="lp-in mt-4 max-w-[11em] text-[clamp(32px,4.4vw,64px)] font-bold leading-[1.14] tracking-[-0.03em] text-ink" style={vars({ '--i': 1 })}>
-            {t('title')}
+        <div className="md:order-1 md:col-span-6">
+          {/* 큰 제목: 영문 한 줄을 두 줄로 — 'Premium Fashion' / 'Import & Wholesale'(이탤릭) */}
+          <h1 className="font-display text-[clamp(46px,5.1vw,84px)] leading-[0.98] tracking-[-0.01em] text-ink">
+            <span className="lp-in block whitespace-nowrap" style={vars({ '--i': 0 })}>
+              {tagline[0]}
+            </span>
+            {tagline[1] && (
+              <span className="lp-in block whitespace-nowrap italic text-olive" style={vars({ '--i': 1 })}>
+                {tagline[1]}
+              </span>
+            )}
           </h1>
-          <p className="lp-in mt-5 max-w-[30em] text-[15px] leading-relaxed text-ink-2 md:text-base" style={vars({ '--i': 2 })}>
+          <p className="lp-in mt-7 max-w-[26em] text-base leading-relaxed text-ink-2 md:text-lg" style={vars({ '--i': 2 })}>
             {t('subtitle')}
           </p>
-          <div className="lp-in mt-8 flex flex-wrap gap-3" style={vars({ '--i': 3 })}>
+          <div className="lp-in mt-9 flex flex-wrap gap-3" style={vars({ '--i': 3 })}>
             <Link
               href="/products"
               className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-semibold text-paper transition-colors hover:bg-olive focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
