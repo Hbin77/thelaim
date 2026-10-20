@@ -1,237 +1,257 @@
 'use client';
 
-import { useEffect, useRef, type CSSProperties } from 'react';
-import { MAP_DOTS } from './map-dots';
-import { LOGO_BIRD } from './logo-paths';
+import { useEffect, useRef, useState } from 'react';
+import { useLocale } from 'next-intl';
+import { Pause, Play } from 'lucide-react';
+import { MAP_DOTS, MAP_OUTLINES } from './map-dots';
 
-// 오른쪽 흐름 지도: 중국·한반도·일본 일대를 점으로 찍은 하프톤 지도를 원근으로 눕혀 그린다(캔버스 2D, WebGL 아님).
-// 중국에서 대구종합유통단지까지 공중으로 솟는 호가 그려지고, 대구에서 전국 도시로 낮은 호가 퍼진다.
-// 대구에서 일본(도쿄)과 미국으로도 호가 이어진다. 미국은 일본 옆에 작게 옮겨 그린 도식이고,
-// 한반도는 주인공이 되도록 대구 부근을 중심으로 1.6배 키워 그린다(역시 도식).
-// 새 심볼이 그 호를 따라 7초에 한 번 날아가고, 지도는 아주 천천히 좌우로 돌아 입체감을 준다.
-type LngLat = [number, number];
-const SRC: LngLat = [122.6, 32.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
-const HUB0: LngLat = [128.6, 35.87]; // 대구
-const CITIES0: LngLat[] = [
-  [126.98, 37.57], // 서울
-  [128.9, 37.75], // 강릉
-  [127.38, 36.35], // 대전
-  [126.85, 35.16], // 광주
-  [129.08, 35.18], // 부산
-];
-const JAPAN: LngLat = [141.3, 35.7]; // 도쿄(일본 점을 동쪽으로 1.6° 옮긴 자리)
-const USA: LngLat = [145.3, 32.9]; // 일본 옆으로 옮긴 미국 도식의 가운데
-const CENTER: LngLat = [134.3, 36.6];
-// 한반도 확대: 이 점을 중심으로 KS배
-const KO: LngLat = [127.8, 36.2];
-const KS = 1.6;
-const big = ([lon, lat]: LngLat): LngLat => [KO[0] + (lon - KO[0]) * KS, KO[1] + (lat - KO[1]) * KS];
-const HUB = big(HUB0);
-const CITIES = CITIES0.map(big);
-const FK = 1.16; // 초점 거리(화면 폭 배수)
-const KX = Math.cos((34 * Math.PI) / 180);
-const MAIN_H = 2.8; // 중국→대구 호의 높이
-const FAN_H = 0.7;
-const JP_H = 2.2;
-const US_H = 2.6;
-const INTRO = 2.4; // 점 지도가 깔리고 큰 호가 그려지는 시간(초)
-const LOOP = 7;
+type Point = { x: number; y: number };
+type Country = 'china' | 'korea' | 'japan' | 'usa';
+type Particle = Point & { country: Country };
+const TAU = Math.PI * 2;
+const ease = (n: number) => 1 - Math.pow(1 - Math.max(0, Math.min(1, n)), 3);
+const countryForKind = (kind: number): Country => kind === 1 ? 'china' : kind === 2 || kind === 3 ? 'korea' : kind === 4 ? 'japan' : 'usa';
+const localPoint = (lon: number, lat: number, country: Country): Point => {
+  const origin = country === 'china' ? [104, 35] : country === 'korea' ? [128, 38] : country === 'japan' ? [137, 36] : [145.3, 33];
+  return { x: (lon - origin[0]) * 0.82, y: origin[1] - lat };
+};
+const particles: Particle[] = MAP_DOTS.map(([lon, lat, kind]) => {
+  const country = countryForKind(kind);
+  return { ...localPoint(lon, lat, country), country };
+});
+const silhouettes = MAP_OUTLINES.map(({ kind, points }) => {
+  const country = countryForKind(kind);
+  return { country, points: points.map(([lon, lat]) => localPoint(lon, lat, country)) };
+});
 
-const css = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const ease = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3));
-const inout = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+function curve(a: Point, b: Point, bend: number, p: number): Point {
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const arc = Math.sin(p * Math.PI) * bend;
+  return { x: a.x + dx * p + dy * arc, y: a.y + dy * p - dx * arc };
+}
 
 export default function RouteMap({ labels, delay }: { labels: string[]; delay: number }) {
+  const locale = useLocale();
+  const [paused, setPaused] = useState(false);
+  const [reduced, setReduced] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const elapsedRef = useRef(0);
 
   useEffect(() => {
-    const box = boxRef.current!;
-    const canvas = canvasRef.current!;
-    const ctx = canvas.getContext('2d')!;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const C = { ink: css('--color-ink'), ink3: css('--color-ink-3'), lime: css('--color-lime'), mist: css('--color-mist') };
-    const bird = LOGO_BIRD.map((d) => new Path2D(d));
-    let W = 0, H = 0, F = 0, raf = 0;
+    const box = boxRef.current;
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!box || !canvas || !ctx) return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const styles = getComputedStyle(document.documentElement);
+    const color = (name: string) => styles.getPropertyValue(`--color-${name}`).trim();
+    const colors = { ink: color('ink'), map: color('ink-3'), olive: color('olive'), lime: color('lime'), paper: color('paper') };
+    let width = 0, height = 0, raf = 0, previous = 0, lastPaint = 0, headerClearance = 104;
+    let visible = true;
+    let reducedMotion = media.matches;
+    setReduced(reducedMotion);
 
-    const resize = () => {
-      const r = box.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = r.width; H = r.height; F = W * FK;
-      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(box);
+    const draw = (time: number) => {
+      const mobile = width < 1024;
+      const t = reducedMotion ? 12 : Math.max(0, time - delay);
+      const intro = ease(t / 3.2);
+      const scene = Math.min(width, height * 1.65);
+      const configs = mobile ? {
+        china: { x: 0.22, y: 0.66, scale: 0.0084, rotation: -0.18 },
+        korea: { x: 0.53, y: 0.66, scale: 0.058, rotation: -0.16 },
+        japan: { x: 0.52, y: 0.85, scale: 0.020, rotation: 0.38 },
+        usa: { x: 0.82, y: 0.70, scale: 0.063, rotation: -0.18 },
+      } : {
+        china: { x: 0.32, y: 0.40, scale: 0.0082, rotation: -0.10 },
+        korea: { x: 0.61, y: 0.43, scale: 0.044, rotation: -0.18 },
+        japan: { x: 0.63, y: 0.77, scale: 0.0135, rotation: 0.38 },
+        usa: { x: 0.84, y: 0.39, scale: 0.066, rotation: -0.18 },
+      };
+      const project = (point: Point, country: Country): Point => {
+        const c = configs[country];
+        const rotation = c.rotation;
+        const scale = scene * c.scale;
+        return {
+          x: width * c.x + (point.x * Math.cos(rotation) - point.y * Math.sin(rotation)) * scale,
+          y: height * c.y + (point.x * Math.sin(rotation) + point.y * Math.cos(rotation)) * scale * (mobile ? 0.78 : 0.9),
+        };
+      };
+      const hub = project({ x: 0.6 * 0.82, y: 2.13 }, 'korea');
+      const china = project({ x: 3, y: -6 }, 'china');
+      const japan = project({ x: 1, y: 0 }, 'japan');
+      const usa = project({ x: -0.7, y: 0 }, 'usa');
+      ctx.clearRect(0, 0, width, height);
 
-    // 경도·위도·높이 → 화면 좌표(원근). theta: 지도 회전, 아주 천천히 흔들린다
-    let th = 0;
-    const PITCH = (50 * Math.PI) / 180, DIST = 30;
-    const sp = Math.sin(PITCH), cp = Math.cos(PITCH);
-    const P = ([lon, lat]: LngLat, z = 0) => {
-      const X = (lon - CENTER[0]) * KX, Y = lat - CENTER[1];
-      const ct = Math.cos(th), st = Math.sin(th);
-      const u = X * ct - Y * st, v = X * st + Y * ct;
-      const yc = v * sp + z * cp, zc = DIST + v * cp - z * sp;
-      return [W * 0.5 + (F * u) / zc, H * 0.56 - (F * yc) / zc, zc] as const;
-    };
-    const lerp = (a: LngLat, b: LngLat, t: number): LngLat => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
-    const arcPt = (a: LngLat, b: LngLat, h: number, t: number) => P(lerp(a, b, t), h * 4 * t * (1 - t));
-    const stroke = (a: LngLat, b: LngLat, h: number, t0: number, t1: number) => {
-      if (t1 <= t0) return;
-      ctx.beginPath();
-      for (let i = 0; i <= 48; i++) {
-        const [x, y] = arcPt(a, b, h, t0 + ((t1 - t0) * i) / 48);
-        if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+      // A still, softly filled silhouette supports the dots without an enclosing outline.
+      silhouettes.forEach(({ country, points }) => {
+        ctx.beginPath();
+        points.forEach((point, i) => {
+          const p = project(point, country);
+          if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.fillStyle = colors.map; ctx.globalAlpha = intro * (country === 'korea' ? 0.04 : 0.03); ctx.fill();
+      });
+
+      // Country geometry and dot opacity stay fixed; only the connection highlights move.
+      for (const dot of particles) {
+        const p = project(dot, dot.country);
+        const distance = Math.hypot((p.x - hub.x) / width, (p.y - hub.y) / height);
+        const reveal = reducedMotion ? 1 : ease((t - distance * 1.15) / 2.0);
+        if (!reveal) continue;
+        const { x, y } = p;
+        if (x < -4 || x > width + 4 || y < -4 || y > height + 4) continue;
+        const edge = Math.min(1, Math.max(0, Math.min(x + 8, width + 8 - x, y + 8, height + 8 - y) / 90));
+        ctx.globalAlpha = reveal * edge * (dot.country === 'korea' ? 0.64 : 0.50);
+        ctx.fillStyle = colors.map;
+        const radius = (dot.country === 'korea' ? 1.85 : dot.country === 'usa' ? 1.35 : 1.4) * Math.max(dot.country === 'korea' ? 0.45 : 0.38, scene / 1500);
+        ctx.beginPath(); ctx.arc(x, y, radius, 0, TAU); ctx.fill();
+
       }
-      ctx.stroke();
-    };
-    const hubDist = (lon: number, lat: number) => Math.hypot((lon - HUB[0]) * KX, lat - HUB[1]);
-    const maxDist = 18;
-    // 나라별 점 색: 한국은 진하게, 중국·북한·일본·미국은 알아볼 만한 중간 톤, 그 밖의 나라는 옅게
-    const COL = ['', C.ink3, C.ink, C.ink3, C.ink3, C.mist, C.ink3];
-    const ALPHA = [0, 0.62, 1, 0.55, 0.62, 0.7, 0.6];
 
-    const t0 = performance.now() + delay * 1000;
-    const draw = (now: number) => {
-      const t = reduce ? 99 : (now - t0) / 1000;
-      th = (-3 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
-      ctx.clearRect(0, 0, W, H);
-
-      // 점 지도: 대구에서 바깥으로 물결처럼 내려앉으며 깔린다
-      for (let k = 1; k <= 6; k++) {
-        ctx.fillStyle = COL[k];
-        for (const [lon, lat, kind] of MAP_DOTS) {
-          if (kind !== k) continue;
-          const local = ease((t - (hubDist(lon, lat) / maxDist) * 1.2) / 0.9);
-          if (local <= 0) continue;
-          const [x, y, z] = P(kind === 2 || kind === 3 ? big([lon, lat]) : [lon, lat], (1 - local) * 1.5);
-          const r = ((kind === 2 ? 38 : kind === 3 ? 28 : kind === 6 ? 16 : 36) / z) * (W / 700) * (FK / 1.5);
-          // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
-          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (28 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 6)));
-          if (edge <= 0) continue;
-          // 캔버스 좌우 끝 48px 안쪽에서 점이 서서히 사라져 잘린 면이 보이지 않게
-          const side = Math.min(1, Math.max(0, Math.min(x, W - x) / 48));
-          ctx.globalAlpha = ALPHA[kind] * local * edge * side;
-          ctx.beginPath();
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fill();
+      const stroke = (a: Point, b: Point, bend: number, from: number, to: number) => {
+        if (to <= from) return;
+        ctx.beginPath();
+        for (let i = 0; i <= 80; i++) {
+          const p = curve(a, b, bend, from + (to - from) * i / 80);
+          if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
         }
-      }
-      ctx.globalAlpha = 1;
-
-      // 대구에서 전국으로 퍼지는 낮은 호
-      const fanT = (t - INTRO) / 1.2;
-      ctx.strokeStyle = C.ink; ctx.lineWidth = 1;
-      CITIES.forEach((c, i) => {
-        const p = ease(fanT - i * 0.12);
-        ctx.globalAlpha = 0.55;
-        stroke(HUB, c, FAN_H, 0, p);
-        if (p > 0.98) {
-          const [x, y] = P(c);
-          ctx.globalAlpha = 1; ctx.fillStyle = C.ink;
-          ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.fill();
-          const pulse = ((t - INTRO - 1.4 + i * 0.6) % 3.2) / 3.2;
-          if (pulse > 0 && !reduce) {
-            ctx.globalAlpha = 0.5 * (1 - pulse);
-            ctx.beginPath(); ctx.ellipse(x, y, 4 + pulse * 14, (4 + pulse * 14) * sp, 0, 0, Math.PI * 2); ctx.stroke();
+        ctx.stroke();
+      };
+      const routes = [
+        { a: china, b: hub, bend: 0.38 },
+        { a: hub, b: japan, bend: 0.42 },
+        { a: hub, b: usa, bend: 0.52 },
+      ];
+      routes.forEach(({ a, b, bend: requestedBend }, i) => {
+        // Keep each connection and its moving highlight below the navigation.
+        // Reducing curvature preserves a smooth arc instead of flattening it at a clip edge.
+        let maxBend = requestedBend;
+        if (b.x > a.x) {
+          for (let sample = 1; sample < 80; sample++) {
+            const p = sample / 80;
+            maxBend = Math.min(maxBend, (a.y + (b.y - a.y) * p - headerClearance) / ((b.x - a.x) * Math.sin(p * Math.PI)));
           }
         }
+        const bend = Math.min(requestedBend, Math.max(0, maxBend));
+        // A quiet continuous connection establishes the network; the comet gives it direction.
+        const connection = reducedMotion ? 1 : ease((t - 0.5 - i * 0.2) / 1.1);
+        ctx.strokeStyle = colors.olive;
+        ctx.lineWidth = mobile ? 0.85 : 1;
+        ctx.lineCap = 'round';
+        ctx.globalAlpha = connection * 0.48;
+        stroke(a, b, bend, 0, 1);
+        ctx.lineCap = 'butt';
+        if (reducedMotion || t < 0.8 + i * 0.45) return;
+        const cycle = ((t - 0.8 - i * 0.45) % 3.8) / 3.8;
+        if (cycle > 0.84) return;
+        const travel = cycle / 0.84;
+        const head = 0.5 - Math.cos(travel * Math.PI) * 0.5;
+        const opacity = Math.min(1, travel * 8, (1 - travel) * 8);
+        ctx.strokeStyle = colors.olive;
+        ctx.lineCap = 'round';
+        for (let trail = 0; trail < 12; trail++) {
+          const from = Math.max(0, head - (trail + 1) * 0.019);
+          const to = Math.max(0, head - trail * 0.019);
+          ctx.globalAlpha = opacity * (1 - trail / 12) * 0.85;
+          ctx.lineWidth = (1 - trail / 16) * (mobile ? 1.8 : 2.4);
+          stroke(a, b, bend, from, to);
+        }
+        const point = curve(a, b, bend, head);
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = colors.olive;
+        ctx.beginPath(); ctx.arc(point.x, point.y, mobile ? 2.2 : 3, 0, TAU); ctx.fill();
+        ctx.lineCap = 'butt';
       });
 
-      // 중국 → 대구 큰 호(점선)
-      const mainT = inout((t - 0.9) / 1.5);
-      ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.25; ctx.setLineDash([4, 5]);
-      stroke(SRC, HUB, MAIN_H, 0, mainT);
-      ctx.setLineDash([]);
-
-      // 대구 → 일본, 미국(점선 호). 미국 호는 오른쪽 가장자리 밖으로 빠져나간다
-      ctx.globalAlpha = 1; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.1; ctx.setLineDash([3, 5]);
-      const jpT = inout((t - INTRO - 0.5) / 1.3);
-      const usT = inout((t - INTRO - 0.8) / 1.6);
-      stroke(HUB, JAPAN, JP_H, 0, jpT);
-      stroke(HUB, USA, US_H, 0, usT);
-      ctx.setLineDash([]);
-      if (usT > 0.98) {
-        const [x, y] = P(USA);
-        ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, Math.PI * 2); ctx.fill();
-      }
-      if (jpT > 0.98) {
-        const [x, y] = P(JAPAN);
-        ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, Math.PI * 2); ctx.fill();
-      }
-
-      // 출발점·거점 표시
-      const [sx, sy] = P(SRC);
-      ctx.globalAlpha = ease((t - 0.7) / 0.5);
-      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.ellipse(sx, sy, 6, 6 * sp * 1.4, 0, 0, Math.PI * 2); ctx.stroke();
-      ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(sx, sy, 2, 0, Math.PI * 2); ctx.fill();
-      const [hx, hy] = P(HUB);
-      const hubIn = ease((t - 2.1) / 0.6);
-      if (hubIn > 0) {
-        ctx.globalAlpha = hubIn;
-        const ring = ((t - 2.1) % 3.2) / 3.2;
-        if (!reduce) {
-          ctx.globalAlpha = hubIn * 0.6 * (1 - ring); ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.ellipse(hx, hy, 10 + ring * 56, (10 + ring * 56) * sp, 0, 0, Math.PI * 2); ctx.stroke();
-        }
-        ctx.globalAlpha = hubIn;
-        ctx.fillStyle = C.lime; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.ellipse(hx, hy, 9, 9 * sp * 1.25, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      }
+      [china, japan, usa].forEach((p) => {
+        ctx.globalAlpha = intro;
+        ctx.fillStyle = colors.paper; ctx.strokeStyle = colors.olive; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, TAU); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = colors.ink; ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, TAU); ctx.fill();
+      });
+      ctx.globalAlpha = intro;
+      ctx.fillStyle = colors.paper; ctx.beginPath(); ctx.arc(hub.x, hub.y, 16, 0, TAU); ctx.fill();
+      ctx.fillStyle = colors.lime; ctx.strokeStyle = colors.ink; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.arc(hub.x, hub.y, 9, 0, TAU); ctx.fill(); ctx.stroke();
       ctx.globalAlpha = 1;
 
-      // 새 심볼: 큰 호를 따라 날아간다
-      const ft = reduce ? -1 : ((t - INTRO - 0.4) % LOOP) / LOOP;
-      if (t > INTRO + 0.4 && ft < 0.62) {
-        const q = inout(ft / 0.58);
-        const [bx, by, bz] = arcPt(SRC, HUB, MAIN_H, Math.min(q, 1));
-        const s = (0.62 / bz) * (W / 700) * 0.06;
-        ctx.globalAlpha = Math.min(1, ft / 0.06, (0.62 - ft) / 0.06);
-        ctx.save(); ctx.translate(bx, by); ctx.scale(s, s); ctx.translate(-6600, -300);
-        ctx.fillStyle = C.ink; bird.forEach((b) => ctx.fill(b));
-        ctx.restore();
-        ctx.globalAlpha = 1;
-      }
-
-      // 이름표 위치
-      const pts = [P(SRC), P(HUB), P(CITIES[4]), P(JAPAN), P(USA)]; // 03은 부산 옆
+      const points = [china, hub, japan, usa];
       labelRefs.current.forEach((el, i) => {
-        if (el) el.style.transform = `translate(${pts[i][0]}px, ${pts[i][1]}px)`;
+        if (!el) return;
+        // Keep captions inside the viewport even when the land extends past its edge.
+        const x = Math.max(mobile ? 30 : 64, Math.min(width - (mobile ? 34 : 96), points[i].x));
+        el.style.transform = `translate(${x}px, ${points[i].y}px)`;
+        el.style.opacity = String(reducedMotion ? 1 : ease((t - 1.2 - i * 0.12) / 0.8));
       });
-
-      if (!reduce) raf = requestAnimationFrame(draw);
     };
-    raf = requestAnimationFrame(draw);
+    const active = () => !paused && !reducedMotion && visible && !document.hidden;
+    const tick = (now: number) => {
+      if (!active()) return;
+      if (previous) elapsedRef.current += Math.min((now - previous) / 1000, 0.1);
+      previous = now;
+      if (now - lastPaint >= 1000 / 30) { draw(elapsedRef.current); lastPaint = now; }
+      raf = requestAnimationFrame(tick);
+    };
+    const sync = () => {
+      cancelAnimationFrame(raf); previous = 0;
+      draw(elapsedRef.current);
+      if (active()) raf = requestAnimationFrame(tick);
+    };
+    const resize = () => {
+      const rect = box.getBoundingClientRect();
+      width = rect.width; height = rect.height;
+      headerClearance = (document.querySelector('header')?.getBoundingClientRect().height ?? 80) + 24;
+      canvas.style.setProperty('--network-header-height', `${headerClearance - 24}px`);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sync();
+    };
+    const preference = () => { reducedMotion = media.matches; setReduced(reducedMotion); sync(); };
+    const resizeObserver = new ResizeObserver(resize);
+    const intersectionObserver = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    resize(); resizeObserver.observe(box); intersectionObserver.observe(box);
+    media.addEventListener('change', preference);
+    document.addEventListener('visibilitychange', sync);
     return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
+      cancelAnimationFrame(raf); resizeObserver.disconnect(); intersectionObserver.disconnect();
+      media.removeEventListener('change', preference);
+      document.removeEventListener('visibilitychange', sync);
     };
-  }, [delay]);
+  }, [delay, paused]);
 
-  const offs = ['-translate-x-1/2 translate-y-3', '-translate-x-[calc(100%+22px)] -translate-y-[calc(100%+18px)]', 'translate-x-3 -translate-y-1/2', '-translate-x-1/2 translate-y-3', '-translate-x-1/2 -translate-y-[calc(100%+14px)]'];
+  const captions = [
+    { name: labels[0], kicker: '01 / CHINA', className: 'network-label-china' },
+    { name: labels[1], kicker: '02 / KOREA · THELAIM', className: 'network-label-hub' },
+    { name: labels[3], kicker: '03 / JAPAN', className: 'network-label-japan' },
+    { name: labels[4], kicker: '04 / UNITED STATES', className: 'network-label-usa' },
+  ];
   return (
-    <div ref={boxRef} className="relative mx-auto aspect-[700/580] max-h-full w-full">
+    <div ref={boxRef} className="network-map absolute inset-0">
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
-      {labels.map((text, i) => (
-        <div
-          key={i}
-          ref={(el) => {
-            labelRefs.current[i] = el;
-          }}
-          className="pointer-events-none absolute left-0 top-0"
-        >
-          <p className={`lp-in whitespace-nowrap text-[11px] font-semibold tracking-[-0.01em] text-ink md:text-[13px]`} style={{ '--i': 7 + i * 2 } as CSSProperties}>
-            <span className={`block rounded-sm bg-paper/85 px-1.5 py-0.5 ${offs[i]}`}>
-              <span className="mr-1.5 font-display text-[13px] font-normal italic text-olive md:text-[15px]">0{i + 1}</span>
-              {text}
-            </span>
-          </p>
-        </div>
-      ))}
+      <div className="pointer-events-none absolute inset-0">
+        {captions.map(({ name, kicker, className }, i) => (
+          <div key={kicker || 'domestic'} ref={(el) => { labelRefs.current[i] = el; }} className={`network-label absolute left-0 top-0 opacity-0 ${className}`}>
+            <div className="network-label-content">
+              {kicker && <span className="block font-sans text-[10px] font-medium tracking-[0.16em] text-olive md:text-xs">{kicker}</span>}
+              <span className="network-label-name block text-sm font-semibold text-ink md:text-base">{name}</span>
+              {i === 1 && <span className="network-label-detail block text-xs font-normal text-ink-2">{labels[2]}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="network-caption pointer-events-none absolute bottom-8 left-[clamp(20px,4vw,56px)] flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-ink-3 md:bottom-10 md:text-xs" aria-hidden="true">
+        <span className="h-px w-8 bg-olive" /> THELAIM — BEYOND BORDERS
+      </div>
+      {!reduced && <button type="button" onClick={() => setPaused((value) => !value)} aria-pressed={paused}
+        aria-label={locale === 'ko' ? (paused ? '지도 모션 재생' : '지도 모션 일시정지') : (paused ? 'Play map animation' : 'Pause map animation')}
+        className="absolute bottom-6 right-[clamp(20px,4vw,56px)] z-20 inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-line bg-paper/90 px-4 text-[10px] font-medium tracking-[0.12em] text-ink-2 transition-colors hover:bg-paper-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive md:bottom-8">
+        {paused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
+        <span className="hidden sm:inline">MOTION {paused ? 'OFF' : 'ON'}</span>
+      </button>}
     </div>
   );
 }

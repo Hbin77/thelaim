@@ -1,0 +1,13 @@
+# Home — Immersive sourcing network
+
+Inherits `../MASTER.md`. The hero is a full viewport motion graphic with copy layered above it, rather than a two-column layout.
+
+- Composition: an enlarged Korean peninsula is the visual center; China, Japan and the USA gather closely around it on the left, below and right. China and the USA are about 20% larger on desktop (15% on mobile), with their centers slightly spread left and right. Country silhouettes are recognizable but positions and scale are intentionally diagrammatic.
+- Materials: `paper` background, `ink-3` particles (Korea 64% opacity, other countries 50%) with a subtle `ink-3` filled silhouette (4% / 3% opacity) and no enclosing outline, continuous `olive` connections with traveling highlights, and `lime` filled hub. No new color values. The text protection layer uses `paper` with transparency; text retains the MASTER contrast pairs.
+- Hub identity: use the existing localized `footer.company_name` as the Korean hub label, with THELAIM in its country caption.
+- Header actions: use a plain locale code with a small disclosure chevron and an underlined consultation link with an SVG arrow. No filled pill backgrounds. Keep 44px targets, visible focus rings and a compact paper dropdown; the language selector also supports the dark mobile menu.
+- Hierarchy: existing serif headline and olive italic line remain the foreground. Country captions are secondary. Do not place graphic labels over the headline, subtitle, or links.
+- Motion: country positions, rotation and dot opacity stay fixed. Countries only fade in on entry; no undulation, rotation drift, scattered particles or pulsing remains. Persistent connections link the countries, and accelerating, fading comet segments travel over them. No domestic branch or orbital ring is drawn. Route curvature stays below the actual header height plus 24px; the canvas also fades below the header. The graphic pauses outside the viewport and in hidden tabs; cap canvas resolution at 2× and frames at 30 fps.
+- Accessibility: visible 44px motion control with focus ring; reduced motion renders the complete still composition and skips the logo intro. Resize and live preference changes must also update the still frame. Decorative canvas is hidden from assistive technology; country captions remain readable text.
+- Responsive: desktop copy sits left of the Korean hub; mobile copy moves above a compact lower map. Keep all four country labels visible at 375px and above, with no horizontal page overflow.
+- Anti-patterns: no literal geographic projection, boxed map, dashboard cards, neon palette, emoji icons, opaque copy card, or fabricated trade statistics.

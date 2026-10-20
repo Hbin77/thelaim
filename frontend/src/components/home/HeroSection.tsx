@@ -30,10 +30,11 @@ const vars = (o: Record<string, string | number>) => o as CSSProperties;
 // 홈 첫 화면 — 로고 플레이 + 메인 화면(2D 모션그래픽).
 // 인트로: 라임색 점이 바닥선으로 펴지고, 글자들이 그 선 위로 솟아오르고, 새 심볼이 궤적을 그리며 날아와 앉는다.
 // 끝나면 로고가 줄어들며 상단 바의 로고 자리로 날아가 앉고(그때까지 상단 로고는 숨김), 막이 걷히며 메인 화면이 드러난다.
-// 메인 화면: 왼쪽 문구·버튼, 오른쪽은 점 지도 위에 '중국 현지 소싱 → 대구종합유통단지 → 전국 소매·도매' 흐름을 그린다(RouteMap).
+// 메인 화면: 전체 화면 점 지도 위에 문구·버튼을 겹치고, '중국 현지 소싱 → THELAIM → 전국 소매·도매' 흐름을 그린다(RouteMap).
 // 재방문·'동작 줄이기'는 인트로를 건너뛴다.
 export default function HeroSection() {
   const t = useTranslations('hero');
+  const company = useTranslations('footer');
   const [phase, setPhase] = useState<'wait' | 'run' | 'move' | 'done'>('wait');
   const trailRef = useRef<SVGPathElement>(null);
   const birdRef = useRef<SVGGElement>(null);
@@ -110,17 +111,14 @@ export default function HeroSection() {
   const shown = phase === 'move' || phase === 'done';
 
   return (
-    <section className={`relative h-svh min-h-[640px] overflow-hidden bg-paper ${shown ? 'lp-shown' : ''}`}>
-      <div aria-hidden="true" className="lp-grid absolute inset-0" />
+    <section className={`network-hero relative isolate h-svh min-h-[760px] overflow-hidden bg-paper ${shown ? 'lp-shown' : ''}`}>
+      {shown && <RouteMap labels={[t('route_from'), company('company_name'), t('route_to'), t('route_jp'), t('route_us')]} delay={phase === 'move' ? 0.6 : 0.2} />}
+      <div aria-hidden="true" className="network-copy-veil pointer-events-none absolute inset-0" />
 
-      <div className="wrap relative grid h-full grid-rows-[minmax(0,1fr)_auto] gap-6 pb-[max(56px,8svh)] pt-24 md:grid-cols-12 md:grid-rows-1 md:items-center md:gap-8 md:pb-0 md:pt-20">
-        {/* 흐름 그래픽 */}
-        <div className="relative flex items-center md:order-2 md:col-span-6 md:col-start-7 md:-mr-[clamp(20px,4vw,56px)]">
-          {shown && <RouteMap labels={[t('route_from'), t('route_hub'), t('route_to'), t('route_jp'), t('route_us')]} delay={phase === 'move' ? 0.6 : 0.2} />}
-        </div>
-        <div className="md:order-1 md:col-span-6">
+      <div className="wrap pointer-events-none relative z-10 flex h-full items-center pt-20">
+        <div className="network-copy pointer-events-auto">
           {/* 큰 제목: 영문 한 줄을 두 줄로 — 'Premium Fashion' / 'Import & Wholesale'(이탤릭) */}
-          <h1 className="font-display text-[clamp(46px,5.1vw,84px)] leading-[0.98] tracking-[-0.01em] text-ink">
+          <h1 className="network-title font-display leading-[0.98] tracking-[-0.025em] text-ink">
             <span className="lp-in block whitespace-nowrap" style={vars({ '--i': 0 })}>
               {tagline[0]}
             </span>
