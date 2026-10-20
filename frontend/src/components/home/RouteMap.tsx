@@ -6,27 +6,34 @@ import { LOGO_BIRD } from './logo-paths';
 
 // 오른쪽 흐름 지도: 중국·한반도·일본 일대를 점으로 찍은 하프톤 지도를 원근으로 눕혀 그린다(캔버스 2D, WebGL 아님).
 // 중국에서 대구종합유통단지까지 공중으로 솟는 호가 그려지고, 대구에서 전국 도시로 낮은 호가 퍼진다.
-// 대구에서 일본(도쿄)과 미국으로도 호가 이어진다. 미국은 깔끔하게 보이도록 일본 오른쪽 옆에 작게 옮겨 그린 도식이다.
+// 대구에서 일본(도쿄)과 미국으로도 호가 이어진다. 미국은 일본 옆에 작게 옮겨 그린 도식이고,
+// 한반도는 주인공이 되도록 대구 부근을 중심으로 1.6배 키워 그린다(역시 도식).
 // 새 심볼이 그 호를 따라 7초에 한 번 날아가고, 지도는 아주 천천히 좌우로 돌아 입체감을 준다.
 type LngLat = [number, number];
-const SRC: LngLat = [116.4, 30.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
-const HUB: LngLat = [128.6, 35.87]; // 대구
-const CITIES: LngLat[] = [
+const SRC: LngLat = [122.6, 32.6]; // 중국(특정 도시가 아니라 일대를 가리키는 표시)
+const HUB0: LngLat = [128.6, 35.87]; // 대구
+const CITIES0: LngLat[] = [
   [126.98, 37.57], // 서울
   [128.9, 37.75], // 강릉
   [127.38, 36.35], // 대전
   [126.85, 35.16], // 광주
   [129.08, 35.18], // 부산
 ];
-const JAPAN: LngLat = [139.7, 35.7]; // 도쿄
-const USA: LngLat = [147.2, 36.9]; // 일본 옆으로 옮긴 미국 도식의 가운데
-const CENTER: LngLat = [133, 36];
-const FK = 0.9; // 초점 거리(화면 폭 배수)
+const JAPAN: LngLat = [141.3, 35.7]; // 도쿄(일본 점을 동쪽으로 1.6° 옮긴 자리)
+const USA: LngLat = [145.3, 32.9]; // 일본 옆으로 옮긴 미국 도식의 가운데
+const CENTER: LngLat = [135.1, 36.6];
+// 한반도 확대: 이 점을 중심으로 KS배
+const KO: LngLat = [127.8, 36.2];
+const KS = 1.6;
+const big = ([lon, lat]: LngLat): LngLat => [KO[0] + (lon - KO[0]) * KS, KO[1] + (lat - KO[1]) * KS];
+const HUB = big(HUB0);
+const CITIES = CITIES0.map(big);
+const FK = 1.32; // 초점 거리(화면 폭 배수)
 const KX = Math.cos((34 * Math.PI) / 180);
-const MAIN_H = 4.2; // 중국→대구 호의 높이
+const MAIN_H = 2.8; // 중국→대구 호의 높이
 const FAN_H = 0.7;
 const JP_H = 2.2;
-const US_H = 3.2;
+const US_H = 2.6;
 const INTRO = 2.4; // 점 지도가 깔리고 큰 호가 그려지는 시간(초)
 const LOOP = 7;
 
@@ -61,7 +68,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
 
     // 경도·위도·높이 → 화면 좌표(원근). theta: 지도 회전, 아주 천천히 흔들린다
     let th = 0;
-    const PITCH = (36 * Math.PI) / 180, DIST = 30;
+    const PITCH = (50 * Math.PI) / 180, DIST = 30;
     const sp = Math.sin(PITCH), cp = Math.cos(PITCH);
     const P = ([lon, lat]: LngLat, z = 0) => {
       const X = (lon - CENTER[0]) * KX, Y = lat - CENTER[1];
@@ -83,13 +90,13 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     };
     const hubDist = (lon: number, lat: number) => Math.hypot((lon - HUB[0]) * KX, lat - HUB[1]);
     const maxDist = 18;
-    const COL = ['', C.mist, C.ink, C.mist, C.mist, C.mist, C.ink];
-    const ALPHA = [0, 0.95, 1, 0.5, 0.75, 0.3, 0.55];
+    const COL = ['', C.mist, C.ink, C.mist, C.ink, C.mist, C.ink];
+    const ALPHA = [0, 1, 1, 0.5, 0.45, 0.38, 0.6];
 
     const t0 = performance.now() + delay * 1000;
     const draw = (now: number) => {
       const t = reduce ? 99 : (now - t0) / 1000;
-      th = (-12 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
+      th = (-3 + (reduce ? 0 : Math.sin(Math.max(t, 0) / 5) * 2.2)) * (Math.PI / 180);
       ctx.clearRect(0, 0, W, H);
 
       // 점 지도: 대구에서 바깥으로 물결처럼 내려앉으며 깔린다
@@ -99,10 +106,10 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           if (kind !== k) continue;
           const local = ease((t - (hubDist(lon, lat) / maxDist) * 1.2) / 0.9);
           if (local <= 0) continue;
-          const [x, y, z] = P([lon, lat], (1 - local) * 1.5);
-          const r = ((kind === 2 ? 30 : kind === 3 ? 22 : kind === 6 ? 16 : 34) / z) * (W / 700) * (FK / 1.5);
+          const [x, y, z] = P(kind === 2 || kind === 3 ? big([lon, lat]) : [lon, lat], (1 - local) * 1.5);
+          const r = ((kind === 2 ? 38 : kind === 3 ? 28 : kind === 6 ? 14 : 26) / z) * (W / 700) * (FK / 1.5);
           // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
-          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (14 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4)));
+          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (18 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4)));
           if (edge <= 0) continue;
           ctx.globalAlpha = ALPHA[kind] * local * edge;
           ctx.beginPath();
@@ -166,11 +173,11 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
         const ring = ((t - 2.1) % 3.2) / 3.2;
         if (!reduce) {
           ctx.globalAlpha = hubIn * 0.6 * (1 - ring); ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.ellipse(hx, hy, 8 + ring * 40, (8 + ring * 40) * sp, 0, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(hx, hy, 10 + ring * 56, (10 + ring * 56) * sp, 0, 0, Math.PI * 2); ctx.stroke();
         }
         ctx.globalAlpha = hubIn;
         ctx.fillStyle = C.lime; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.ellipse(hx, hy, 7, 7 * sp * 1.25, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(hx, hy, 9, 9 * sp * 1.25, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       }
       ctx.globalAlpha = 1;
 
@@ -204,7 +211,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
 
   const offs = ['-translate-x-1/2 translate-y-3', '-translate-x-[calc(100%+22px)] -translate-y-[calc(100%+18px)]', 'translate-x-3 -translate-y-1/2', '-translate-x-1/2 translate-y-3', '-translate-x-1/2 -translate-y-[calc(100%+14px)]'];
   return (
-    <div ref={boxRef} className="relative mx-auto aspect-[700/560] max-h-full w-full max-w-[820px]">
+    <div ref={boxRef} className="relative mx-auto aspect-[700/580] max-h-full w-full">
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
       {labels.map((text, i) => (
         <div
