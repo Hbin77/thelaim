@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import { buttonClass } from '@/components/ui/Button';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -60,10 +59,13 @@ export default function Header() {
 
           <Navigation />
 
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center gap-4 md:gap-6">
             <LanguageSwitcher />
-            <Link href="/contact" className={buttonClass('primary', 'sm', 'hidden md:inline-flex')}>
-              {tHero('cta_secondary')}
+            <Link href="/contact" className="group hidden min-h-11 items-center gap-2 py-2 text-sm font-medium text-ink transition-colors duration-200 hover:text-olive md:inline-flex">
+              <span className="border-b border-ink/40 pb-0.5 transition-colors duration-200 group-hover:border-olive">{tHero('cta_secondary')}</span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4" aria-hidden="true">
+                <path d="M3 10h13M11 5l5 5-5 5" />
+              </svg>
             </Link>
             <button
               type="button"

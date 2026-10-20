@@ -53,24 +53,23 @@ export default function LanguageSwitcher({ dark = false, up = false }: LanguageS
         type="button"
         onClick={() => setOpen(!open)}
         className={cn(
-          'flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-semibold uppercase tracking-[0.08em] transition-colors',
-          dark ? 'text-paper hover:bg-paper/10' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'
+          'flex min-h-11 min-w-11 items-center justify-center gap-1.5 px-1 text-sm font-medium uppercase tracking-[0.04em] transition-colors duration-200',
+          dark ? 'text-paper hover:text-lime' : 'text-ink-2 hover:text-ink'
         )}
         aria-label={t('language')}
         aria-expanded={open}
         aria-haspopup="true"
       >
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" className="h-4 w-4" aria-hidden="true">
-          <circle cx="10" cy="10" r="7.5" />
-          <path d="M2.5 10h15M10 2.5c2.2 2.3 2.2 12.7 0 15M10 2.5c-2.2 2.3-2.2 12.7 0 15" />
-        </svg>
         {locale}
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className={cn('h-3 w-3 transition-transform duration-200', open && 'rotate-180')} aria-hidden="true">
+          <path d="m4 6 4 4 4-4" />
+        </svg>
       </button>
 
       {open && (
         <ul
           className={cn(
-            'absolute right-0 z-10 min-w-[148px] overflow-hidden rounded-[6px] border p-1.5 shadow-xl',
+            'absolute right-0 z-10 min-w-[148px] overflow-hidden rounded-sm border p-1 shadow-sm',
             up ? 'bottom-full mb-2' : 'top-full mt-2',
             dark ? 'border-line-dark bg-ink' : 'border-line bg-paper'
           )}
@@ -83,8 +82,8 @@ export default function LanguageSwitcher({ dark = false, up = false }: LanguageS
                 onClick={() => switchLocale(loc)}
                 aria-current={loc === locale ? 'true' : undefined}
                 className={cn(
-                  'flex min-h-11 w-full items-center justify-between gap-4 rounded-[4px] px-3 text-left text-sm transition-colors',
-                  dark ? 'text-paper hover:bg-paper/10' : 'text-ink hover:bg-ink/5',
+                  'flex min-h-11 w-full items-center justify-between gap-4 rounded-sm px-3 text-left text-sm transition-colors',
+                  dark ? 'text-paper hover:bg-paper/10' : 'text-ink hover:bg-paper-2',
                   loc === locale && 'font-bold'
                 )}
               >
