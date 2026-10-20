@@ -224,14 +224,6 @@ a:hover .lb-in .lb-img { transform: scale(1.03); }
   1% { opacity: .45; }
   to { opacity: 0; transform: scale(1); }
 }
-/* 메인 화면 바탕: 재단 패턴지 같은 가는 모눈, 가장자리로 갈수록 옅어진다 */
-.lp-grid {
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(80% 70% at 62% 50%, #000 30%, transparent 85%);
-}
 /* 홈 첫 화면 밑줄 링크: 가리키면 밑줄이 오른쪽으로 빠졌다가 왼쪽에서 다시 그어진다 */
 .lp-link { padding-bottom: 5px; background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat; }
 a:hover > .lp-link, a:focus-visible > .lp-link { animation: lpLine .7s var(--ease-out-soft); }
@@ -248,4 +240,51 @@ a:hover > .lp-link, a:focus-visible > .lp-link { animation: lpLine .7s var(--eas
   .lp-in { transition: none; }
   a:hover > .lp-link { animation: none; }
   .lp-run * { animation: none !important; }
+}
+
+/* Full-bleed sourcing scene. Page rules: design-system/pages/home.md. */
+.network-map canvas {
+  mask-image: linear-gradient(to bottom, transparent var(--network-header-height, 5rem), var(--color-ink) calc(var(--network-header-height, 5rem) + 1.5rem));
+}
+.network-title { font-size: clamp(2.75rem, 5.8vw, 6.5rem); }
+.network-copy { width: fit-content; max-width: 100%; padding-bottom: 2rem; }
+.network-copy-veil {
+  background: radial-gradient(ellipse 43% 42% at 25% 55%, var(--color-paper) 18%, color-mix(in srgb, var(--color-paper) 94%, transparent) 47%, transparent 100%);
+}
+.network-label { z-index: 2; }
+.network-caption { z-index: 2; }
+.network-label-content {
+  width: max-content;
+  max-width: 15rem;
+  padding: 0.25rem 0.5rem;
+  background: color-mix(in srgb, var(--color-paper) 94%, transparent);
+}
+.network-label-name { margin-top: 0.125rem; }
+.network-label-china .network-label-content { transform: translate(-25%, -170%); }
+.network-label-hub .network-label-content { transform: translate(1.25rem, -75%); }
+.network-label-japan .network-label-content { transform: translate(1rem, -100%); }
+.network-label-usa .network-label-content { transform: translate(-20%, -130%); }
+@media (min-width: 1600px) {
+  .network-copy { margin-left: -1rem; }
+}
+@media (max-width: 1023px) {
+  .network-hero { min-height: 50rem; }
+  .network-hero > .wrap { align-items: flex-start; padding-top: clamp(7.5rem, 17svh, 11rem); }
+  .network-title { font-size: clamp(2.25rem, 7.8vw, 3.75rem); }
+  .network-copy { width: 100%; padding-bottom: 0; }
+  .network-copy > p { margin-top: 1.5rem; max-width: 25em; }
+  .network-copy > div { margin-top: 1rem; }
+  .network-copy-veil {
+    background: linear-gradient(to bottom, var(--color-paper) 8%, color-mix(in srgb, var(--color-paper) 96%, transparent) 37%, transparent 61%);
+  }
+  .network-label-content { max-width: 11rem; padding: 0.125rem 0.375rem; }
+  .network-label-china .network-label-content { transform: translate(0, -130%); }
+  .network-label-hub .network-label-content { transform: translate(-25%, 0.75rem); }
+  .network-label-detail { font-size: 0.625rem; }
+  .network-label-usa .network-label-content { transform: translate(-50%, -140%); }
+  .network-label-japan .network-label-content { transform: translate(0.75rem, 0.5rem); }
+}
+@media (min-width: 768px) and (max-height: 700px) {
+  .network-hero { min-height: 40rem; }
+  .network-title { font-size: clamp(2.75rem, 5vw, 5rem); }
 }
