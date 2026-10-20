@@ -21,14 +21,14 @@ const CITIES0: LngLat[] = [
 ];
 const JAPAN: LngLat = [141.3, 35.7]; // 도쿄(일본 점을 동쪽으로 1.6° 옮긴 자리)
 const USA: LngLat = [145.3, 32.9]; // 일본 옆으로 옮긴 미국 도식의 가운데
-const CENTER: LngLat = [135.1, 36.6];
+const CENTER: LngLat = [134.3, 36.6];
 // 한반도 확대: 이 점을 중심으로 KS배
 const KO: LngLat = [127.8, 36.2];
 const KS = 1.6;
 const big = ([lon, lat]: LngLat): LngLat => [KO[0] + (lon - KO[0]) * KS, KO[1] + (lat - KO[1]) * KS];
 const HUB = big(HUB0);
 const CITIES = CITIES0.map(big);
-const FK = 1.32; // 초점 거리(화면 폭 배수)
+const FK = 1.16; // 초점 거리(화면 폭 배수)
 const KX = Math.cos((34 * Math.PI) / 180);
 const MAIN_H = 2.8; // 중국→대구 호의 높이
 const FAN_H = 0.7;
@@ -111,7 +111,9 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
           const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (18 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4)));
           if (edge <= 0) continue;
-          ctx.globalAlpha = ALPHA[kind] * local * edge;
+          // 캔버스 좌우 끝 48px 안쪽에서 점이 서서히 사라져 잘린 면이 보이지 않게
+          const side = Math.min(1, Math.max(0, Math.min(x, W - x) / 48));
+          ctx.globalAlpha = ALPHA[kind] * local * edge * side;
           ctx.beginPath();
           ctx.arc(x, y, r, 0, Math.PI * 2);
           ctx.fill();
