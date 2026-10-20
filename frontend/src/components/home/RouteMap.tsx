@@ -51,7 +51,7 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const C = { ink: css('--color-ink'), lime: css('--color-lime'), mist: css('--color-mist') };
+    const C = { ink: css('--color-ink'), ink3: css('--color-ink-3'), lime: css('--color-lime'), mist: css('--color-mist') };
     const bird = LOGO_BIRD.map((d) => new Path2D(d));
     let W = 0, H = 0, F = 0, raf = 0;
 
@@ -90,8 +90,9 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
     };
     const hubDist = (lon: number, lat: number) => Math.hypot((lon - HUB[0]) * KX, lat - HUB[1]);
     const maxDist = 18;
-    const COL = ['', C.mist, C.ink, C.mist, C.ink, C.mist, C.ink];
-    const ALPHA = [0, 1, 1, 0.5, 0.45, 0.38, 0.6];
+    // 나라별 점 색: 한국은 진하게, 중국·북한·일본·미국은 알아볼 만한 중간 톤, 그 밖의 나라는 옅게
+    const COL = ['', C.ink3, C.ink, C.ink3, C.ink3, C.mist, C.ink3];
+    const ALPHA = [0, 0.62, 1, 0.55, 0.62, 0.7, 0.6];
 
     const t0 = performance.now() + delay * 1000;
     const draw = (now: number) => {
@@ -107,9 +108,9 @@ export default function RouteMap({ labels, delay }: { labels: string[]; delay: n
           const local = ease((t - (hubDist(lon, lat) / maxDist) * 1.2) / 0.9);
           if (local <= 0) continue;
           const [x, y, z] = P(kind === 2 || kind === 3 ? big([lon, lat]) : [lon, lat], (1 - local) * 1.5);
-          const r = ((kind === 2 ? 38 : kind === 3 ? 28 : kind === 6 ? 14 : 26) / z) * (W / 700) * (FK / 1.5);
+          const r = ((kind === 2 ? 38 : kind === 3 ? 28 : kind === 6 ? 16 : 36) / z) * (W / 700) * (FK / 1.5);
           // 화면 가장자리 쪽 점은 서서히 옅어져 지도가 판처럼 잘려 보이지 않게
-          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (18 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 4)));
+          const edge = Math.min(1, Math.max(0, (kind === 6 ? 1 : (28 - Math.hypot((lon - CENTER[0]) * KX, lat - CENTER[1])) / 6)));
           if (edge <= 0) continue;
           // 캔버스 좌우 끝 48px 안쪽에서 점이 서서히 사라져 잘린 면이 보이지 않게
           const side = Math.min(1, Math.max(0, Math.min(x, W - x) / 48));
