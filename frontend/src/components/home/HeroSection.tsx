@@ -36,6 +36,7 @@ export default function HeroSection() {
   const t = useTranslations('hero');
   const company = useTranslations('footer');
   const [phase, setPhase] = useState<'wait' | 'run' | 'move' | 'done'>('wait');
+  const [mapDelay, setMapDelay] = useState(1.05);
   const trailRef = useRef<SVGPathElement>(null);
   const birdRef = useRef<SVGGElement>(null);
   const logoRef = useRef<SVGSVGElement>(null);
@@ -48,6 +49,7 @@ export default function HeroSection() {
       seen = sessionStorage.getItem('thelaim-logoplay') === '1';
     } catch {}
     if (reduce || seen) {
+      setMapDelay(0.15);
       setPhase('done');
       return;
     }
@@ -112,7 +114,7 @@ export default function HeroSection() {
 
   return (
     <section className={`network-hero relative isolate h-svh min-h-[760px] overflow-hidden bg-paper ${shown ? 'lp-shown' : ''}`}>
-      {shown && <RouteMap labels={[t('route_from'), company('company_name'), t('route_to'), t('route_jp'), t('route_us')]} delay={phase === 'move' ? 0.6 : 0.2} />}
+      {shown && <RouteMap labels={[t('route_from'), company('company_name'), t('route_to'), t('route_jp'), t('route_us')]} delay={mapDelay} />}
       <div aria-hidden="true" className="network-copy-veil pointer-events-none absolute inset-0" />
 
       <div className="wrap pointer-events-none relative z-10 flex h-full items-center pt-20">
