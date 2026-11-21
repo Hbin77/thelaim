@@ -45,6 +45,18 @@ export async function getProducts(params?: {
   });
 }
 
+// API는 한 번에 최대 100개(PAGE_MAX)만 준다. 상품이 그보다 많아져도 잘리지 않게 끝까지 이어 받는다.
+const PAGE_MAX = 100;
+
+export async function getAllProducts(lang?: string): Promise<Product[]> {
+  const first = await getProducts({ page: 1, limit: PAGE_MAX, lang });
+  const pages = Math.ceil(first.total / PAGE_MAX);
+  const rest = await Promise.all(
+    Array.from({ length: Math.max(0, pages - 1) }, (_, i) => getProducts({ page: i + 2, limit: PAGE_MAX, lang }))
+  );
+  return [first, ...rest].flatMap((r) => r.items);
+}
+
 export async function getFeaturedProducts(lang?: string): Promise<Product[]> {
   const query = lang ? `?lang=${lang}` : '';
   return fetchApi<Product[]>(`/api/v1/products/featured${query}`, { cache: 'no-store' });

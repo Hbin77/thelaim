@@ -11,7 +11,17 @@ type ProductItems = Record<string, { name: string }>;
 // 룩북: 상품 하나를 한 펼침면에. 옷 한 벌 사진은 크게 세우고, 여러 색 진열 사진은 가로로 넓게,
 // 원단 근접 사진은 작게 겹친다. 어떤 사진도 원래 해상도보다 크게 늘리지 않는다.
 // 움직임: 화면에 들어오면 아래에서 걷히듯 드러나고, 층마다 다른 속도로 흐른다(시차).
-const SPREADS = ['rayon-button-frill-dress', 'stripe-wide-pants', 'rayon-lace-pants-character', 'check-gingham-pants', 'pleats-rayon-dress'];
+// 앞 셋은 2026-11 추가 신상(더룽·피치·밍크 소재별 하나씩, 진열 사진이 가로형인 것)
+const SPREADS = [
+  'derong-check-dress',
+  'peach-round-dress',
+  'mink-sleep-pants-cuffed',
+  'rayon-button-frill-dress',
+  'stripe-wide-pants',
+  'rayon-lace-pants-character',
+  'check-gingham-pants',
+  'pleats-rayon-dress',
+];
 
 function Frame({ shot, className, speed = 0, sizes }: { shot: Shot; className?: string; speed?: number; sizes?: string }) {
   return (
