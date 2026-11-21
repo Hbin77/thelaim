@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
@@ -15,17 +15,17 @@ function getIsOpen(now = new Date()): boolean {
   return time >= 540 && time < 1080 && !(time >= 720 && time < 780);
 }
 
+function subscribeMinute(onChange: () => void) {
+  const id = setInterval(onChange, 60000);
+  return () => clearInterval(id);
+}
+
 export default function BusinessHours({ dark = false, className }: { dark?: boolean; className?: string }) {
   const t = useTranslations('location');
   const ui = useTranslations('ui');
   const tf = useTranslations('footer');
-  const [isOpen, setIsOpen] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    setIsOpen(getIsOpen());
-    const interval = setInterval(() => setIsOpen(getIsOpen()), 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // 1분마다 다시 계산. 서버 화면·하이드레이션 때는 모름(null) → 배지를 숨긴다
+  const isOpen = useSyncExternalStore(subscribeMinute, getIsOpen, () => null);
 
   return (
     <div className={className}>

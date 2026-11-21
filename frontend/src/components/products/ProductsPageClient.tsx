@@ -20,7 +20,7 @@ type ProductItems = Record<string, { name: string; desc: string; specs: Record<s
 export default function ProductsPageClient({ products: apiProducts, categories }: ProductsPageClientProps) {
   const messages = useMessages();
   const ui = useTranslations('ui');
-  const productItems = ((messages as Record<string, unknown>).productItems ?? {}) as ProductItems;
+  const productItems = useMemo(() => ((messages as Record<string, unknown>).productItems ?? {}) as ProductItems, [messages]);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -61,11 +61,14 @@ export default function ProductsPageClient({ products: apiProducts, categories }
 
   const selectedProduct = products.find((p) => p.slug === selectedSlug) ?? null;
 
-  // 주소가 밖에서 바뀌면(메뉴의 '제품소개', 뒤로 가기) 화면도 따라간다
-  useEffect(() => {
+  // 주소가 밖에서 바뀌면(메뉴의 '제품소개', 뒤로 가기) 화면도 따라간다(렌더 중 상태 맞추기)
+  const paramsKey = searchParams.toString();
+  const [syncedParams, setSyncedParams] = useState(paramsKey);
+  if (paramsKey !== syncedParams) {
+    setSyncedParams(paramsKey);
     setActiveCategory(searchParams.get('category') ?? 'all');
     setSelectedSlug(searchParams.get('item'));
-  }, [searchParams]);
+  }
 
   // 고른 분류·상품을 주소에 남긴다(새로고침·공유해도 그대로)
   useEffect(() => {

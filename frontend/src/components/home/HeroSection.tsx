@@ -49,6 +49,9 @@ export default function HeroSection() {
       seen = sessionStorage.getItem('thelaim-logoplay') === '1';
     } catch {}
     if (reduce || seen) {
+      // 첫 진입 때 한 번, 브라우저에서만 알 수 있는 값(동작 줄이기·이번 탭에서 본 적)으로 인트로 단계를 정한다.
+      // 서버 화면과 같게 'wait'로 그린 뒤 바꿔야 하이드레이션이 어긋나지 않는다.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMapDelay(0.15);
       setPhase('done');
       return;
