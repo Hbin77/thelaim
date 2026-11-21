@@ -1,4 +1,5 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export const fadeInUp = (element: Element, delay = 0) => {
   return gsap.fromTo(
@@ -20,7 +21,6 @@ export const setupHorizontalScroll = (
   container: Element,
   scrollContainer: Element
 ) => {
-  const { ScrollTrigger } = require('gsap/ScrollTrigger');
   gsap.registerPlugin(ScrollTrigger);
 
   const scrollWidth =
@@ -41,7 +41,6 @@ export const setupHorizontalScroll = (
 };
 
 export const setupParallax = (element: Element, speed = 0.5) => {
-  const { ScrollTrigger } = require('gsap/ScrollTrigger');
   gsap.registerPlugin(ScrollTrigger);
 
   return gsap.to(element, {

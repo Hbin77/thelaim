@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import { useMessages, useTranslations } from 'next-intl';
 import { CheckCircle, AlertCircle } from 'lucide-react';
@@ -27,7 +27,7 @@ export default function InquiryForm() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
     reset,
   } = useForm<ContactFormData>({
@@ -42,7 +42,7 @@ export default function InquiryForm() {
     },
   });
 
-  const preferred = watch('preferred_contact');
+  const preferred = useWatch({ control, name: 'preferred_contact' });
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
