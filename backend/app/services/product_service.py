@@ -38,7 +38,7 @@ def get_products(
     total = session.exec(count_statement).one()
 
     offset = (page - 1) * limit
-    statement = statement.offset(offset).limit(limit)
+    statement = statement.order_by(Product.sort_order, Product.id).offset(offset).limit(limit)
     products = session.exec(statement).all()
 
     items = [build_product_response(p, lang) for p in products]
@@ -46,7 +46,12 @@ def get_products(
 
 
 def get_featured_products(session: Session, lang: str = "ko") -> list[ProductResponse]:
-    statement = select(Product).join(Category, isouter=True).where(Product.is_featured == True)
+    statement = (
+        select(Product)
+        .join(Category, isouter=True)
+        .where(Product.is_featured == True)
+        .order_by(Product.sort_order, Product.id)
+    )
     products = session.exec(statement).all()
     return [build_product_response(p, lang) for p in products]
 

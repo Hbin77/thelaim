@@ -371,6 +371,117 @@
         "Colors": "Inquire",
         "Season": "Inquire"
       }
+    },
+    "derong-check-frill-set": {
+      "name": "Thermal Check Frill Set",
+      "desc": "Check top-and-bottom set in Derong thermal fabric (polyester 95% / spandex 5%). Frill-collar, frill-cuff top with elastic-waist long pants. Color lineup — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Top Length": "68 cm",
+        "Top Chest (flat)": "60 cm",
+        "Pants Length": "95 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "derong-check-dress": {
+      "name": "Thermal Check Dress",
+      "desc": "Long check dress in Derong thermal fabric (polyester 95% / spandex 5%). Frill collar, buttons and frill cuffs. Color lineup — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Total Length": "110 cm",
+        "Chest (flat)": "60 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "peach-frill-set": {
+      "name": "Peach-Skin Frill Set",
+      "desc": "Ditsy floral top-and-bottom set in peach-skin fabric (polyester 95% / spandex 5%). Frill-collar button top with cuffed-hem pants. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Top Length": "68 cm",
+        "Pants Length": "93 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "peach-frill-button-dress": {
+      "name": "Peach-Skin Frill Button Dress",
+      "desc": "Long ditsy floral dress in peach-skin fabric (polyester 95% / spandex 5%). Frill collar, buttons and elastic cuffs. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Total Length": "110 cm",
+        "Chest (flat)": "60 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "peach-round-dress": {
+      "name": "Peach-Skin Round Neck Dress",
+      "desc": "Long ditsy floral dress in peach-skin fabric (polyester 95% / spandex 5%). Round neckline with a ribbon tie. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Total Length": "110 cm",
+        "Chest (flat)": "60 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "peach-cuffed-pants": {
+      "name": "Peach-Skin Cuffed Pants",
+      "desc": "Ditsy floral long pants in peach-skin fabric (polyester 95% / spandex 5%). Elastic waistband and cuffed hem. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "Polyester 95% / Spandex 5%",
+        "Size": "One size (KR 55–88)",
+        "Total Length": "93 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "mink-sleep-pants-cuffed": {
+      "name": "Mink Fleece Sleep Pants — Cuffed",
+      "desc": "Sleep pants in 100% polyester mink fleece with cuffed hems. Character, floral, dot and stripe patterns. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "100% Polyester",
+        "Size": "One size (KR 55–77)",
+        "Total Length": "93 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "mink-sleep-pants-straight": {
+      "name": "Mink Fleece Sleep Pants — Straight (One Size)",
+      "desc": "Straight-leg sleep pants in 100% polyester mink fleece. Elastic waistband; stripe, character, floral and dot patterns. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "100% Polyester",
+        "Size": "One size (KR 55–77)",
+        "Total Length": "95 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
+    },
+    "mink-sleep-pants-xl": {
+      "name": "Mink Fleece Sleep Pants — XL",
+      "desc": "Larger-size (KR 95–100) straight-leg sleep pants in 100% polyester mink fleece. Elastic waistband; stripe, character and dot patterns. Colors and patterns — please inquire.",
+      "specs": {
+        "Material": "100% Polyester",
+        "Size": "One size (KR 95–100)",
+        "Total Length": "100 cm",
+        "Thigh (flat)": "31 cm",
+        "Colors": "Inquire",
+        "Season": "Inquire"
+      }
     }
   },
   "privacy": {

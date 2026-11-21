@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
-import { getProducts, getCategories } from '@/lib/api';
+import { getAllProducts, getCategories } from '@/lib/api';
 import PageHero from '@/components/ui/PageHero';
 import ProductsPageClient from '@/components/products/ProductsPageClient';
 import type { Product, Category } from '@/types';
@@ -18,12 +18,7 @@ export default async function ProductsPage({
   let products: Product[] = [];
   let categories: Category[] = [];
   try {
-    const [productsRes, categoriesRes] = await Promise.all([
-      getProducts({ limit: 100, lang: locale }),
-      getCategories(locale),
-    ]);
-    products = productsRes.items;
-    categories = categoriesRes;
+    [products, categories] = await Promise.all([getAllProducts(locale), getCategories(locale)]);
   } catch (error) {
     console.error('Failed to load products from API:', error);
   }

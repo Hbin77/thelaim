@@ -22,5 +22,7 @@ class Product(SQLModel, table=True):
     image_urls: str = "[]"
     specifications: str = "{}"
     is_featured: bool = False
+    # DB 기본값도 0으로 둔다(시작 시 ALTER로 넣은 프로덕션 컬럼과 같은 모양 → 예전 코드로 되돌려도 INSERT 가능)
+    sort_order: int = Field(default=0, sa_column_kwargs={"server_default": "0"})
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

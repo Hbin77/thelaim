@@ -79,23 +79,25 @@ def sync_products(session: Session, category_slug_to_id: dict[str, int]) -> None
     seed_slugs = {item["slug"] for item in data}
 
     created = updated = removed = 0
-    for item in data:
+    for index, item in enumerate(data):
         item = dict(item)
         category_slug = item.pop("category_slug", None)
         category_id = category_slug_to_id.get(category_slug) if category_slug else None
 
         row = existing.get(item["slug"])
+        # products.json 순서 = 화면 순서(sort_order). 자리만 바뀐 건 내용 변경이 아니라 updated_at은 그대로 둔다
         if row is None:
-            session.add(Product(category_id=category_id, **item))
+            session.add(Product(category_id=category_id, sort_order=index, **item))
             created += 1
-        else:
-            changed = _apply_fields(row, item, PRODUCT_FIELDS)
-            if row.category_id != category_id:
-                row.category_id = category_id
-                changed = True
-            if changed:
-                row.updated_at = datetime.now(timezone.utc)
-                updated += 1
+            continue
+        row.sort_order = index
+        changed = _apply_fields(row, item, PRODUCT_FIELDS)
+        if row.category_id != category_id:
+            row.category_id = category_id
+            changed = True
+        if changed:
+            row.updated_at = datetime.now(timezone.utc)
+            updated += 1
 
     for slug, row in existing.items():
         if slug not in seed_slugs:
