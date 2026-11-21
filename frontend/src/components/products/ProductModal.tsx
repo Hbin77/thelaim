@@ -21,12 +21,17 @@ export default function ProductModal({ product: current, open, onClose }: Produc
   const tCommon = useTranslations('common');
   const [activeImage, setActiveImage] = useState(0);
   const touchX = useRef<number | null>(null);
-  // 닫히는 동안에도 내용이 남아 있게 마지막 상품을 기억한다
-  const lastRef = useRef<Product | null>(current);
-  if (current) lastRef.current = current;
-  const product = current ?? lastRef.current;
+  // 닫히는 동안에도 내용이 남아 있게 마지막 상품을 기억한다(렌더 중 상태 맞추기 — React 권장 방식)
+  const [last, setLast] = useState<Product | null>(current);
+  if (current && current !== last) setLast(current);
+  const product = current ?? last;
 
-  useEffect(() => setActiveImage(0), [product?.slug]);
+  // 다른 상품이 열리면 첫 사진부터
+  const [imagesOf, setImagesOf] = useState(product?.slug);
+  if (product?.slug !== imagesOf) {
+    setImagesOf(product?.slug);
+    setActiveImage(0);
+  }
 
   const images = product ? (product.image_urls?.length ? product.image_urls : [product.image_url]).filter(Boolean) : [];
   const go = (d: number) => setActiveImage((i) => (i + d + images.length) % images.length);
